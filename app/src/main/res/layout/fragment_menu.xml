@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.MenuFragment">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/id_launch_button"
+        style="@style/MyButtonBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableEnd="@mipmap/ic_keyboard_arrow_right_white_36dp"
+        android:drawableRight="@mipmap/ic_keyboard_arrow_right_white_36dp"
+        android:drawableLeft="@mipmap/ic_restaurant_menu_white_24dp"
+        android:drawableStart="@mipmap/ic_restaurant_menu_white_24dp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="@string/launch_label"
+        android:textColor="@color/colorIcons"
+        android:textStyle="bold"/>
+
+</FrameLayout>
