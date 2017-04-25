@@ -95,8 +95,10 @@ public class ProviderSelectedActivity extends AppCompatActivity {
         Bundle providerBundle = new Bundle();
         providerBundle.putSerializable(Constants.GET_PROVIDER_ACTION, providerObject);
         Intent providerIntent = new Intent(ProviderSelectedActivity.this, SelectedLunchActivity.class);
+        providerIntent.putExtra("KEY_ACTIVITY","PROVIDER_SELECTED");
         providerIntent.putExtra(Constants.SERIALIZABLE, providerBundle);
         startActivity(providerIntent);
+        finish();
     }
 
 

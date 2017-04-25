@@ -1,7 +1,6 @@
 package tesis.com.py.sisgourmetmobile.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,63 +16,47 @@ import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
 
 /**
- * Created by Manu0 on 18/4/2017.
+ * Created by Manu0 on 23/4/2017.
  */
 
-public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.DrinksViewHolder> {
+public class SummaryDrinksAdapter extends RecyclerView.Adapter<SummaryDrinksAdapter.SummaryDrinksViewHolder> {
 
     private List<Drinks> drinksItem = new ArrayList<>();
-    private List<Drinks> selectedDrinkList = new ArrayList<>();
 
     private Context mContext;
 
-    public DrinksAdapter(List<Drinks> drinksList) {
+    public SummaryDrinksAdapter(List<Drinks> drinksList) {
         drinksItem = drinksList;
     }
 
-    public class DrinksViewHolder extends RecyclerView.ViewHolder {
+    public class SummaryDrinksViewHolder extends RecyclerView.ViewHolder {
         TextView mDrinkTextView;
         TextView mProviderDescription;
         TextView mAmountDrink;
-        AppCompatCheckBox mSelectedChechBox;
 
 
-        public DrinksViewHolder(View view) {
+        public SummaryDrinksViewHolder(View view) {
             super(view);
             mContext = view.getContext();
             mDrinkTextView = (TextView) view.findViewById(R.id.item_drink_description);
             mProviderDescription = (TextView) view.findViewById(R.id.item_drink_provider);
             mAmountDrink = (TextView) view.findViewById(R.id.item_drink_amount);
-            mSelectedChechBox = (AppCompatCheckBox) view.findViewById(R.id.drinks_check_box);
 
         }
     }
 
     @Override
-    public DrinksAdapter.DrinksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_drinks, parent, false);
-        return new DrinksAdapter.DrinksViewHolder(itemView);
+    public SummaryDrinksAdapter.SummaryDrinksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_summary_drinks, parent, false);
+        return new SummaryDrinksAdapter.SummaryDrinksViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(DrinksAdapter.DrinksViewHolder holder, final int position) {
+    public void onBindViewHolder(SummaryDrinksAdapter.SummaryDrinksViewHolder holder, final int position) {
         holder.mDrinkTextView.setText("Bebida: " + drinksItem.get(position).getDescription());
         holder.mProviderDescription.setText("Proveedor: " + drinksItem.get(position).getProvider());
         holder.mAmountDrink.setText("Precio: " + drinksItem.get(position).getPriceUnit());
-        holder.mSelectedChechBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Drinks drinksObject = new Drinks();
-                    drinksObject = drinksItem.get(position);
-                    selectedDrinkList.add(drinksObject);
-                } else {
-                    selectedDrinkList.remove(drinksItem.get(position));
-                }
 
-                Log.d("TAG_LIST","LSIT_DRINK_ADAPTER: "+selectedDrinkList.toString());
-            }
-        });
     }
 
     @Override
@@ -101,12 +84,6 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.DrinksView
         notifyDataSetChanged();
     }
 
-
-    public List<Drinks> getSelectedDrinks() {
-        Log.d("TAG_LIST","LISTA_DE_RETORNO: "+selectedDrinkList.toString());
-
-        return selectedDrinkList;
-    }
 
 }
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:paddingBottom="@dimen/default_padding"
+    android:paddingLeft="@dimen/default_padding"
+    android:paddingRight="@dimen/default_padding"
+    android:paddingTop="@dimen/default_padding">
+
+
+    <TextView
+        android:id="@+id/item_drink_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="65dp"
+        android:layout_marginStart="65dp"
+        android:text="@string/item_drinks_description"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/primary_text"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/item_drink_provider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_drink_description"
+        android:layout_alignStart="@+id/item_drink_description"
+        android:layout_below="@+id/item_drink_description"
+        android:text="@string/provider_name"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/item_drink_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_drink_provider"
+        android:layout_alignStart="@+id/item_drink_provider"
+        android:layout_below="@+id/item_drink_provider"
+        android:text="@string/item_order_amount"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/primary_text"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/drink_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description"
+        android:src="@mipmap/ic_local_drink_black_48dp" />
+
+
+</RelativeLayout>

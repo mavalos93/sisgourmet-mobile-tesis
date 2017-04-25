@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:ignore="UselessParent">
+        tools:ignore="UselessParent"
+        android:id="@+id/linearLayout2">
 
         <TextView
             android:id="@+id/geoTitle"
@@ -84,6 +85,17 @@
         </LinearLayout>
     </LinearLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_summary_drinks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/summary_price_textView">
+
+    </android.support.v7.widget.RecyclerView>
+
     <TextView
         android:id="@+id/summary_price_textView"
         android:layout_width="match_parent"
@@ -97,6 +109,8 @@
         android:layout_above="@+id/container_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
 
 
     <LinearLayout

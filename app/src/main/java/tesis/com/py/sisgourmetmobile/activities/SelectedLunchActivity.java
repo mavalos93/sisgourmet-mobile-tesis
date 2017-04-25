@@ -82,7 +82,7 @@ public class SelectedLunchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 mSelectedMenuObject = mSelectedMenuAdapter.getItemAtPosition(position);
-                actionDialog(mSelectedMenuObject);
+                setupObjectToActivity(mSelectedMenuObject);
             }
 
             @Override
@@ -118,7 +118,6 @@ public class SelectedLunchActivity extends AppCompatActivity {
         mLunchList = LunchRepository.getMenuByProviderId(mProviderId);
         Log.d(TAG_CLASS, "LIST_LUNCH: " + mLunchList.toString());
         if (mLunchList.size() == 0) {
-            Utils.builToast(this, "Sin Menu para mostrar");
             finish();
         } else {
             mSelectedMenuAdapter = new SelectedMenuAdapter(mLunchList, this);
@@ -126,61 +125,19 @@ public class SelectedLunchActivity extends AppCompatActivity {
         }
     }
 
-    private void actionDialog(final Lunch lunch) {
+    private void setupObjectToActivity(final Lunch lunch) {
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        customeView = mlayoutInflater.inflate(R.layout.action_lunch_dialog, null);
-        TextView mProviderTextView = (TextView) customeView.findViewById(R.id.provider_menu_textView);
-        TextView mMainMenuTextView = (TextView) customeView.findViewById(R.id.main_menu_selected_textView);
-        TextView mGarnishTextView = (TextView) customeView.findViewById(R.id.garnish_selected_textView);
-
-        builder.setView(customeView);
-        builder.setPositiveButton(getString(R.string.label_drink), null);
-        builder.setNegativeButton(getString(R.string.label_back), null);
-        mActionSelectedDialog = builder.create();
-
-        mActionSelectedDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-
-                Button drinkButton = mActionSelectedDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                Button backButton = mActionSelectedDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-
-                drinkButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle menuBundle = new Bundle();
-                        menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, lunch);
-                        Intent menuIntent = new Intent(SelectedLunchActivity.this, OrderActivity.class);
-                        menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
-                        startActivity(menuIntent);
-                    }
-                });
-
-                backButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mActionSelectedDialog.dismiss();
-                    }
-                });
-
-            }
-        });
-
-
-
-
-        mProviderTextView.setText("Proveedor: " + mProviderObject.getProviderName());
-        mMainMenuTextView.setText("Menú Principal: " + mSelectedMenuObject.getMainMenuDescription());
-        mGarnishTextView.setText("Guarnición: " + mSelectedMenuObject.getGarnishDescription());
-
-
-        mActionSelectedDialog.setCanceledOnTouchOutside(false);
-        mActionSelectedDialog.show();
-
-
+        Bundle menuBundle = new Bundle();
+        menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, lunch);
+        Intent menuIntent = new Intent(SelectedLunchActivity.this, OrderActivity.class);
+        menuIntent.putExtra("KEY_ACTIVITY","SELECTED_LUNCH");
+        menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
+        startActivity(menuIntent);
     }
 
+
 }
+
+
+

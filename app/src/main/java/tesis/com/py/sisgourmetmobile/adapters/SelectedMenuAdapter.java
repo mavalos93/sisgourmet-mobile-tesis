@@ -55,8 +55,8 @@ public class SelectedMenuAdapter extends RecyclerView.Adapter<SelectedMenuAdapte
             mMainMenuTextView = (TextView) view.findViewById(R.id.main_menu_textView);
             mGarnishTextView = (TextView) view.findViewById(R.id.garnish_textView);
             mPriceUnitTextView = (TextView) view.findViewById(R.id.price_unit_textView);
-            mQualificationTextView = (TextView) view.findViewById(R.id.raiting_description_textView);
-            mRaitingMenu = (AppCompatRatingBar) view.findViewById(R.id.privider_raiting_menu);
+            mQualificationTextView = (TextView) view.findViewById(R.id.rating_description_textView);
+            mRaitingMenu = (AppCompatRatingBar) view.findViewById(R.id.privider_rating_menu);
 
         }
     }

@@ -77,4 +77,15 @@ public class Drinks {
         this.provider = provider;
     }
 
+    @Override
+    public String toString() {
+        return "Drinks{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", currentStock=" + currentStock +
+                ", minimunStock=" + minimunStock +
+                ", priceUnit=" + priceUnit +
+                ", provider='" + provider + '\'' +
+                '}';
+    }
 }

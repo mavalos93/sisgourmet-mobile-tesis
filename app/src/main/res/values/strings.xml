@@ -151,4 +151,9 @@
     <string name="label_main_menu_selected">Menú Principal</string>
     <string name="label_garnish_selected">Guarnición</string>
     <string name="title_activity_order">OrderActivity</string>
+    <string name="title_activity_selected_lunch_manager">SelectedLunchManagerActivity</string>
+    <string name="title_activity_lunch_manager">LunchManagerActivity</string>
+
+    <!-- Order Selected Activity-->
+    <string name="label_drink_selected">Seleccionar Bebida</string>
 </resources>

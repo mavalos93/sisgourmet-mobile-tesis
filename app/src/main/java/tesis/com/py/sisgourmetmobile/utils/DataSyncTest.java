@@ -24,23 +24,18 @@ public class DataSyncTest {
     public static List<Provider> setProviderData(Context context) {
 
 
-        Provider providerObject1 = new Provider();
-        providerObject1.setId(1L);
-        providerObject1.setProviderName("Coca Cola");
-        providerObject1.setProviderType("Bebidas");
 
         Provider providerObject2 = new Provider();
-        providerObject2.setId(2L);
+        providerObject2.setId(1L);
         providerObject2.setProviderName("La Vienesa");
         providerObject2.setProviderType("Menu Principal");
 
         Provider providerObject3 = new Provider();
-        providerObject3.setId(3L);
+        providerObject3.setId(2L);
         providerObject3.setProviderName("Ña Eustaquia");
         providerObject3.setProviderType("Guarnicion");
 
         List<Provider> providerList = new ArrayList<>();
-        providerList.add(providerObject1);
         providerList.add(providerObject2);
         providerList.add(providerObject3);
 
@@ -54,7 +49,7 @@ public class DataSyncTest {
     public static List<Lunch> setMenuData() {
         Lunch lunch1 = new Lunch();
         lunch1.setId(1L);
-        lunch1.setProviderId(2L);
+        lunch1.setProviderId(1L);
         lunch1.setMainMenuDescription("Bife a la plancha");
         lunch1.setGarnishDescription("Ensalada Mixta");
         lunch1.setPriceUnit(20000);
@@ -63,7 +58,7 @@ public class DataSyncTest {
 
         Lunch lunch2 = new Lunch();
         lunch2.setId(2L);
-        lunch2.setProviderId(2L);
+        lunch2.setProviderId(1L);
         lunch2.setMainMenuDescription("Grillé de pollo");
         lunch2.setGarnishDescription("Puré de papas");
         lunch2.setPriceUnit(19000);
@@ -73,7 +68,7 @@ public class DataSyncTest {
 
         Lunch lunch3 = new Lunch();
         lunch3.setId(3L);
-        lunch3.setProviderId(2L);
+        lunch3.setProviderId(1L);
         lunch3.setMainMenuDescription("Marinera de Carne");
         lunch3.setGarnishDescription("Ensalada rusa");
         lunch3.setPriceUnit(19000);
