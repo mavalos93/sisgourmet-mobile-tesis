@@ -6,14 +6,25 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.activities.ProviderSelectedActivity;
+import tesis.com.py.sisgourmetmobile.adapters.RecyclerViewDataAdapter;
+import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Order;
+import tesis.com.py.sisgourmetmobile.entities.Provider;
+import tesis.com.py.sisgourmetmobile.models.SectionDataModel;
+import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
+import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 
 /**
  * Created by Manu0 on 23/1/2017.
@@ -23,7 +34,10 @@ public class MenuFragment extends Fragment {
 
     private OnItemMenuListener mListener;
     private View rootView;
-    private AppCompatButton mMyLaunchButton;
+    private RecyclerView myRecyclerView;
+    private RecyclerViewDataAdapter mAdapter;
+    private ArrayList<SectionDataModel> allSampleData;
+
 
     public MenuFragment() {
         // Required empty public constructor
@@ -44,14 +58,16 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_menu, container, false);
-        mMyLaunchButton = (AppCompatButton) rootView.findViewById(R.id.id_launch_button);
 
-        mMyLaunchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), ProviderSelectedActivity.class));
-            }
-        });
+        allSampleData = new ArrayList<SectionDataModel>();
+
+
+        myRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        myRecyclerView.setHasFixedSize(true);
+        mAdapter = new RecyclerViewDataAdapter(getContext(), allSampleData);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        myRecyclerView.setAdapter(mAdapter);
+        createDummyData();
         return rootView;
     }
 
@@ -86,7 +102,28 @@ public class MenuFragment extends Fragment {
     }
 
 
+    public void createDummyData() {
+        List<Provider> providerList = ProviderRepository.getAllProvider();
+        for (Provider pr : providerList) {
 
+            SectionDataModel dm = new SectionDataModel();
+
+            dm.setHeaderTitle("Proveedor " + pr.getProviderName());
+
+            List<Lunch> lunchItem = LunchRepository.getMenuByProviderId(pr.getId());
+            ArrayList<Lunch> newItemLunch = new ArrayList<Lunch>();
+
+
+            for (Lunch lu : lunchItem) {
+                newItemLunch.add(lu);
+            }
+
+            dm.setAllItemsInSection(newItemLunch);
+
+            allSampleData.add(dm);
+
+        }
+    }
 
 
 }

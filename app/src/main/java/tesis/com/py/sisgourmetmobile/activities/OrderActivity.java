@@ -229,6 +229,7 @@ public class OrderActivity extends AppCompatActivity {
         TextView mMainMenuTextView = (TextView) customeView.findViewById(R.id.summary_main_menu_textView);
         TextView mGarnishTextView = (TextView) customeView.findViewById(R.id.summary_garnish_textView);
         TextView mTotalPriceTextView = (TextView) customeView.findViewById(R.id.summary_price_textView);
+        TextView mDrinkSelectedTextView = (TextView) customeView.findViewById(R.id.summary_drink_textView);
         RecyclerView mSummaryDrinkRecyclerView = (RecyclerView) customeView.findViewById(R.id.recyclerView_summary_drinks);
         AppCompatButton mCancelButton = (AppCompatButton) customeView.findViewById(R.id.action_cancel_button);
         AppCompatButton mSendButton = (AppCompatButton) customeView.findViewById(R.id.action_next_button);
@@ -255,6 +256,7 @@ public class OrderActivity extends AppCompatActivity {
 
         mMainMenuTextView.setText("Menú principal: " + mSelectedMenuObject.getMainMenuDescription());
         mGarnishTextView.setText("Guarnición: " + mSelectedMenuObject.getGarnishDescription());
+        mDrinkSelectedTextView.setText((drinkReturnList.size() == 0 ? "Sin bebidas seleccionadas": "Bebidas: "+drinkReturnList.size()));
 
         for (Drinks dr : drinkReturnList) {
             mTotalDrinkPrice = mTotalDrinkPrice + dr.getPriceUnit();
