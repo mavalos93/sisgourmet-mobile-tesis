@@ -40,11 +40,13 @@
     <string name="label_session">Sesion</string>
     <string name="label_send">Enviar</string>
     <string name="label_back">Atrás</string>
+    <string name="label_view">Ver</string>
     <string name="label_close_session">Cerrar sesion</string>
     <string name="confirm_logout_session_title">Cerrar Sesion</string>
     <string name="confirm_logout_message">¿ Desea cerrar la sesion actual ?.</string>
     <string name="label_next">Siguiente</string>
     <string name="label_summary">Resúmen</string>
+    <string name="comments_label">Comentarios</string>
 
     <!--LoginFormActivity labels-->
     <string name="login_form_activity_title">Registro de usuarios</string>
@@ -156,4 +158,5 @@
 
     <!-- Order Selected Activity-->
     <string name="label_drink_selected">Seleccionar Bebida</string>
+    <string name="qualification_menu_privider_value">valor</string>
 </resources>

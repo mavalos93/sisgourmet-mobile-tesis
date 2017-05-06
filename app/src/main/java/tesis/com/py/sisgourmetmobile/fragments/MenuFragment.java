@@ -59,7 +59,7 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        allSampleData = new ArrayList<SectionDataModel>();
+        allSampleData = new ArrayList<>();
 
 
         myRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
@@ -107,19 +107,14 @@ public class MenuFragment extends Fragment {
         for (Provider pr : providerList) {
 
             SectionDataModel dm = new SectionDataModel();
-
-            dm.setHeaderTitle("Proveedor " + pr.getProviderName());
-
+            dm.setHeaderTitle(pr.getProviderName());
             List<Lunch> lunchItem = LunchRepository.getMenuByProviderId(pr.getId());
-            ArrayList<Lunch> newItemLunch = new ArrayList<Lunch>();
-
+            ArrayList<Lunch> newItemLunch = new ArrayList<>();
 
             for (Lunch lu : lunchItem) {
                 newItemLunch.add(lu);
             }
-
             dm.setAllItemsInSection(newItemLunch);
-
             allSampleData.add(dm);
 
         }

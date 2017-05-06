@@ -28,9 +28,7 @@ import tesis.com.py.sisgourmetmobile.entities.Lunch;
 
 public class SelectedMenuAdapter extends RecyclerView.Adapter<SelectedMenuAdapter.SelectedMenuViewHolder> {
     private List<Lunch> mLunchList = new ArrayList<>();
-    private List<Lunch> mSelectedLunchList = new ArrayList<>();
     private Context mContext;
-    private SparseBooleanArray selectedItems;
     SparseBooleanArray mSelectedItems = new SparseBooleanArray();
 
 // When selecting an item, save it
@@ -73,7 +71,6 @@ public class SelectedMenuAdapter extends RecyclerView.Adapter<SelectedMenuAdapte
         final Lunch mLunch = mLunchList.get(position);
         holder.mRaitingMenu.setClickable(false);
         holder.mMainMenuTextView.setText("Plato principal: " + mLunch.getMainMenuDescription());
-        holder.mGarnishTextView.setText("Guarnicion: " + mLunch.getGarnishDescription());
         holder.mPriceUnitTextView.setText("Precio: "+ mLunch.getPriceUnit()+" Gs.");
 
 

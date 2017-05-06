@@ -9,9 +9,11 @@ import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.adapters.ProviderRecyclerViewAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
+import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
+import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 
@@ -21,8 +23,7 @@ import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 
 public class DataSyncTest {
 
-    public static List<Provider> setProviderData(Context context) {
-
+    public static void setProviderData() {
 
 
         Provider providerObject2 = new Provider();
@@ -42,45 +43,43 @@ public class DataSyncTest {
         for (Provider provider : providerList) {
             ProviderRepository.store(provider);
         }
-        return providerList;
     }
 
 
-    public static List<Lunch> setMenuData() {
+    public static void setMenuData() {
         Lunch lunch1 = new Lunch();
         lunch1.setId(1L);
         lunch1.setProviderId(1L);
         lunch1.setMainMenuDescription("Bife a la plancha");
-        lunch1.setGarnishDescription("Ensalada Mixta");
         lunch1.setPriceUnit(20000);
         lunch1.setMenuDate(new Date());
         lunch1.setRaitingMenu(1L);
+        lunch1.setIsCombinable(true);
 
         Lunch lunch2 = new Lunch();
         lunch2.setId(2L);
         lunch2.setProviderId(1L);
         lunch2.setMainMenuDescription("Grillé de pollo");
-        lunch2.setGarnishDescription("Puré de papas");
         lunch2.setPriceUnit(19000);
         lunch2.setMenuDate(new Date());
         lunch2.setRaitingMenu(2L);
+        lunch2.setIsCombinable(true);
 
 
         Lunch lunch3 = new Lunch();
         lunch3.setId(3L);
         lunch3.setProviderId(1L);
         lunch3.setMainMenuDescription("Marinera de Carne");
-        lunch3.setGarnishDescription("Ensalada rusa");
         lunch3.setPriceUnit(19000);
         lunch3.setMenuDate(new Date());
         lunch3.setRaitingMenu(3L);
+        lunch3.setIsCombinable(true);
 
 
         Lunch lunch4 = new Lunch();
         lunch4.setId(4L);
         lunch4.setProviderId(2L);
         lunch4.setMainMenuDescription("Tarta de pollo");
-        lunch4.setGarnishDescription("Ensalada verde");
         lunch4.setPriceUnit(20000);
         lunch4.setMenuDate(new Date());
         lunch4.setRaitingMenu(4L);
@@ -90,11 +89,20 @@ public class DataSyncTest {
         lunch5.setId(5L);
         lunch5.setProviderId(2L);
         lunch5.setMainMenuDescription("Picadito de Carne");
-        lunch5.setGarnishDescription("Ensalada verde");
         lunch5.setPriceUnit(20000);
         lunch5.setMenuDate(new Date());
         lunch5.setRaitingMenu(5L);
+        lunch5.setIsCombinable(false);
 
+
+        Lunch lunch6 = new Lunch();
+        lunch6.setId(6L);
+        lunch6.setProviderId(2L);
+        lunch6.setMainMenuDescription("Romanitas de pollo");
+        lunch6.setPriceUnit(20000);
+        lunch6.setMenuDate(new Date());
+        lunch6.setRaitingMenu(5L);
+        lunch6.setIsCombinable(false);
 
         List<Lunch> lunchList = new ArrayList<>();
         lunchList.add(lunch1);
@@ -102,17 +110,17 @@ public class DataSyncTest {
         lunchList.add(lunch3);
         lunchList.add(lunch4);
         lunchList.add(lunch5);
+        lunchList.add(lunch6);
 
 
         for (Lunch lunch : lunchList) {
             LunchRepository.store(lunch);
         }
 
-        return lunchList;
     }
 
 
-    public static List<Drinks> setDrinks() {
+    public static void setDrinks() {
         Drinks drinks1 = new Drinks();
         drinks1.setId(1L);
         drinks1.setPriceUnit(2000);
@@ -130,7 +138,6 @@ public class DataSyncTest {
         drinks2.setProvider("Coca Cola Company");
 
 
-
         Drinks drinks3 = new Drinks();
         drinks3.setId(3L);
         drinks3.setPriceUnit(3000);
@@ -138,7 +145,6 @@ public class DataSyncTest {
         drinks3.setDescription("Coca Cola 200 ml.");
         drinks3.setMinimunStock(2);
         drinks3.setProvider("Coca Cola Company");
-
 
 
         Drinks drinks4 = new Drinks();
@@ -166,11 +172,97 @@ public class DataSyncTest {
         drinksList.add(drinks5);
 
 
-
         for (Drinks drink : drinksList) {
             DrinksRepository.store(drink);
         }
 
-        return drinksList;
+    }
+
+
+    public static void setGarnish() {
+        Garnish garnish1 = new Garnish();
+        garnish1.setId(1L);
+        garnish1.setLunchId(1L);
+        garnish1.setDescription("Ensalada Mixta");
+        garnish1.setUnitPrice(7000);
+
+        Garnish garnish2 = new Garnish();
+        garnish2.setId(2L);
+        garnish2.setLunchId(1L);
+        garnish2.setDescription("Puré de papas");
+        garnish2.setUnitPrice(10000);
+
+
+        Garnish garnish3 = new Garnish();
+        garnish3.setId(3L);
+        garnish3.setLunchId(1L);
+        garnish3.setDescription("Ensalada de poroto");
+        garnish3.setUnitPrice(8500);
+
+        Garnish garnish4 = new Garnish();
+        garnish4.setId(4L);
+        garnish4.setLunchId(4L);
+        garnish4.setDescription("Ensalada verde");
+        garnish4.setUnitPrice(5000);
+
+        Garnish garnish5 = new Garnish();
+        garnish5.setId(5L);
+        garnish5.setLunchId(5L);
+        garnish5.setDescription("Sopa Paraguaya");
+        garnish5.setUnitPrice(7000);
+
+
+        Garnish garnish6 = new Garnish();
+        garnish6.setId(6L);
+        garnish6.setLunchId(6L);
+        garnish6.setDescription("Fideo a la manteca");
+        garnish6.setUnitPrice(6000);
+
+
+        Garnish garnish7 = new Garnish();
+        garnish7.setId(7L);
+        garnish7.setLunchId(2L);
+        garnish7.setDescription("Arroz quesú");
+        garnish7.setUnitPrice(7000);
+
+
+        Garnish garnish8 = new Garnish();
+        garnish8.setId(8L);
+        garnish8.setLunchId(3L);
+        garnish8.setDescription("Ensalada de tomates");
+        garnish8.setUnitPrice(8000);
+
+
+        Garnish garnish9 = new Garnish();
+        garnish9.setId(9L);
+        garnish9.setLunchId(3L);
+        garnish9.setDescription("Ensalada de Arroz");
+        garnish9.setUnitPrice(6500);
+
+
+        Garnish garnish10 = new Garnish();
+        garnish10.setId(10L);
+        garnish10.setLunchId(3L);
+        garnish10.setDescription("Ensalada de Repollo");
+        garnish10.setUnitPrice(6500);
+
+        List<Garnish> garnishList = new ArrayList<>();
+        garnishList.add(garnish1);
+        garnishList.add(garnish2);
+        garnishList.add(garnish3);
+        garnishList.add(garnish4);
+        garnishList.add(garnish5);
+        garnishList.add(garnish6);
+        garnishList.add(garnish7);
+        garnishList.add(garnish8);
+        garnishList.add(garnish9);
+        garnishList.add(garnish10);
+
+
+        for (Garnish gn : garnishList) {
+            GarnishRepository.store(gn);
+        }
+
+
     }
 }

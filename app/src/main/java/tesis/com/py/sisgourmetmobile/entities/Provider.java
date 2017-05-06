@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Entity mapped to table "PROVIDER".
  */
-public class Provider implements Serializable {
+public class Provider implements Serializable{
 
     private Long id;
     private String providerName;
@@ -50,13 +50,4 @@ public class Provider implements Serializable {
         this.providerType = providerType;
     }
 
-
-    @Override
-    public String toString() {
-        return "Provider{" +
-                "id=" + id +
-                ", providerName='" + providerName + '\'' +
-                ", providerType='" + providerType + '\'' +
-                '}';
-    }
 }

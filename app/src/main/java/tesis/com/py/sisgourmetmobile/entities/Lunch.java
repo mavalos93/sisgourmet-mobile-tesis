@@ -7,15 +7,15 @@ import java.io.Serializable;
 /**
  * Entity mapped to table "LUNCH".
  */
-public class Lunch implements Serializable{
+public class Lunch implements Serializable {
 
     private Long id;
     private Integer priceUnit;
     private String mainMenuDescription;
     private Long providerId;
-    private String garnishDescription;
     private java.util.Date menuDate;
     private Long raitingMenu;
+    private Boolean isCombinable;
 
     public Lunch() {
     }
@@ -24,14 +24,14 @@ public class Lunch implements Serializable{
         this.id = id;
     }
 
-    public Lunch(Long id, Integer priceUnit, String mainMenuDescription, Long providerId, String garnishDescription, java.util.Date menuDate, Long raitingMenu) {
+    public Lunch(Long id, Integer priceUnit, String mainMenuDescription, Long providerId, java.util.Date menuDate, Long raitingMenu, Boolean isCombinable) {
         this.id = id;
         this.priceUnit = priceUnit;
         this.mainMenuDescription = mainMenuDescription;
         this.providerId = providerId;
-        this.garnishDescription = garnishDescription;
         this.menuDate = menuDate;
         this.raitingMenu = raitingMenu;
+        this.isCombinable = isCombinable;
     }
 
     public Long getId() {
@@ -66,14 +66,6 @@ public class Lunch implements Serializable{
         this.providerId = providerId;
     }
 
-    public String getGarnishDescription() {
-        return garnishDescription;
-    }
-
-    public void setGarnishDescription(String garnishDescription) {
-        this.garnishDescription = garnishDescription;
-    }
-
     public java.util.Date getMenuDate() {
         return menuDate;
     }
@@ -90,17 +82,12 @@ public class Lunch implements Serializable{
         this.raitingMenu = raitingMenu;
     }
 
-
-    @Override
-    public String toString() {
-        return "Lunch{" +
-                "id=" + id +
-                ", priceUnit=" + priceUnit +
-                ", mainMenuDescription='" + mainMenuDescription + '\'' +
-                ", providerId=" + providerId +
-                ", garnishDescription='" + garnishDescription + '\'' +
-                ", menuDate=" + menuDate +
-                ", raitingMenu=" + raitingMenu +
-                '}';
+    public Boolean getIsCombinable() {
+        return isCombinable;
     }
+
+    public void setIsCombinable(Boolean isCombinable) {
+        this.isCombinable = isCombinable;
+    }
+
 }

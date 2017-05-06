@@ -2,17 +2,23 @@ package tesis.com.py.sisgourmetmobile.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
+import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
+import tesis.com.py.sisgourmetmobile.entities.Provider;
+import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
+import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 
 
 /**
@@ -38,18 +44,62 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
+        Lunch lunchItem = itemsList.get(i);
+        String mGarnishText = "";
+        int listSize = 0;
+        float mRatingValue;
+        Provider mProviderObject;
 
-        Lunch singleItem = itemsList.get(i);
+        List<Garnish> garnisList = GarnishRepository.getGarnishByLunchId(lunchItem.getId());
 
-        holder.tvTitle.setText(singleItem.getMainMenuDescription());
+        listSize = garnisList.size();
+        if (listSize != 0) {
+            if (listSize == 1) {
+                for (Garnish gr : garnisList) {
+                    mGarnishText = gr.getDescription();
+                }
+            } else if (listSize > 1) {
+                mGarnishText = "Elegir Guarnición";
+            }
+        }
+
+        mRatingValue = Float.parseFloat(String.valueOf(lunchItem.getRaitingMenu()));
+
+        switch (String.valueOf(mRatingValue)) {
+            case "1.0":
+                holder.mRatingBar.setRating(mRatingValue);
+                break;
+            case "2.0":
+                holder.mRatingBar.setRating(mRatingValue);
+                break;
+            case "3.0":
+                holder.mRatingBar.setRating(mRatingValue);
+                break;
+            case "4.0":
+                holder.mRatingBar.setRating(mRatingValue);
+                break;
+            case "5.0":
+                holder.mRatingBar.setRating(mRatingValue);
+                break;
+        }
 
 
-       /* Glide.with(mContext)
-                .load(feedItem.getImageURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .error(R.drawable.bg)
-                .into(feedListRowHolder.thumbView);*/
+        mProviderObject = ProviderRepository.getProviderById(lunchItem.getProviderId());
+
+
+        switch (mProviderObject.getProviderName()) {
+            case "La Vienesa":
+                holder.itemImage.setImageResource(R.mipmap.la_vienesa);
+                break;
+            case "Ña Eustaquia":
+                holder.itemImage.setImageResource(R.mipmap.nha_esutaquia);
+                break;
+
+        }
+
+        holder.mainMenuDescription.setText(lunchItem.getMainMenuDescription());
+        holder.garnishDescription.setText(mGarnishText);
+        holder.mQualificationMenuValue.setText(String.valueOf(mRatingValue));
     }
 
     @Override
@@ -59,24 +109,28 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView tvTitle;
-
-        protected ImageView itemImage;
+        private TextView mainMenuDescription;
+        private ImageView itemImage;
+        private TextView garnishDescription;
+        private TextView mQualificationMenuValue;
+        private RatingBar mRatingBar;
 
 
         public SingleItemRowHolder(View view) {
             super(view);
 
-            this.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            this.mainMenuDescription = (TextView) view.findViewById(R.id.main_menu_desciption);
+            this.garnishDescription = (TextView) view.findViewById(R.id.garnish_description);
             this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
+            this.mQualificationMenuValue = (TextView) view.findViewById(R.id.qualification_menu_value);
+            this.mRatingBar = (RatingBar) view.findViewById(R.id.rating_menu);
 
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-
-                    Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+                    Log.d("TAG_LUNCH", "OBJECT: " + itemsList.get(getAdapterPosition()));
 
                 }
             });

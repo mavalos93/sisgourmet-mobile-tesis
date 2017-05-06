@@ -26,10 +26,16 @@ public class ProviderRepository {
                 .list();
     }
 
-    public static long count(){
+    public static long count() {
         return getDao().queryBuilder().count();
     }
 
+
+    public static Provider getProviderById(long providerId) {
+
+        return getDao().queryBuilder().where(ProviderDao.Properties.Id.eq(providerId)).unique();
+
+    }
 
     private static ProviderDao getDao() {
         return MainSession.getDaoSession().

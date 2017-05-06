@@ -27,9 +27,9 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
         public final static Property PriceUnit = new Property(1, Integer.class, "priceUnit", false, "PRICE_UNIT");
         public final static Property MainMenuDescription = new Property(2, String.class, "mainMenuDescription", false, "MAIN_MENU_DESCRIPTION");
         public final static Property ProviderId = new Property(3, Long.class, "providerId", false, "PROVIDER_ID");
-        public final static Property GarnishDescription = new Property(4, String.class, "garnishDescription", false, "GARNISH_DESCRIPTION");
-        public final static Property MenuDate = new Property(5, java.util.Date.class, "menuDate", false, "MENU_DATE");
-        public final static Property RaitingMenu = new Property(6, Long.class, "raitingMenu", false, "RAITING_MENU");
+        public final static Property MenuDate = new Property(4, java.util.Date.class, "menuDate", false, "MENU_DATE");
+        public final static Property RaitingMenu = new Property(5, Long.class, "raitingMenu", false, "RAITING_MENU");
+        public final static Property IsCombinable = new Property(6, Boolean.class, "isCombinable", false, "IS_COMBINABLE");
     };
 
 
@@ -49,9 +49,9 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
                 "\"PRICE_UNIT\" INTEGER," + // 1: priceUnit
                 "\"MAIN_MENU_DESCRIPTION\" TEXT," + // 2: mainMenuDescription
                 "\"PROVIDER_ID\" INTEGER," + // 3: providerId
-                "\"GARNISH_DESCRIPTION\" TEXT," + // 4: garnishDescription
-                "\"MENU_DATE\" INTEGER," + // 5: menuDate
-                "\"RAITING_MENU\" INTEGER);"); // 6: raitingMenu
+                "\"MENU_DATE\" INTEGER," + // 4: menuDate
+                "\"RAITING_MENU\" INTEGER," + // 5: raitingMenu
+                "\"IS_COMBINABLE\" INTEGER);"); // 6: isCombinable
     }
 
     /** Drops the underlying database table. */
@@ -85,19 +85,19 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
             stmt.bindLong(4, providerId);
         }
  
-        String garnishDescription = entity.getGarnishDescription();
-        if (garnishDescription != null) {
-            stmt.bindString(5, garnishDescription);
-        }
- 
         java.util.Date menuDate = entity.getMenuDate();
         if (menuDate != null) {
-            stmt.bindLong(6, menuDate.getTime());
+            stmt.bindLong(5, menuDate.getTime());
         }
  
         Long raitingMenu = entity.getRaitingMenu();
         if (raitingMenu != null) {
-            stmt.bindLong(7, raitingMenu);
+            stmt.bindLong(6, raitingMenu);
+        }
+ 
+        Boolean isCombinable = entity.getIsCombinable();
+        if (isCombinable != null) {
+            stmt.bindLong(7, isCombinable ? 1L: 0L);
         }
     }
 
@@ -115,9 +115,9 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // priceUnit
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // mainMenuDescription
             cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // providerId
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // garnishDescription
-            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // menuDate
-            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6) // raitingMenu
+            cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // menuDate
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // raitingMenu
+            cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0 // isCombinable
         );
         return entity;
     }
@@ -129,9 +129,9 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
         entity.setPriceUnit(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
         entity.setMainMenuDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setProviderId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
-        entity.setGarnishDescription(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setMenuDate(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
-        entity.setRaitingMenu(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
+        entity.setMenuDate(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
+        entity.setRaitingMenu(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setIsCombinable(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
      }
     
     /** @inheritdoc */

@@ -171,7 +171,6 @@ public class OrderActivity extends AppCompatActivity {
                         mSelectedMenuObject = (Lunch) bundle.get(Constants.ACTION_SELECTED_MENU);
                         if (mSelectedMenuObject != null) {
                             mSelectedMainMenuTextView.setText("Plato principal: " + mSelectedMenuObject.getMainMenuDescription());
-                            mSelectedGarnishTextView.setText("Guarnición: " + mSelectedMenuObject.getGarnishDescription());
 
                             String stringRaiting = String.valueOf(mSelectedMenuObject.getRaitingMenu());
                             float mRaitingValue = Float.parseFloat(stringRaiting);
@@ -255,7 +254,6 @@ public class OrderActivity extends AppCompatActivity {
         }));
 
         mMainMenuTextView.setText("Menú principal: " + mSelectedMenuObject.getMainMenuDescription());
-        mGarnishTextView.setText("Guarnición: " + mSelectedMenuObject.getGarnishDescription());
         mDrinkSelectedTextView.setText((drinkReturnList.size() == 0 ? "Sin bebidas seleccionadas": "Bebidas: "+drinkReturnList.size()));
 
         for (Drinks dr : drinkReturnList) {

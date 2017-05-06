@@ -26,15 +26,14 @@ import tesis.com.py.sisgourmetmobile.utils.OperationList;
 import tesis.com.py.sisgourmetmobile.utils.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MenuFragment.OnItemMenuListener, OrdersFragment.OnItemOrderListenerSelected, CancelableAlertDialogFragment.CancelableAlertDialogFragmentListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        MenuFragment.OnItemMenuListener,
+        OrdersFragment.OnItemOrderListenerSelected,
+        CancelableAlertDialogFragment.CancelableAlertDialogFragmentListener {
     private CoordinatorLayout mCoordinatorLayoutView;
     private ViewPager mViewPager;
     private final String TAG_CLASS = MainActivity.class.getName();
 
-    private int[] setupFragmetIcons = {
-            R.mipmap.ic_touch_app_white_24dp,
-            R.mipmap.ic_assignment_white_24dp
-    };
     private TabLayout mTabLayout;
 
 
@@ -51,6 +50,8 @@ public class MainActivity extends AppCompatActivity
         setupViewPager(mViewPager);
         setupTabIcons();
 
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,9 +65,11 @@ public class MainActivity extends AppCompatActivity
 
     private void setupTabIcons() {
         try {
-            //mTabLayout.getTabAt(0).setIcon(setupFragmetIcons[0]);
-            mTabLayout.getTabAt(0).setIcon(setupFragmetIcons[0]);
-            mTabLayout.getTabAt(1).setIcon(setupFragmetIcons[1]);
+            TabLayout.Tab tab1 = mTabLayout.getTabAt(0);
+            tab1.setIcon(R.drawable.menu_tab_selector);
+            TabLayout.Tab tab2 = mTabLayout.getTabAt(1);
+            tab2.setIcon(R.drawable.orders_tab_selector);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -125,9 +128,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void localSync() {
-        DataSyncTest.setProviderData(this);
+        DataSyncTest.setProviderData();
         DataSyncTest.setMenuData();
         DataSyncTest.setDrinks();
+        DataSyncTest.setGarnish();
     }
 
     private void logoutMethod() {

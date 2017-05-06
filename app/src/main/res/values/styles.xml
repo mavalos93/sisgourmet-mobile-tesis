@@ -30,4 +30,6 @@
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorIcons</item>
     </style>
+
+
 </resources>

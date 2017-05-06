@@ -51,9 +51,9 @@ public class MyDaoGenerator {
         lunch.addIntProperty("priceUnit");
         lunch.addStringProperty("mainMenuDescription");
         lunch.addLongProperty("providerId");
-        lunch.addStringProperty("garnishDescription");
         lunch.addDateProperty("menuDate");
         lunch.addLongProperty("raitingMenu");
+        lunch.addBooleanProperty("isCombinable");
 
 
 
@@ -73,6 +73,13 @@ public class MyDaoGenerator {
         providers.addIdProperty();
         providers.addStringProperty("providerName");
         providers.addStringProperty("providerType");
+
+
+        Entity garnish = schema.addEntity("Garnish");
+        garnish.addIdProperty();
+        garnish.addLongProperty("lunchId");
+        garnish.addStringProperty("description");
+        garnish.addIntProperty("unitPrice");
 
 
         new DaoGenerator().generateAll(schema, "../app/src/main/java");

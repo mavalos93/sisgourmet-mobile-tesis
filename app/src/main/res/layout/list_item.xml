@@ -5,12 +5,12 @@
 
     android:background="?android:selectableItemBackground"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="@dimen/default_padding">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp">
+        android:padding="@dimen/default_padding">
 
 
         <TextView
@@ -22,19 +22,20 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_toLeftOf="@+id/btnMore"
-            android:text="Sample title"
+            android:layout_toStartOf="@+id/btnMore"
+            android:text="@string/description_image"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnMore"
             android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="more"
-            android:textColor="#FFF" />
+            android:text="@string/comments_label"
+            android:textColor="@color/colorIcons" />
 
 
     </RelativeLayout>
@@ -42,7 +43,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_list"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal" />
 
