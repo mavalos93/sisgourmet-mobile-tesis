@@ -47,19 +47,15 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.ProviderSelectedActivity"
-            android:label="@string/title_activity_provider_selected"
+            android:name=".activities.SelectedLunchActivity"
+            android:label="@string/title_activity_selected_lunch"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activities.SelectedLunchActivity"
-            android:label="@string/title_activity_selected_lunch"
-            android:parentActivityName=".activities.ProviderSelectedActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name="tesis.com.py.sisgourmetmobile.activities.TabClassicSample" />
+
         <activity
             android:name=".activities.OrderActivity"
             android:label="@string/title_activity_order"

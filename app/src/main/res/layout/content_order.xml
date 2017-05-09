@@ -11,11 +11,12 @@
         android:id="@+id/container_all_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:baselineAligned="false"
+        android:padding="@dimen/activity_horizontal_margin"
         android:orientation="horizontal"
-        tools:ignore="UselessParent">
+        tools:ignore="UselessParent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
 
 

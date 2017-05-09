@@ -1,11 +1,9 @@
 package tesis.com.py.sisgourmetmobile.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,10 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.activities.ProviderSelectedActivity;
 import tesis.com.py.sisgourmetmobile.adapters.RecyclerViewDataAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
-import tesis.com.py.sisgourmetmobile.entities.Order;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.models.SectionDataModel;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;

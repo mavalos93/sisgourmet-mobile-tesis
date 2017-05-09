@@ -3,8 +3,6 @@ package tesis.com.py.sisgourmetmobile.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -13,25 +11,19 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import py.com.library.style.TabStepper;
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.adapters.DrinksAdapter;
-import tesis.com.py.sisgourmetmobile.adapters.ProviderRecyclerViewAdapter;
 import tesis.com.py.sisgourmetmobile.adapters.SummaryDrinksAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
-import tesis.com.py.sisgourmetmobile.entities.Provider;
-import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
-import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.DividerItemDecoration;
 import tesis.com.py.sisgourmetmobile.utils.RecyclerItemClickListener;
@@ -42,8 +34,6 @@ public class OrderActivity extends AppCompatActivity {
     public static final String TAG_CLASS = OrderActivity.class.getName();
 
     // View
-    private RecyclerView mDrinksRecyclerView;
-    private DrinksAdapter mSelectedDrinksAdapter;
     private LayoutInflater mlayoutInflater;
     private View customeView;
     private AppCompatButton mSummaryButton;
@@ -52,8 +42,6 @@ public class OrderActivity extends AppCompatActivity {
     private TextView mSelectedGarnishTextView;
     private TextView mSelectedQualificationTextView;
     private AppCompatRatingBar mRatingMenu;
-    private AppCompatCheckBox mDrinkSelectedCheckBox;
-    private LinearLayout mDrinkRecyclerViewContainer;
 
 
     // Objects
@@ -80,37 +68,16 @@ public class OrderActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mDrinksRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_selected_drinks);
         mSummaryButton = (AppCompatButton) findViewById(R.id.action_summary_button);
         mSelectedMainMenuTextView = (TextView) findViewById(R.id.selected_main_menu_textView);
         mSelectedGarnishTextView = (TextView) findViewById(R.id.selected_garnish_textView);
         mSelectedQualificationTextView = (TextView) findViewById(R.id.selected_rating_description_textView);
         mRatingMenu = (AppCompatRatingBar) findViewById(R.id.selected_provider_rating_menu);
         mSelectedLunchButton = (AppCompatButton) findViewById(R.id.action_back_button);
-        mDrinkSelectedCheckBox = (AppCompatCheckBox) findViewById(R.id.selected_drink_checkBox);
-        mDrinkRecyclerViewContainer = (LinearLayout) findViewById(R.id.drinks_recyclerView_container);
         mlayoutInflater = LayoutInflater.from(this);
 
         getMainOrder();
-        mDrinksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mSelectedDrinksAdapter = new DrinksAdapter(mDrinkListItem);
-        mDrinksRecyclerView.setAdapter(mSelectedDrinksAdapter);
-        mDrinksRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        mDrinksRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mDrinksRecyclerView.setHasFixedSize(true);
-        mDrinksRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mDrinksRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                drinkReturnList = mSelectedDrinksAdapter.getSelectedDrinks();
-                Log.d(TAG_CLASS, "nueva_lista: " + drinkReturnList.toString());
 
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
-        }));
 
         mSummaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,32 +99,27 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        mDrinkRecyclerViewContainer.setVisibility(View.GONE);
-        setupCheckBoxListener();
-        chargeDrinkList();
     }
 
 
-    private void setupCheckBoxListener() {
-        mDrinkSelectedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    selectedDrinks = true;
-                    mDrinkRecyclerViewContainer.setVisibility(View.VISIBLE);
-                } else {
-                    selectedDrinks = false;
-                    mDrinkRecyclerViewContainer.setVisibility(View.GONE);
-                    mSelectedDrinksAdapter = new DrinksAdapter(mDrinkListItem);
-                    mDrinksRecyclerView.setAdapter(mSelectedDrinksAdapter);
-                }
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (data != null && data.getExtras() != null)
+            for (String key : data.getExtras().keySet())
+                Toast.makeText(this, key + " : " + data.getExtras().get(key).toString(), Toast.LENGTH_SHORT).show();
+
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
+
+
+
+
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, ProviderSelectedActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
@@ -166,12 +128,11 @@ public class OrderActivity extends AppCompatActivity {
             String KEY_ACTIVITY = this.getIntent().getExtras().getString("KEY_ACTIVITY");
             Bundle bundle = this.getIntent().getExtras().getBundle(Constants.SERIALIZABLE);
             switch (KEY_ACTIVITY) {
-                case "SELECTED_LUNCH":
+                case "ADAPTER_ITEM_LUNCH":
                     if (bundle != null) {
                         mSelectedMenuObject = (Lunch) bundle.get(Constants.ACTION_SELECTED_MENU);
                         if (mSelectedMenuObject != null) {
                             mSelectedMainMenuTextView.setText("Plato principal: " + mSelectedMenuObject.getMainMenuDescription());
-
                             String stringRaiting = String.valueOf(mSelectedMenuObject.getRaitingMenu());
                             float mRaitingValue = Float.parseFloat(stringRaiting);
 
@@ -208,15 +169,6 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    private void chargeDrinkList() {
-        mDrinkListItem = DrinksRepository.getAllDrinks();
-        if (mDrinkListItem == null) {
-            Utils.builToast(this, "Sin bebidas para mostrar");
-        } else {
-            mSelectedDrinksAdapter = new DrinksAdapter(mDrinkListItem);
-            mDrinksRecyclerView.setAdapter(mSelectedDrinksAdapter);
-        }
-    }
 
 
     private void summaryLunchDialog() {
@@ -267,8 +219,15 @@ public class OrderActivity extends AppCompatActivity {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drinkReturnList.clear();
-                summaryDialog.dismiss();
+                /*drinkReturnList.clear();
+                summaryDialog.dismiss();*/
+
+                Intent intent = null;
+                intent = new Intent(OrderActivity.this, TabClassicSample.class);
+                startActivityForResult(intent, 1);
+
+
+
             }
         });
 

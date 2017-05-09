@@ -1,13 +1,9 @@
 package tesis.com.py.sisgourmetmobile.utils;
 
-import android.content.Context;
-import android.support.v7.util.ListUpdateCallback;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import tesis.com.py.sisgourmetmobile.adapters.ProviderRecyclerViewAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;

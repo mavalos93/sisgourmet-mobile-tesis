@@ -1,6 +1,8 @@
 package tesis.com.py.sisgourmetmobile.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,11 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
+import tesis.com.py.sisgourmetmobile.activities.OrderActivity;
+import tesis.com.py.sisgourmetmobile.activities.SelectedLunchActivity;
+import tesis.com.py.sisgourmetmobile.activities.TabClassicSample;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
+import tesis.com.py.sisgourmetmobile.utils.Constants;
 
 
 /**
@@ -59,7 +65,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                     mGarnishText = gr.getDescription();
                 }
             } else if (listSize > 1) {
-                mGarnishText = "Elegir Guarnición";
+                mGarnishText = "Combinable";
+                holder.garnishDescription.setTextColor(mContext.getResources().getColor(R.color.accent));
             }
         }
 
@@ -130,13 +137,15 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 @Override
                 public void onClick(View v) {
 
-                    Log.d("TAG_LUNCH", "OBJECT: " + itemsList.get(getAdapterPosition()));
+                    mContext.startActivity(new Intent(mContext,TabClassicSample.class));
+
 
                 }
             });
 
 
         }
+
 
     }
 }

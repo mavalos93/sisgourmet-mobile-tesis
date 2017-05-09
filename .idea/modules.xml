@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SisgourmetMobile.iml" filepath="$PROJECT_DIR$/SisgourmetMobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/mydaogenerator/mydaogenerator.iml" filepath="$PROJECT_DIR$/mydaogenerator/mydaogenerator.iml" />
     </modules>
   </component>

@@ -1,14 +1,9 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,19 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.adapters.ProviderRecyclerViewAdapter;
 import tesis.com.py.sisgourmetmobile.adapters.SelectedMenuAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
-import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.DividerItemDecoration;
 import tesis.com.py.sisgourmetmobile.utils.RecyclerItemClickListener;
@@ -126,8 +117,6 @@ public class SelectedLunchActivity extends AppCompatActivity {
     }
 
     private void setupObjectToActivity(final Lunch lunch) {
-
-
         Bundle menuBundle = new Bundle();
         menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, lunch);
         Intent menuIntent = new Intent(SelectedLunchActivity.this, OrderActivity.class);

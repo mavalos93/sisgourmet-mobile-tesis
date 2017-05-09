@@ -10,8 +10,8 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlNormal">@color/primary_text</item>
+        <item name="colorControlActivated">@color/primary_text</item>
     </style>
 
     <style name="AppTheme.DarkActionBar">
@@ -30,6 +30,7 @@
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorIcons</item>
     </style>
+
 
 
 </resources>
