@@ -155,6 +155,7 @@
     <string name="title_activity_order">OrderActivity</string>
     <string name="title_activity_selected_lunch_manager">SelectedLunchManagerActivity</string>
     <string name="title_activity_lunch_manager">LunchManagerActivity</string>
+    <string name="error_get_lunch_object">Error al obtener menu seleccionado</string>
 
     <!-- Order Selected Activity-->
     <string name="label_drink_selected">Seleccionar Bebida</string>

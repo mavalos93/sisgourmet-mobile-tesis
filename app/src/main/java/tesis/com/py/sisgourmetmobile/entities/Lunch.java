@@ -90,4 +90,16 @@ public class Lunch implements Serializable {
         this.isCombinable = isCombinable;
     }
 
+    @Override
+    public String toString() {
+        return "Lunch{" +
+                "id=" + id +
+                ", priceUnit=" + priceUnit +
+                ", mainMenuDescription='" + mainMenuDescription + '\'' +
+                ", providerId=" + providerId +
+                ", menuDate=" + menuDate +
+                ", raitingMenu=" + raitingMenu +
+                ", isCombinable=" + isCombinable +
+                '}';
+    }
 }

@@ -41,6 +41,8 @@ public abstract class AbstractStep extends Fragment implements Nextable {
         return isAdded() ? "opcional" : "";
     }
 
+    public abstract boolean onActionItemClicked();
+
     public abstract String name();
 
     @Override

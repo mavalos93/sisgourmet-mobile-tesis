@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="72dp"
+                android:background="@color/colorPrimaryLigth"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -51,6 +52,7 @@
         <py.com.library.widget.LockedViewPager
             android:id="@+id/stepPager"
             android:layout_width="match_parent"
+            android:background="@color/colorIcons"
             android:layout_height="match_parent">
 
         </py.com.library.widget.LockedViewPager>

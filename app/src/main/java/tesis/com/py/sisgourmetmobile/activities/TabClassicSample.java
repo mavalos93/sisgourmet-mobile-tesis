@@ -1,14 +1,22 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import py.com.library.AbstractStep;
 import py.com.library.style.TabStepper;
+import tesis.com.py.sisgourmetmobile.R;
+import tesis.com.py.sisgourmetmobile.entities.Lunch;
+import tesis.com.py.sisgourmetmobile.entities.Provider;
+import tesis.com.py.sisgourmetmobile.utils.Constants;
+import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 
 public class TabClassicSample extends TabStepper {
 
     private int i = 1;
+    private Lunch lunchObject = new Lunch();
+    private long mProviderId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +27,9 @@ public class TabClassicSample extends TabStepper {
         setAlternativeTab(false);
         setDisabledTouch();
         setPreviousVisible();
+        getLunchObject();
 
-        addStep(createFragment(new StepSample()));
-        addStep(createFragment(new StepSample()));
-        addStep(createFragment(new StepSample()));
-
+        addStep(createFragment(new StepSample(lunchObject)));
         super.onCreate(savedInstanceState);
     }
 
@@ -33,5 +39,24 @@ public class TabClassicSample extends TabStepper {
         fragment.setArguments(b);
         return fragment;
     }
+
+    public void getLunchObject() {
+        try {
+            Bundle bundle = this.getIntent().getExtras().getBundle(Constants.SERIALIZABLE);
+            if (bundle != null) {
+                lunchObject = (Lunch) bundle.get(Constants.ACTION_SELECTED_MENU);
+                if (lunchObject != null) {
+                    Log.d("LUNCH_TAG", "LUNCH: " + lunchObject.toString());
+                    mProviderId = lunchObject.getProviderId();
+                } else {
+                    Utils.builToast(this, getString(R.string.error_get_lunch_object));
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
 }

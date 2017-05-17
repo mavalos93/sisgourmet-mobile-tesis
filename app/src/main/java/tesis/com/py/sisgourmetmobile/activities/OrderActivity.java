@@ -68,12 +68,10 @@ public class OrderActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSummaryButton = (AppCompatButton) findViewById(R.id.action_summary_button);
         mSelectedMainMenuTextView = (TextView) findViewById(R.id.selected_main_menu_textView);
         mSelectedGarnishTextView = (TextView) findViewById(R.id.selected_garnish_textView);
         mSelectedQualificationTextView = (TextView) findViewById(R.id.selected_rating_description_textView);
         mRatingMenu = (AppCompatRatingBar) findViewById(R.id.selected_provider_rating_menu);
-        mSelectedLunchButton = (AppCompatButton) findViewById(R.id.action_back_button);
         mlayoutInflater = LayoutInflater.from(this);
 
         getMainOrder();
@@ -222,9 +220,7 @@ public class OrderActivity extends AppCompatActivity {
                 /*drinkReturnList.clear();
                 summaryDialog.dismiss();*/
 
-                Intent intent = null;
-                intent = new Intent(OrderActivity.this, TabClassicSample.class);
-                startActivityForResult(intent, 1);
+
 
 
 

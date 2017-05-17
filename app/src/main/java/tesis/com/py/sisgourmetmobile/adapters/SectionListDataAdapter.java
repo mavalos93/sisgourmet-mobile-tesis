@@ -35,6 +35,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     private ArrayList<Lunch> itemsList;
     private Context mContext;
+    private Lunch mLunchObject = new Lunch();
 
     public SectionListDataAdapter(Context context, ArrayList<Lunch> itemsList) {
         this.itemsList = itemsList;
@@ -136,10 +137,12 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    mContext.startActivity(new Intent(mContext,TabClassicSample.class));
-
-
+                    mLunchObject= itemsList.get(getAdapterPosition());
+                    Bundle menuBundle = new Bundle();
+                    menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, mLunchObject);
+                    Intent menuIntent = new Intent(mContext, TabClassicSample.class);
+                    menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
+                    mContext.startActivity(menuIntent);
                 }
             });
 

@@ -4,8 +4,7 @@
     android:id="@+id/fragment_client_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.ProviderSelectedActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:id="@+id/container_all_view"
@@ -22,15 +21,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:contentDescription="@string/description_image"
-                android:src="@mipmap/ic_restaurant_menu_black_36dp" />
+                android:src="@mipmap/nha_esutaquia" />
         </LinearLayout>
 
 
@@ -77,34 +76,18 @@
         </LinearLayout>
     </LinearLayout>
 
-
     <LinearLayout
-        android:id="@+id/container_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/action_back_button"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/container_all_view"
+        android:orientation="vertical">
+        <RadioGroup
+            android:id="@+id/radioContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@color/accent"
-            android:text="@string/label_back"
-            android:textColor="@color/colorIcons"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/action_summary_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@color/accent"
-            android:text="@string/label_summary"
-            android:textColor="@color/colorIcons"
-            android:textStyle="bold" />
+        </RadioGroup>
     </LinearLayout>
 </RelativeLayout>
