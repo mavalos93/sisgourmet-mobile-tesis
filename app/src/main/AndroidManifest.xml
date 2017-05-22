@@ -54,7 +54,8 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name="tesis.com.py.sisgourmetmobile.activities.TabClassicSample" />
+        <activity android:name=".activities.TabClassicSample"
+            android:theme="@style/AppTheme.DarkActionBar"/>
 
         <activity
             android:name=".activities.OrderActivity"

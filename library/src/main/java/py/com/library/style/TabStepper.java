@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
@@ -41,6 +42,7 @@ public class TabStepper extends BasePager implements View.OnClickListener {
     private LinearityChecker mLinearity;
     private Button mContinue;
     private TextView mPreviousButton;
+    public static boolean isDone = false;
 
     protected void setLinear(boolean mLinear) {
         this.mLinear = mLinear;
@@ -107,10 +109,11 @@ public class TabStepper extends BasePager implements View.OnClickListener {
         if (mStepTabs.getChildCount() == 0) {
             while (i < mSteps.total()) {
                 AbstractStep step = mSteps.get(i);
-                mStepTabs.addView(createStepTab(i++, step.name(), step.isOptional(), step.optional()));
+                mStepTabs.addView(createStepTab(i++, step.name(), isDone, step.optional()));
             }
         }
 
+        Log.d("TAG","isdone_boolean: "+isDone);
         int size = mStepTabs.getChildCount();
 
         for (i = 0; i < size; i++) {
@@ -118,6 +121,8 @@ public class TabStepper extends BasePager implements View.OnClickListener {
             View view = mStepTabs.getChildAt(i);
 
             boolean done = mLinearity.isDone(i);
+            Log.d("TAG","VIEW: "+done);
+
             View doneIcon = view.findViewById(R.id.done);
             View stepIcon = view.findViewById(R.id.step);
 
@@ -140,15 +145,15 @@ public class TabStepper extends BasePager implements View.OnClickListener {
 
     }
 
-    private boolean updateDoneCurrent() {
+    public boolean updateDoneCurrent() {
         if (mSteps.getCurrent().nextIf()) {
             mLinearity.setDone(mSteps.current() + 1);
-            return true;
+            return isDone;
         }
-        return mSteps.getCurrent().isOptional();
+        return isDone;
     }
 
-    private View createStepTab(final int position, String title, boolean isOptional, String optionalStr) {
+    private View createStepTab(final int position, String title, final boolean isOptional, String optionalStr) {
         View view = getLayoutInflater().inflate(mTabAlternative ? R.layout.step_tab_alternative : R.layout.step_tab, mStepTabs, false);
         ((TextView) view.findViewById(R.id.step)).setText(String.valueOf(position + 1));
 
@@ -168,7 +173,7 @@ public class TabStepper extends BasePager implements View.OnClickListener {
                 @Override
                 public void onClick(View view) {
 
-                    boolean optional = mSteps.getCurrent().isOptional();
+                    boolean optional = isDone;
 
                     if (position != mSteps.current())
                         updateDoneCurrent();
@@ -191,7 +196,7 @@ public class TabStepper extends BasePager implements View.OnClickListener {
         d.setColorFilter(new PorterDuffColorFilter(selected ? primaryColor : unselected, PorterDuff.Mode.SRC_ATOP));
     }
 
-    private void updateScrolling(int newPosition) {
+    public void updateScrolling(int newPosition) {
         View tab = mStepTabs.getChildAt(mSteps.current());
         boolean isNear = mSteps.current() == newPosition - 1 || mSteps.current() == newPosition + 1;
         mPager.setCurrentItem(mSteps.current(), isNear);
@@ -222,14 +227,6 @@ public class TabStepper extends BasePager implements View.OnClickListener {
         updateScrolling(mSteps.current() - 1);
     }
 
-    @Override
-    public void onClick(View view) {
-        if (updateDoneCurrent()) {
-            onNext();
-            updateScrolling(mSteps.current() + 1);
-        } else
-            onError();
-    }
 
     @Deprecated
     protected void disabledTouch() {
@@ -241,4 +238,12 @@ public class TabStepper extends BasePager implements View.OnClickListener {
         this.showPrevButton = true;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (updateDoneCurrent()) {
+            onNext();
+            updateScrolling(mSteps.current() + 1);
+        } else
+            onError();
+    }
 }

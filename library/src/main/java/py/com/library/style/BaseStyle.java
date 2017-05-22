@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.TypedValue;
+import android.view.View;
 
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import py.com.library.util.StepUtils;
  */
 public class BaseStyle extends AppCompatActivity implements Stepable {
 
-    protected StepUtils mSteps = new StepUtils();
+    public StepUtils mSteps = new StepUtils();
     Bundle mExtras = new Bundle();
     HashMap<Integer, Bundle> mStepData = new HashMap<>();
 
@@ -114,7 +115,15 @@ public class BaseStyle extends AppCompatActivity implements Stepable {
     protected void init() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(primaryColor);
+        toolbar.setNavigationIcon(R.mipmap.ic_keyboard_arrow_left_white_48dp);
         toolbar.setTitle(Html.fromHtml(mTitle));
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public Toolbar getToolbar() {

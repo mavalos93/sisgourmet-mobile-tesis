@@ -2,12 +2,13 @@ package tesis.com.py.sisgourmetmobile.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toolbar;
 
 import py.com.library.AbstractStep;
+import py.com.library.style.BaseStyle;
 import py.com.library.style.TabStepper;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
-import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
@@ -17,9 +18,12 @@ public class TabClassicSample extends TabStepper {
     private int i = 1;
     private Lunch lunchObject = new Lunch();
     private long mProviderId = 0;
+    private Toolbar mToolbar;
+    private BaseStyle mBaseStyle = new BaseStyle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         setErrorTimeout(1500);
         setLinear(false);
@@ -27,9 +31,11 @@ public class TabClassicSample extends TabStepper {
         setAlternativeTab(false);
         setDisabledTouch();
         setPreviousVisible();
+        setStartPreviousButton();
         getLunchObject();
 
-        addStep(createFragment(new StepSample(lunchObject)));
+        addStep(createFragment(new StepLunch(lunchObject)));
+        addStep(createFragment(new StepDrinks()));
         super.onCreate(savedInstanceState);
     }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class LinearityChecker {
 
-    public ArrayList<Boolean> mDone = new ArrayList<>();
+    public static ArrayList<Boolean> mDone = new ArrayList<>();
 
     public LinearityChecker(int steps) {
         while (steps-- > 0)

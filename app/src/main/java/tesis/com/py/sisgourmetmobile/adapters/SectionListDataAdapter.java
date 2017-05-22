@@ -94,15 +94,17 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         mProviderObject = ProviderRepository.getProviderById(lunchItem.getProviderId());
 
+        if (mProviderObject != null) {
 
-        switch (mProviderObject.getProviderName()) {
-            case "La Vienesa":
-                holder.itemImage.setImageResource(R.mipmap.la_vienesa);
-                break;
-            case "Ña Eustaquia":
-                holder.itemImage.setImageResource(R.mipmap.nha_esutaquia);
-                break;
+            switch (mProviderObject.getProviderName()) {
+                case "La Vienesa":
+                    holder.itemImage.setImageResource(R.mipmap.la_vienesa);
+                    break;
+                case "Ña Eustaquia":
+                    holder.itemImage.setImageResource(R.mipmap.nha_esutaquia);
+                    break;
 
+            }
         }
 
         holder.mainMenuDescription.setText(lunchItem.getMainMenuDescription());
@@ -137,7 +139,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mLunchObject= itemsList.get(getAdapterPosition());
+                    mLunchObject = itemsList.get(getAdapterPosition());
                     Bundle menuBundle = new Bundle();
                     menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, mLunchObject);
                     Intent menuIntent = new Intent(mContext, TabClassicSample.class);

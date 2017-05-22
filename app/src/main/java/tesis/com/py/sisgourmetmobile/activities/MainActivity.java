@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import py.com.library.style.TabStepper;
+import py.com.library.util.LinearityChecker;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.dialogs.CancelableAlertDialogFragment;
 import tesis.com.py.sisgourmetmobile.entities.Order;
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity
         setupTabIcons();
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -61,6 +62,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         localSync();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TabStepper.isDone = false;
+        LinearityChecker.mDone.clear();
     }
 
     private void setupTabIcons() {

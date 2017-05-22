@@ -2,9 +2,11 @@ package py.com.library;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import py.com.library.interfaces.Nextable;
 import py.com.library.style.BaseStyle;
+import py.com.library.style.TabStepper;
 
 /**
  * Created by Francesco Cannizzaro on 23/12/2015.
@@ -41,7 +43,7 @@ public abstract class AbstractStep extends Fragment implements Nextable {
         return isAdded() ? "opcional" : "";
     }
 
-    public abstract boolean onActionItemClicked();
+
 
     public abstract String name();
 
@@ -73,4 +75,5 @@ public abstract class AbstractStep extends Fragment implements Nextable {
     public String error() {
         return "No error";
     }
+
 }

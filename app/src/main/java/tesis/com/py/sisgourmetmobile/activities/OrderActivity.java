@@ -219,11 +219,6 @@ public class OrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 /*drinkReturnList.clear();
                 summaryDialog.dismiss();*/
-
-
-
-
-
             }
         });
 

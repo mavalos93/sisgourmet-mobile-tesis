@@ -31,6 +31,7 @@ public class Constants {
     public static final String GET_PROVIDER_ACTION = "GET_PROVIDER_ACTION";
     public static final String ACTION_SELECTED_MENU = "ACTION_SELECTED_MENU";
     public static final String SERIALIZABLE = "SERIALIZABLE";
+    public static final String SINGLE_LUNCH_OBJECT = "SINGLE_LUNCH_OBJECT";
 
 
 }

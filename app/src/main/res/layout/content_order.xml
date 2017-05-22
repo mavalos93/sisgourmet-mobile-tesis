@@ -10,13 +10,12 @@
         android:id="@+id/container_all_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal"
-        tools:ignore="UselessParent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-
+        android:layout_centerHorizontal="true"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_horizontal_margin"
+        tools:ignore="UselessParent">
 
 
         <LinearLayout
@@ -26,6 +25,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/provider_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/description_image"
@@ -44,20 +44,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/item_main_menu"
+                android:textSize="20sp"
                 android:textColor="@color/primary_text" />
 
             <TextView
                 android:id="@+id/selected_garnish_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
                 android:text="@string/item_garnish" />
 
-            <TextView
-                android:id="@+id/price_unit_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/item_price_unit" />
 
             <android.support.v7.widget.AppCompatRatingBar
                 android:id="@+id/selected_provider_rating_menu"
@@ -76,18 +72,28 @@
         </LinearLayout>
     </LinearLayout>
 
+
     <LinearLayout
+        android:id="@+id/garnish_selected_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_below="@+id/container_all_view"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
-        <RadioGroup
-            android:id="@+id/radioContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-        </RadioGroup>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioGroup
+                android:id="@+id/radioContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </RadioGroup>
+        </ScrollView>
+
     </LinearLayout>
+
 </RelativeLayout>
