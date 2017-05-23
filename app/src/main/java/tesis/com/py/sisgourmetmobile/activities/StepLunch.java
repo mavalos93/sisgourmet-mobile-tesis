@@ -62,7 +62,8 @@ public class StepLunch extends AbstractStep {
     private AppCompatRatingBar mRatingMenu;
     private RadioGroup mRadioGroupGarnish;
     private LinearLayout mGarnishDataContainer;
-    private int radioId = 0;
+    public static int radioId = 0;
+    public static int typeLunchCase = 0;
     TabStepper tabStepper = new TabStepper();
 
     // Objects & variable
@@ -108,6 +109,7 @@ public class StepLunch extends AbstractStep {
                 break;
             case 1:
                 setupDataRatingBar();
+                typeLunchCase = 1;
                 for (Garnish dr : mGarnishList) {
                     mSelectedGarnishTextView.setText(dr.getDescription());
                 }
@@ -115,6 +117,7 @@ public class StepLunch extends AbstractStep {
                 TabStepper.isDone = true;
                 break;
             default:
+                typeLunchCase = 2;
                 setupDataRatingBar();
                 chargeDataGarnish(mGarnishList);
                 break;
@@ -153,23 +156,6 @@ public class StepLunch extends AbstractStep {
 
     }
 
-    private void validationData() {
-        switch (mGarnishList.size()) {
-            case 0:
-                Utils.builToast(getContext(), "Error al pasar datos");
-                break;
-            case 1:
-                for (Garnish dr : mGarnishList) {
-                    mSelectedGarnishTextView.setText(dr.getDescription());
-                }
-                break;
-            default:
-                chargeDataGarnish(mGarnishList);
-                break;
-
-        }
-    }
-
 
     @Override
     public void onSaveInstanceState(Bundle state) {
@@ -177,13 +163,6 @@ public class StepLunch extends AbstractStep {
         state.putInt(CLICK, i);
     }
 
-    private void putSingleObject() {
-        Bundle menuBundle = new Bundle();
-        menuBundle.putSerializable(Constants.SINGLE_LUNCH_OBJECT, luncObject);
-        Intent menuIntent = new Intent(getContext(), TabClassicSample.class);
-        menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
-        getContext().startActivity(menuIntent);
-    }
 
     private void setupDataRatingBar() {
         String stringRaiting = String.valueOf(luncObject.getRaitingMenu());

@@ -44,7 +44,7 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 public class StepDrinks extends AbstractStep {
 
-    private int i = 1;
+    private int i = 2;
     private Button button;
     private final static String CLICK = "click";
 
@@ -53,12 +53,13 @@ public class StepDrinks extends AbstractStep {
     private View customeView;
     private LinearLayout mDrinkContainer;
     private Switch mNotDrinkSwitch;
+    public static List<String> mSelectedDrinkItem = new ArrayList<>();
 
 
     // Objects & variable
-    private Lunch luncObject = new Lunch();
-    private List<Garnish> mGarnishList = new ArrayList<>();
     private boolean isDone = true;
+    public static int mSelectionId = 0;
+    private List<Drinks> mDrinkList = new ArrayList<>();
 
 
     @Override
@@ -71,7 +72,6 @@ public class StepDrinks extends AbstractStep {
         mNotDrinkSwitch = (Switch) customeView.findViewById(R.id.not_drink_switch);
 
         setupDataView();
-
         setupSwitchListener();
 
         return customeView;
@@ -94,10 +94,10 @@ public class StepDrinks extends AbstractStep {
     private void setupDataView() {
 
 
-        List<Drinks> mDrinkList = DrinksRepository.getAllDrinks();
+        mDrinkList = DrinksRepository.getAllDrinks();
         if (mDrinkList.size() != 0) {
             for (Drinks drinks : mDrinkList) {
-                CheckBox mDrinkCheckBox = new CheckBox(getContext());
+                final CheckBox mDrinkCheckBox = new CheckBox(getContext());
                 mDrinkCheckBox.setText(drinks.getDescription() + "\n" + "Precio: " + drinks.getPriceUnit() + " Gs.");
                 mDrinkCheckBox.setId(drinks.getId().intValue());
                 mDrinkCheckBox.setPadding(0, 20, 0, 20);
@@ -105,12 +105,19 @@ public class StepDrinks extends AbstractStep {
                 mDrinkContainer.addView(mDrinkCheckBox);
             }
         }
-    }
 
-
-    private void validationData() {
-
-
+        for (Drinks drinks : mDrinkList) {
+            final CheckBox drinkCheckBox = (CheckBox) mDrinkContainer.findViewById(drinks.getId().intValue());
+            drinkCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        mSelectionId = drinkCheckBox.getId();
+                        mSelectedDrinkItem.add(String.valueOf(mSelectionId));
+                    }
+                }
+            });
+        }
     }
 
 
@@ -135,6 +142,7 @@ public class StepDrinks extends AbstractStep {
 
     @Override
     public void onStepVisible() {
+        mSelectedDrinkItem.clear();
     }
 
     @Override

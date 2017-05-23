@@ -54,8 +54,9 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".activities.TabClassicSample"
+        <activity android:name=".activities.MainStepper"
             android:theme="@style/AppTheme.DarkActionBar"/>
+
 
         <activity
             android:name=".activities.OrderActivity"

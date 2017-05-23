@@ -44,15 +44,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/item_main_menu"
-                android:textSize="20sp"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primary_text"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/selected_garnish_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@string/item_garnish" />
+                android:text="@string/item_garnish"
+                android:textSize="16sp" />
 
 
             <android.support.v7.widget.AppCompatRatingBar

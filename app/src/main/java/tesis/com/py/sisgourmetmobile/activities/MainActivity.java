@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         TabStepper.isDone = false;
         LinearityChecker.mDone.clear();
+        StepLunch.radioId = 0;
+        StepLunch.typeLunchCase = 0;
     }
 
     private void setupTabIcons() {

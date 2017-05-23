@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.activities.OrderActivity;
-import tesis.com.py.sisgourmetmobile.activities.SelectedLunchActivity;
-import tesis.com.py.sisgourmetmobile.activities.TabClassicSample;
+import tesis.com.py.sisgourmetmobile.activities.MainStepper;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
@@ -145,7 +142,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                     mLunchObject = itemsList.get(getAdapterPosition());
                     Bundle menuBundle = new Bundle();
                     menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, mLunchObject);
-                    Intent menuIntent = new Intent(mContext, TabClassicSample.class);
+                    Intent menuIntent = new Intent(mContext, MainStepper.class);
                     menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
                     mContext.startActivity(menuIntent);
                 }

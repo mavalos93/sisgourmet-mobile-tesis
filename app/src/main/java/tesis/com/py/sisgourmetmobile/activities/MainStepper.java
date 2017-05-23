@@ -13,7 +13,7 @@ import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 
-public class TabClassicSample extends TabStepper {
+public class MainStepper extends TabStepper {
 
     private int i = 1;
     private Lunch lunchObject = new Lunch();
@@ -36,7 +36,7 @@ public class TabClassicSample extends TabStepper {
 
         addStep(createFragment(new StepLunch(lunchObject)));
         addStep(createFragment(new StepDrinks()));
-        addStep(createFragment(new SummarySetp()));
+        addStep(createFragment(new SummaryStep(lunchObject)));
         super.onCreate(savedInstanceState);
     }
 
