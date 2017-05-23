@@ -32,9 +32,15 @@ public class DataSyncTest {
         providerObject3.setProviderName("Ña Eustaquia");
         providerObject3.setProviderType("Guarnicion");
 
+        Provider providerObject4 = new Provider();
+        providerObject4.setId(3L);
+        providerObject4.setProviderName("Bolsi");
+        providerObject4.setProviderType("Menu principal");
+
         List<Provider> providerList = new ArrayList<>();
         providerList.add(providerObject2);
         providerList.add(providerObject3);
+        providerList.add(providerObject4);
 
         for (Provider provider : providerList) {
             ProviderRepository.store(provider);
@@ -100,6 +106,24 @@ public class DataSyncTest {
         lunch6.setRaitingMenu(5L);
         lunch6.setIsCombinable(false);
 
+        Lunch lunch7 = new Lunch();
+        lunch7.setId(7L);
+        lunch7.setProviderId(3L);
+        lunch7.setMainMenuDescription("Ensalada Pescador");
+        lunch7.setPriceUnit(20000);
+        lunch7.setMenuDate(new Date());
+        lunch7.setRaitingMenu(5L);
+        lunch7.setIsCombinable(true);
+
+        Lunch lunch8 = new Lunch();
+        lunch8.setId(8L);
+        lunch8.setProviderId(3L);
+        lunch8.setMainMenuDescription("Lasagna de carne");
+        lunch8.setPriceUnit(25000);
+        lunch8.setMenuDate(new Date());
+        lunch8.setRaitingMenu(5L);
+        lunch8.setIsCombinable(true);
+
         List<Lunch> lunchList = new ArrayList<>();
         lunchList.add(lunch1);
         lunchList.add(lunch2);
@@ -107,6 +131,8 @@ public class DataSyncTest {
         lunchList.add(lunch4);
         lunchList.add(lunch5);
         lunchList.add(lunch6);
+        lunchList.add(lunch7);
+        lunchList.add(lunch8);
 
 
         for (Lunch lunch : lunchList) {
@@ -242,6 +268,33 @@ public class DataSyncTest {
         garnish10.setDescription("Ensalada de Repollo");
         garnish10.setUnitPrice(6500);
 
+
+        Garnish garnish11 = new Garnish();
+        garnish11.setId(11L);
+        garnish11.setLunchId(7L);
+        garnish11.setDescription("Ensalada de papas");
+        garnish11.setUnitPrice(6500);
+
+
+        Garnish garnish12 = new Garnish();
+        garnish12.setId(12L);
+        garnish12.setLunchId(7L);
+        garnish12.setDescription("Papas fritas");
+        garnish12.setUnitPrice(6500);
+
+
+        Garnish garnish13 = new Garnish();
+        garnish13.setId(13L);
+        garnish13.setLunchId(8L);
+        garnish13.setDescription("Arroz a la crema");
+        garnish13.setUnitPrice(6500);
+
+        Garnish garnish14 = new Garnish();
+        garnish14.setId(14L);
+        garnish14.setLunchId(8L);
+        garnish14.setDescription("Ensalada Bolsi");
+        garnish14.setUnitPrice(6500);
+
         List<Garnish> garnishList = new ArrayList<>();
         garnishList.add(garnish1);
         garnishList.add(garnish2);
@@ -253,6 +306,10 @@ public class DataSyncTest {
         garnishList.add(garnish8);
         garnishList.add(garnish9);
         garnishList.add(garnish10);
+        garnishList.add(garnish11);
+        garnishList.add(garnish12);
+        garnishList.add(garnish13);
+        garnishList.add(garnish14);
 
 
         for (Garnish gn : garnishList) {

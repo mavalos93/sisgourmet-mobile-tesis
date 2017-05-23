@@ -222,7 +222,9 @@ public class StepLunch extends AbstractStep {
                 case "Ña Eustaquia":
                     mProviderImageView.setImageResource(R.mipmap.nha_esutaquia);
                     break;
-
+                case "Bolsi":
+                    mProviderImageView.setImageResource(R.mipmap.bolsi);
+                    break;
             }
         }
     }

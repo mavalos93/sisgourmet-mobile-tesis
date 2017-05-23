@@ -103,6 +103,9 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 case "Ña Eustaquia":
                     holder.itemImage.setImageResource(R.mipmap.nha_esutaquia);
                     break;
+                case "Bolsi":
+                    holder.itemImage.setImageResource(R.mipmap.bolsi);
+                    break;
 
             }
         }

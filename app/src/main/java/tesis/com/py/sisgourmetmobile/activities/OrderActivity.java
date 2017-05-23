@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import py.com.library.style.TabStepper;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.adapters.SummaryDrinksAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
@@ -174,14 +172,14 @@ public class OrderActivity extends AppCompatActivity {
         int mTotalDrinkPrice = 0;
         int mTotalPrice = 0;
         summaryDialog = new Dialog(this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
-        customeView = mlayoutInflater.inflate(R.layout.summary_dialog, null);
+        customeView = mlayoutInflater.inflate(R.layout.summary_step, null);
         TextView mMainMenuTextView = (TextView) customeView.findViewById(R.id.summary_main_menu_textView);
         TextView mGarnishTextView = (TextView) customeView.findViewById(R.id.summary_garnish_textView);
         TextView mTotalPriceTextView = (TextView) customeView.findViewById(R.id.summary_price_textView);
         TextView mDrinkSelectedTextView = (TextView) customeView.findViewById(R.id.summary_drink_textView);
         RecyclerView mSummaryDrinkRecyclerView = (RecyclerView) customeView.findViewById(R.id.recyclerView_summary_drinks);
-        AppCompatButton mCancelButton = (AppCompatButton) customeView.findViewById(R.id.action_cancel_button);
-        AppCompatButton mSendButton = (AppCompatButton) customeView.findViewById(R.id.action_next_button);
+      /*  AppCompatButton mCancelButton = (AppCompatButton) customeView.findViewById(R.id.action_cancel_button);
+        AppCompatButton mSendButton = (AppCompatButton) customeView.findViewById(R.id.action_next_button);*/
         final SummaryDrinksAdapter mAdapterSummaryDrink;
 
 
@@ -214,20 +212,7 @@ public class OrderActivity extends AppCompatActivity {
 
         mTotalPriceTextView.setText("Total de Consumición: " + mTotalPrice + "Gs.");
 
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*drinkReturnList.clear();
-                summaryDialog.dismiss();*/
-            }
-        });
 
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         summaryDialog.setContentView(customeView);
         summaryDialog.setCanceledOnTouchOutside(false);

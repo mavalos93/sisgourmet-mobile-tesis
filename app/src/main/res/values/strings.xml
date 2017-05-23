@@ -160,4 +160,5 @@
     <!-- Order Selected Activity-->
     <string name="label_drink_selected">Seleccionar Bebida</string>
     <string name="qualification_menu_privider_value">valor</string>
+    <string name="not_drink">Sin bebida</string>
 </resources>

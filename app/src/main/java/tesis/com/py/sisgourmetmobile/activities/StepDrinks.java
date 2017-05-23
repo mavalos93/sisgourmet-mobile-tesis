@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -50,12 +52,13 @@ public class StepDrinks extends AbstractStep {
     private LayoutInflater mlayoutInflater;
     private View customeView;
     private LinearLayout mDrinkContainer;
+    private Switch mNotDrinkSwitch;
 
 
     // Objects & variable
     private Lunch luncObject = new Lunch();
     private List<Garnish> mGarnishList = new ArrayList<>();
-    private boolean isDone = false;
+    private boolean isDone = true;
 
 
     @Override
@@ -65,14 +68,31 @@ public class StepDrinks extends AbstractStep {
         mlayoutInflater = LayoutInflater.from(getContext());
         customeView = mlayoutInflater.inflate(R.layout.selected_drinks_fragment, null);
         mDrinkContainer = (LinearLayout) customeView.findViewById(R.id.container_drinks);
+        mNotDrinkSwitch = (Switch) customeView.findViewById(R.id.not_drink_switch);
+
         setupDataView();
 
+        setupSwitchListener();
 
         return customeView;
     }
 
+    private void setupSwitchListener() {
+        mNotDrinkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mDrinkContainer.setVisibility(View.GONE);
+                } else {
+                    mDrinkContainer.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
 
     private void setupDataView() {
+
 
         List<Drinks> mDrinkList = DrinksRepository.getAllDrinks();
         if (mDrinkList.size() != 0) {
@@ -86,7 +106,6 @@ public class StepDrinks extends AbstractStep {
             }
         }
     }
-
 
 
     private void validationData() {
@@ -137,7 +156,7 @@ public class StepDrinks extends AbstractStep {
     @Override
     public boolean nextIf() {
         // variable boolean to set done icon
-        return false;
+        return true;
     }
 
     @Override

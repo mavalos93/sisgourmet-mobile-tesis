@@ -36,6 +36,7 @@ public class TabClassicSample extends TabStepper {
 
         addStep(createFragment(new StepLunch(lunchObject)));
         addStep(createFragment(new StepDrinks()));
+        addStep(createFragment(new SummarySetp()));
         super.onCreate(savedInstanceState);
     }
 

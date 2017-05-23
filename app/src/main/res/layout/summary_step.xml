@@ -13,22 +13,6 @@
         tools:ignore="UselessParent"
         android:id="@+id/linearLayout2">
 
-        <TextView
-            android:id="@+id/geoTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorPrimary"
-            android:drawableLeft="@mipmap/ic_featured_play_list_white_36dp"
-            android:drawableStart="@mipmap/ic_featured_play_list_white_36dp"
-            android:gravity="center"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/activity_horizontal_margin"
-            android:text="@string/label_summary_lunch"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorIcons"
-            android:textStyle="bold" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,6 +73,7 @@
         android:id="@+id/recyclerView_summary_drinks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_below="@+id/linearLayout2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -100,47 +85,15 @@
         android:id="@+id/summary_price_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:gravity="start"
         android:paddingBottom="@dimen/activity_horizontal_margin"
         android:text="@string/label_summary_total_price"
         android:textColor="@color/primary_text"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_above="@+id/container_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-
-
-
-    <LinearLayout
-        android:id="@+id/container_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/action_cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@color/accent"
-            android:text="@string/label_back"
-            android:textColor="@color/colorIcons"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/action_next_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@color/accent"
-            android:text="@string/label_send"
-            android:textColor="@color/colorIcons"
-            android:textStyle="bold" />
-    </LinearLayout>
 
 </RelativeLayout>
