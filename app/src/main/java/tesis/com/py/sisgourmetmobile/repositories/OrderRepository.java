@@ -12,8 +12,10 @@ import tesis.com.py.sisgourmetmobile.utils.MainSession;
 
 public class OrderRepository {
 
-    public static void store(Order order) {
-        getDao().insertOrReplace(order);
+
+    public static long store(Order order) {
+        long id = getDao().insertOrReplace(order);
+        return id;
     }
 
     public static List<Order> getAllOrder() {

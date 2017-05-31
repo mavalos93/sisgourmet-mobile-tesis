@@ -47,7 +47,7 @@ public class MainStepper extends TabStepper {
         return fragment;
     }
 
-    public void getLunchObject() {
+    private void getLunchObject() {
         try {
             Bundle bundle = this.getIntent().getExtras().getBundle(Constants.SERIALIZABLE);
             if (bundle != null) {

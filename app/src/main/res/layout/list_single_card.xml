@@ -81,14 +81,14 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <android.support.v7.widget.AppCompatRatingBar
-                    android:id="@+id/rating_menu"
-                    style="?android:attr/ratingBarStyleSmall"
+                <ImageView
+                    android:id="@+id/star_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="false"
-                    android:numStars="1" />
+                    android:contentDescription="@string/description_image"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/ic_star_black_24dp"/>
 
                 <LinearLayout
                     android:layout_width="0dp"

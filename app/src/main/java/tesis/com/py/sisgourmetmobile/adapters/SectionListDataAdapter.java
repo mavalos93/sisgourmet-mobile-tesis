@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.activities.MainStepper;
+import tesis.com.py.sisgourmetmobile.activities.QualificationActivity;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
@@ -68,26 +70,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             }
         }
 
-        mRatingValue = Float.parseFloat(String.valueOf(lunchItem.getRaitingMenu()));
-
-        switch (String.valueOf(mRatingValue)) {
-            case "1.0":
-                holder.mRatingBar.setRating(mRatingValue);
-                break;
-            case "2.0":
-                holder.mRatingBar.setRating(mRatingValue);
-                break;
-            case "3.0":
-                holder.mRatingBar.setRating(mRatingValue);
-                break;
-            case "4.0":
-                holder.mRatingBar.setRating(mRatingValue);
-                break;
-            case "5.0":
-                holder.mRatingBar.setRating(mRatingValue);
-                break;
-        }
-
+        mRatingValue = Float.parseFloat(String.valueOf(lunchItem.getRatingMenu()));
 
         mProviderObject = ProviderRepository.getProviderById(lunchItem.getProviderId());
 
@@ -123,7 +106,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         private ImageView itemImage;
         private TextView garnishDescription;
         private TextView mQualificationMenuValue;
-        private RatingBar mRatingBar;
 
 
         public SingleItemRowHolder(View view) {
@@ -133,7 +115,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             this.garnishDescription = (TextView) view.findViewById(R.id.garnish_description);
             this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
             this.mQualificationMenuValue = (TextView) view.findViewById(R.id.qualification_menu_value);
-            this.mRatingBar = (RatingBar) view.findViewById(R.id.rating_menu);
 
 
             view.setOnClickListener(new View.OnClickListener() {
@@ -147,10 +128,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                     mContext.startActivity(menuIntent);
                 }
             });
-
-
         }
-
-
     }
 }

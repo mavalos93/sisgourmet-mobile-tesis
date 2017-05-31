@@ -25,14 +25,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property OrderType = new Property(1, String.class, "orderType", false, "ORDER_TYPE");
-        public final static Property StatusDescription = new Property(2, String.class, "statusDescription", false, "STATUS_DESCRIPTION");
-        public final static Property StatusOrder = new Property(3, Integer.class, "statusOrder", false, "STATUS_ORDER");
-        public final static Property DrinksId = new Property(4, Integer.class, "drinksId", false, "DRINKS_ID");
-        public final static Property LunchId = new Property(5, Integer.class, "lunchId", false, "LUNCH_ID");
-        public final static Property DrinkDetails = new Property(6, Integer.class, "drinkDetails", false, "DRINK_DETAILS");
-        public final static Property LaunchDetails = new Property(7, Integer.class, "launchDetails", false, "LAUNCH_DETAILS");
-        public final static Property CreatedAt = new Property(8, java.util.Date.class, "createdAt", false, "CREATED_AT");
-        public final static Property OrderAmount = new Property(9, Double.class, "orderAmount", false, "ORDER_AMOUNT");
+        public final static Property StatusOrder = new Property(2, Integer.class, "statusOrder", false, "STATUS_ORDER");
+        public final static Property LunchId = new Property(3, Long.class, "lunchId", false, "LUNCH_ID");
+        public final static Property SelectedDrinks = new Property(4, String.class, "selectedDrinks", false, "SELECTED_DRINKS");
+        public final static Property GarnishId = new Property(5, Integer.class, "garnishId", false, "GARNISH_ID");
+        public final static Property CreatedAt = new Property(6, Long.class, "createdAt", false, "CREATED_AT");
+        public final static Property SendAppAt = new Property(7, String.class, "SendAppAt", false, "SEND_APP_AT");
+        public final static Property ProviderId = new Property(8, Long.class, "providerId", false, "PROVIDER_ID");
+        public final static Property OrderAmount = new Property(9, String.class, "orderAmount", false, "ORDER_AMOUNT");
+        public final static Property RatingLunch = new Property(10, Long.class, "ratingLunch", false, "RATING_LUNCH");
     };
 
 
@@ -50,14 +51,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"ORDER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"ORDER_TYPE\" TEXT," + // 1: orderType
-                "\"STATUS_DESCRIPTION\" TEXT," + // 2: statusDescription
-                "\"STATUS_ORDER\" INTEGER," + // 3: statusOrder
-                "\"DRINKS_ID\" INTEGER," + // 4: drinksId
-                "\"LUNCH_ID\" INTEGER," + // 5: lunchId
-                "\"DRINK_DETAILS\" INTEGER," + // 6: drinkDetails
-                "\"LAUNCH_DETAILS\" INTEGER," + // 7: launchDetails
-                "\"CREATED_AT\" INTEGER," + // 8: createdAt
-                "\"ORDER_AMOUNT\" REAL);"); // 9: orderAmount
+                "\"STATUS_ORDER\" INTEGER," + // 2: statusOrder
+                "\"LUNCH_ID\" INTEGER," + // 3: lunchId
+                "\"SELECTED_DRINKS\" TEXT," + // 4: selectedDrinks
+                "\"GARNISH_ID\" INTEGER," + // 5: garnishId
+                "\"CREATED_AT\" INTEGER," + // 6: createdAt
+                "\"SEND_APP_AT\" TEXT," + // 7: SendAppAt
+                "\"PROVIDER_ID\" INTEGER," + // 8: providerId
+                "\"ORDER_AMOUNT\" TEXT," + // 9: orderAmount
+                "\"RATING_LUNCH\" INTEGER);"); // 10: ratingLunch
     }
 
     /** Drops the underlying database table. */
@@ -81,44 +83,49 @@ public class OrderDao extends AbstractDao<Order, Long> {
             stmt.bindString(2, orderType);
         }
  
-        String statusDescription = entity.getStatusDescription();
-        if (statusDescription != null) {
-            stmt.bindString(3, statusDescription);
-        }
- 
         Integer statusOrder = entity.getStatusOrder();
         if (statusOrder != null) {
-            stmt.bindLong(4, statusOrder);
+            stmt.bindLong(3, statusOrder);
         }
  
-        Integer drinksId = entity.getDrinksId();
-        if (drinksId != null) {
-            stmt.bindLong(5, drinksId);
-        }
- 
-        Integer lunchId = entity.getLunchId();
+        Long lunchId = entity.getLunchId();
         if (lunchId != null) {
-            stmt.bindLong(6, lunchId);
+            stmt.bindLong(4, lunchId);
         }
  
-        Integer drinkDetails = entity.getDrinkDetails();
-        if (drinkDetails != null) {
-            stmt.bindLong(7, drinkDetails);
+        String selectedDrinks = entity.getSelectedDrinks();
+        if (selectedDrinks != null) {
+            stmt.bindString(5, selectedDrinks);
         }
  
-        Integer launchDetails = entity.getLaunchDetails();
-        if (launchDetails != null) {
-            stmt.bindLong(8, launchDetails);
+        Integer garnishId = entity.getGarnishId();
+        if (garnishId != null) {
+            stmt.bindLong(6, garnishId);
         }
  
-        java.util.Date createdAt = entity.getCreatedAt();
+        Long createdAt = entity.getCreatedAt();
         if (createdAt != null) {
-            stmt.bindLong(9, createdAt.getTime());
+            stmt.bindLong(7, createdAt);
         }
  
-        Double orderAmount = entity.getOrderAmount();
+        String SendAppAt = entity.getSendAppAt();
+        if (SendAppAt != null) {
+            stmt.bindString(8, SendAppAt);
+        }
+ 
+        Long providerId = entity.getProviderId();
+        if (providerId != null) {
+            stmt.bindLong(9, providerId);
+        }
+ 
+        String orderAmount = entity.getOrderAmount();
         if (orderAmount != null) {
-            stmt.bindDouble(10, orderAmount);
+            stmt.bindString(10, orderAmount);
+        }
+ 
+        Long ratingLunch = entity.getRatingLunch();
+        if (ratingLunch != null) {
+            stmt.bindLong(11, ratingLunch);
         }
     }
 
@@ -134,14 +141,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
         Order entity = new Order( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // orderType
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // statusDescription
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // statusOrder
-            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // drinksId
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // lunchId
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // drinkDetails
-            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // launchDetails
-            cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)), // createdAt
-            cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9) // orderAmount
+            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // statusOrder
+            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // lunchId
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // selectedDrinks
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // garnishId
+            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6), // createdAt
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // SendAppAt
+            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // providerId
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // orderAmount
+            cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10) // ratingLunch
         );
         return entity;
     }
@@ -151,14 +159,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
     public void readEntity(Cursor cursor, Order entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setOrderType(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setStatusDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setStatusOrder(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
-        entity.setDrinksId(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setLunchId(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
-        entity.setDrinkDetails(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
-        entity.setLaunchDetails(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
-        entity.setCreatedAt(cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)));
-        entity.setOrderAmount(cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9));
+        entity.setStatusOrder(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
+        entity.setLunchId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
+        entity.setSelectedDrinks(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setGarnishId(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setCreatedAt(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
+        entity.setSendAppAt(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setProviderId(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
+        entity.setOrderAmount(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setRatingLunch(cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10));
      }
     
     /** @inheritdoc */

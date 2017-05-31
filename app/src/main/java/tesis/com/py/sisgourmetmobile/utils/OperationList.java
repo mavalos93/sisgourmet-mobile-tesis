@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.activities.QualificationProviderActivity;
 import tesis.com.py.sisgourmetmobile.activities.ResetPassActivity;
 
 
@@ -27,14 +26,6 @@ public class OperationList {
     public List<Operation> getOperations() {
 
 
-
-        Operation opQualification = new Operation(3,
-                mContext.getString(R.string.qualification_menu),
-                mContext.getString(R.string.qualification_menu_decription),
-                QualificationProviderActivity.class,
-                OPERATION,
-                R.mipmap.ic_stars_black_36dp);
-        mOperations.add(opQualification);
 
 
         Operation opResetPassword = new Operation(4,

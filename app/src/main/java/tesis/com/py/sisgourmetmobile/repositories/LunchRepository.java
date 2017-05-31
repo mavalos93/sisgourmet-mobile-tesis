@@ -13,7 +13,6 @@ import tesis.com.py.sisgourmetmobile.utils.MainSession;
 public class LunchRepository {
 
 
-
     public static void store(Lunch lunch) {
         getDao().insertOrReplace(lunch);
     }
@@ -27,9 +26,14 @@ public class LunchRepository {
         return getDao().queryBuilder().count();
     }
 
-    public static List<Lunch> getMenuByProviderId(long providerId){
+    public static List<Lunch> getMenuByProviderId(long providerId) {
         return getDao().queryBuilder().where(LunchDao.Properties.ProviderId.eq(providerId)).list();
     }
+
+    public static Lunch getLunchById(long orderId) {
+        return getDao().queryBuilder().where(LunchDao.Properties.Id.eq(orderId)).unique();
+    }
+
     private static LunchDao getDao() {
         return MainSession.getDaoSession().
                 getLunchDao();

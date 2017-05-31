@@ -240,9 +240,6 @@ public class TabStepper extends BasePager implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (mSteps.current() == mSteps.total() - 1) {
-            finish();
-        }
         if (updateDoneCurrent()) {
             onNext();
             updateScrolling(mSteps.current() + 1);

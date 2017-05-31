@@ -14,8 +14,7 @@ public class Lunch implements Serializable {
     private String mainMenuDescription;
     private Long providerId;
     private java.util.Date menuDate;
-    private Long raitingMenu;
-    private Boolean isCombinable;
+    private Long ratingMenu;
 
     public Lunch() {
     }
@@ -24,14 +23,13 @@ public class Lunch implements Serializable {
         this.id = id;
     }
 
-    public Lunch(Long id, Integer priceUnit, String mainMenuDescription, Long providerId, java.util.Date menuDate, Long raitingMenu, Boolean isCombinable) {
+    public Lunch(Long id, Integer priceUnit, String mainMenuDescription, Long providerId, java.util.Date menuDate, Long ratingMenu) {
         this.id = id;
         this.priceUnit = priceUnit;
         this.mainMenuDescription = mainMenuDescription;
         this.providerId = providerId;
         this.menuDate = menuDate;
-        this.raitingMenu = raitingMenu;
-        this.isCombinable = isCombinable;
+        this.ratingMenu = ratingMenu;
     }
 
     public Long getId() {
@@ -74,32 +72,12 @@ public class Lunch implements Serializable {
         this.menuDate = menuDate;
     }
 
-    public Long getRaitingMenu() {
-        return raitingMenu;
+    public Long getRatingMenu() {
+        return ratingMenu;
     }
 
-    public void setRaitingMenu(Long raitingMenu) {
-        this.raitingMenu = raitingMenu;
+    public void setRatingMenu(Long ratingMenu) {
+        this.ratingMenu = ratingMenu;
     }
 
-    public Boolean getIsCombinable() {
-        return isCombinable;
-    }
-
-    public void setIsCombinable(Boolean isCombinable) {
-        this.isCombinable = isCombinable;
-    }
-
-    @Override
-    public String toString() {
-        return "Lunch{" +
-                "id=" + id +
-                ", priceUnit=" + priceUnit +
-                ", mainMenuDescription='" + mainMenuDescription + '\'' +
-                ", providerId=" + providerId +
-                ", menuDate=" + menuDate +
-                ", raitingMenu=" + raitingMenu +
-                ", isCombinable=" + isCombinable +
-                '}';
-    }
 }

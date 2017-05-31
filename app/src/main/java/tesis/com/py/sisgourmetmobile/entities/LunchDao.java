@@ -28,8 +28,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
         public final static Property MainMenuDescription = new Property(2, String.class, "mainMenuDescription", false, "MAIN_MENU_DESCRIPTION");
         public final static Property ProviderId = new Property(3, Long.class, "providerId", false, "PROVIDER_ID");
         public final static Property MenuDate = new Property(4, java.util.Date.class, "menuDate", false, "MENU_DATE");
-        public final static Property RaitingMenu = new Property(5, Long.class, "raitingMenu", false, "RAITING_MENU");
-        public final static Property IsCombinable = new Property(6, Boolean.class, "isCombinable", false, "IS_COMBINABLE");
+        public final static Property RatingMenu = new Property(5, Long.class, "ratingMenu", false, "RATING_MENU");
     };
 
 
@@ -50,8 +49,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
                 "\"MAIN_MENU_DESCRIPTION\" TEXT," + // 2: mainMenuDescription
                 "\"PROVIDER_ID\" INTEGER," + // 3: providerId
                 "\"MENU_DATE\" INTEGER," + // 4: menuDate
-                "\"RAITING_MENU\" INTEGER," + // 5: raitingMenu
-                "\"IS_COMBINABLE\" INTEGER);"); // 6: isCombinable
+                "\"RATING_MENU\" INTEGER);"); // 5: ratingMenu
     }
 
     /** Drops the underlying database table. */
@@ -90,14 +88,9 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
             stmt.bindLong(5, menuDate.getTime());
         }
  
-        Long raitingMenu = entity.getRaitingMenu();
-        if (raitingMenu != null) {
-            stmt.bindLong(6, raitingMenu);
-        }
- 
-        Boolean isCombinable = entity.getIsCombinable();
-        if (isCombinable != null) {
-            stmt.bindLong(7, isCombinable ? 1L: 0L);
+        Long ratingMenu = entity.getRatingMenu();
+        if (ratingMenu != null) {
+            stmt.bindLong(6, ratingMenu);
         }
     }
 
@@ -116,8 +109,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // mainMenuDescription
             cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // providerId
             cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // menuDate
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // raitingMenu
-            cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0 // isCombinable
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5) // ratingMenu
         );
         return entity;
     }
@@ -130,8 +122,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
         entity.setMainMenuDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setProviderId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
         entity.setMenuDate(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
-        entity.setRaitingMenu(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
-        entity.setIsCombinable(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
+        entity.setRatingMenu(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
      }
     
     /** @inheritdoc */

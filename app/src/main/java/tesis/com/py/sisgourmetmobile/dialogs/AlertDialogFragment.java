@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 
 /**
@@ -20,6 +21,7 @@ public class AlertDialogFragment extends DialogFragment {
     private static final String ARG_MESSAGE = "message";
     private static final String ARG_POSITIVE_BUTTON = "positiveButton";
     private static final String ARG_ICON_RESOURCES = "iconResource";
+
 
 
     public interface AlertDialogFragmentListener {

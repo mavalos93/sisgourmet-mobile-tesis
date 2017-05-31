@@ -24,9 +24,11 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Provider = new Property(1, String.class, "provider", false, "PROVIDER");
-        public final static Property Qualification = new Property(2, String.class, "qualification", false, "QUALIFICATION");
+        public final static Property ProviderId = new Property(1, Long.class, "providerId", false, "PROVIDER_ID");
+        public final static Property QualificationValue = new Property(2, Long.class, "qualificationValue", false, "QUALIFICATION_VALUE");
         public final static Property Commentary = new Property(3, String.class, "commentary", false, "COMMENTARY");
+        public final static Property LunchId = new Property(4, Long.class, "lunchId", false, "LUNCH_ID");
+        public final static Property GarnishId = new Property(5, Long.class, "garnishId", false, "GARNISH_ID");
     };
 
 
@@ -43,9 +45,11 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"QUALIFICATION\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"PROVIDER\" TEXT," + // 1: provider
-                "\"QUALIFICATION\" TEXT," + // 2: qualification
-                "\"COMMENTARY\" TEXT);"); // 3: commentary
+                "\"PROVIDER_ID\" INTEGER," + // 1: providerId
+                "\"QUALIFICATION_VALUE\" INTEGER," + // 2: qualificationValue
+                "\"COMMENTARY\" TEXT," + // 3: commentary
+                "\"LUNCH_ID\" INTEGER," + // 4: lunchId
+                "\"GARNISH_ID\" INTEGER);"); // 5: garnishId
     }
 
     /** Drops the underlying database table. */
@@ -64,19 +68,29 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
             stmt.bindLong(1, id);
         }
  
-        String provider = entity.getProvider();
-        if (provider != null) {
-            stmt.bindString(2, provider);
+        Long providerId = entity.getProviderId();
+        if (providerId != null) {
+            stmt.bindLong(2, providerId);
         }
  
-        String qualification = entity.getQualification();
-        if (qualification != null) {
-            stmt.bindString(3, qualification);
+        Long qualificationValue = entity.getQualificationValue();
+        if (qualificationValue != null) {
+            stmt.bindLong(3, qualificationValue);
         }
  
         String commentary = entity.getCommentary();
         if (commentary != null) {
             stmt.bindString(4, commentary);
+        }
+ 
+        Long lunchId = entity.getLunchId();
+        if (lunchId != null) {
+            stmt.bindLong(5, lunchId);
+        }
+ 
+        Long garnishId = entity.getGarnishId();
+        if (garnishId != null) {
+            stmt.bindLong(6, garnishId);
         }
     }
 
@@ -91,9 +105,11 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
     public Qualification readEntity(Cursor cursor, int offset) {
         Qualification entity = new Qualification( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // provider
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // qualification
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // commentary
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // providerId
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // qualificationValue
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // commentary
+            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // lunchId
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5) // garnishId
         );
         return entity;
     }
@@ -102,9 +118,11 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
     @Override
     public void readEntity(Cursor cursor, Qualification entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setProvider(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setQualification(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setProviderId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setQualificationValue(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
         entity.setCommentary(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setLunchId(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
+        entity.setGarnishId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
      }
     
     /** @inheritdoc */

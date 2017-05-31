@@ -1,5 +1,6 @@
 package tesis.com.py.sisgourmetmobile.utils;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -226,5 +227,25 @@ public class Utils {
         returnDate = weekday[date.getDay()];
         return returnDate + " " +result;
     }
+
+
+    public static String formatDate(Date date, String format) {
+        String result = "";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        result = sdf.format(date);
+        return result;
+    }
+
+    public static AlertDialog.Builder createSimpleDialog(Context mContext, String title, String message, int resourceId, boolean isCancelable) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setIcon(resourceId);
+        builder.setCancelable(isCancelable);
+
+        return builder;
+
+    }
+
 
 }

@@ -20,7 +20,7 @@
     <string name="main_menu_order">Menu principal</string>
     <string name="garnish_order">Guarnicion</string>
     <string name="drink_order">Bebidas</string>
-    <string name="launch_package_order">Paquete de almuerzo</string>
+    <string name="launch_package_order">Mi Almuerzo</string>
 
 
     <!--Login Activity strings-->
@@ -115,7 +115,7 @@
     <string name="item_order_date">Fecha</string>
     <string name="item_order_amount">Monto</string>
     <string name="item_order_status">Estado</string>
-
+    <string name="item_rating_value">Valor</string>
     <!-- Selected Menu Item-->
     <string name="item_main_menu">Menú pincipal</string>
     <string name="item_garnish">Guarnición</string>
@@ -161,4 +161,12 @@
     <string name="label_drink_selected">Seleccionar Bebida</string>
     <string name="qualification_menu_privider_value">valor</string>
     <string name="not_drink">Sin bebida</string>
+    <string name="my_lunch">Mi almuerzo</string>
+    <string name="order_send_succes_message">Pedido de almuerzo enviado exitosamente</string>
+
+    <!-- Qualification menu-->
+    <string name="qualification_activity_title">Calificaciones</string>
+    <string name="error_comment_empty">Debes ingresar un comentario</string>
+    <string name="qualification_send_succes_message">Calificación enviada exitosamente</string>
+    <string name="unexpected_error_comment">Error inesperado al procesar comentarios</string>
 </resources>

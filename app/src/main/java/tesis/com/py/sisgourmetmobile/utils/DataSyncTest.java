@@ -55,8 +55,7 @@ public class DataSyncTest {
         lunch1.setMainMenuDescription("Bife a la plancha");
         lunch1.setPriceUnit(20000);
         lunch1.setMenuDate(new Date());
-        lunch1.setRaitingMenu(1L);
-        lunch1.setIsCombinable(true);
+        lunch1.setRatingMenu(1L);
 
         Lunch lunch2 = new Lunch();
         lunch2.setId(2L);
@@ -64,8 +63,7 @@ public class DataSyncTest {
         lunch2.setMainMenuDescription("Grillé de pollo");
         lunch2.setPriceUnit(19000);
         lunch2.setMenuDate(new Date());
-        lunch2.setRaitingMenu(2L);
-        lunch2.setIsCombinable(true);
+        lunch2.setRatingMenu(2L);
 
 
         Lunch lunch3 = new Lunch();
@@ -74,8 +72,7 @@ public class DataSyncTest {
         lunch3.setMainMenuDescription("Marinera de Carne");
         lunch3.setPriceUnit(19000);
         lunch3.setMenuDate(new Date());
-        lunch3.setRaitingMenu(3L);
-        lunch3.setIsCombinable(true);
+        lunch3.setRatingMenu(3L);
 
 
         Lunch lunch4 = new Lunch();
@@ -84,7 +81,7 @@ public class DataSyncTest {
         lunch4.setMainMenuDescription("Tarta de pollo");
         lunch4.setPriceUnit(20000);
         lunch4.setMenuDate(new Date());
-        lunch4.setRaitingMenu(4L);
+        lunch4.setRatingMenu(4L);
 
 
         Lunch lunch5 = new Lunch();
@@ -93,8 +90,7 @@ public class DataSyncTest {
         lunch5.setMainMenuDescription("Picadito de Carne");
         lunch5.setPriceUnit(20000);
         lunch5.setMenuDate(new Date());
-        lunch5.setRaitingMenu(5L);
-        lunch5.setIsCombinable(false);
+        lunch5.setRatingMenu(5L);
 
 
         Lunch lunch6 = new Lunch();
@@ -103,8 +99,7 @@ public class DataSyncTest {
         lunch6.setMainMenuDescription("Romanitas de pollo");
         lunch6.setPriceUnit(20000);
         lunch6.setMenuDate(new Date());
-        lunch6.setRaitingMenu(5L);
-        lunch6.setIsCombinable(false);
+        lunch6.setRatingMenu(5L);
 
         Lunch lunch7 = new Lunch();
         lunch7.setId(7L);
@@ -112,8 +107,7 @@ public class DataSyncTest {
         lunch7.setMainMenuDescription("Ensalada Pescador");
         lunch7.setPriceUnit(20000);
         lunch7.setMenuDate(new Date());
-        lunch7.setRaitingMenu(5L);
-        lunch7.setIsCombinable(true);
+        lunch7.setRatingMenu(5L);
 
         Lunch lunch8 = new Lunch();
         lunch8.setId(8L);
@@ -121,8 +115,7 @@ public class DataSyncTest {
         lunch8.setMainMenuDescription("Lasagna de carne");
         lunch8.setPriceUnit(25000);
         lunch8.setMenuDate(new Date());
-        lunch8.setRaitingMenu(5L);
-        lunch8.setIsCombinable(true);
+        lunch8.setRatingMenu(5L);
 
         List<Lunch> lunchList = new ArrayList<>();
         lunchList.add(lunch1);

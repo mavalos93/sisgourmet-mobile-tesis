@@ -1,16 +1,7 @@
 package tesis.com.py.sisgourmetmobile.activities;
-
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRatingBar;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,20 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import py.com.library.AbstractStep;
-import py.com.library.style.BaseStyle;
 import py.com.library.style.TabStepper;
-import py.com.library.util.LinearityChecker;
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.adapters.SelectedMenuAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
-import tesis.com.py.sisgourmetmobile.fragments.MenuFragment;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
-import tesis.com.py.sisgourmetmobile.utils.Constants;
-import tesis.com.py.sisgourmetmobile.utils.DividerItemDecoration;
-import tesis.com.py.sisgourmetmobile.utils.RecyclerItemClickListener;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 
@@ -62,7 +46,7 @@ public class StepLunch extends AbstractStep {
     private AppCompatRatingBar mRatingMenu;
     private RadioGroup mRadioGroupGarnish;
     private LinearLayout mGarnishDataContainer;
-    public static int radioId = 0;
+    public static int radioGarnishId = 0;
     public static int typeLunchCase = 0;
     TabStepper tabStepper = new TabStepper();
 
@@ -83,7 +67,7 @@ public class StepLunch extends AbstractStep {
 
 
         mlayoutInflater = LayoutInflater.from(getContext());
-        customeView = mlayoutInflater.inflate(R.layout.content_order, null);
+        customeView = mlayoutInflater.inflate(R.layout.step_lunch_order, null);
 
         mSelectedMainMenuTextView = (TextView) customeView.findViewById(R.id.selected_main_menu_textView);
         mSelectedGarnishTextView = (TextView) customeView.findViewById(R.id.selected_garnish_textView);
@@ -142,8 +126,8 @@ public class StepLunch extends AbstractStep {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 Log.d("TAG_CLASS", "test: " + mRadioGroupGarnish.getCheckedRadioButtonId());
-                radioId = checkedId;
-                Garnish mGarnihsQuery = GarnishRepository.getGarnishById(radioId);
+                radioGarnishId = checkedId;
+                Garnish mGarnihsQuery = GarnishRepository.getGarnishById(radioGarnishId);
                 if (mGarnihsQuery != null) {
                     mSelectedGarnishTextView.setText(mGarnihsQuery.getDescription());
                 }
@@ -165,7 +149,7 @@ public class StepLunch extends AbstractStep {
 
 
     private void setupDataRatingBar() {
-        String stringRaiting = String.valueOf(luncObject.getRaitingMenu());
+        String stringRaiting = String.valueOf(luncObject.getRatingMenu());
         float mRaitingValue = Float.parseFloat(stringRaiting);
 
         switch (stringRaiting) {

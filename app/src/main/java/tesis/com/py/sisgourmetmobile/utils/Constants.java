@@ -20,7 +20,7 @@ public class Constants {
     //Transaction Types
     public static final String MAIN_MENU_ORDER = "MENU PRINCIPAL";
     public static final String GARNISH_ORDER = "GUARNICION";
-    public static final String LAUNCH_PACKAGE_ORDER = "PAQUETE DE ALMUERZO";
+    public static final String LUNCH_PACKAGE_ORDER = "PAQUETE DE ALMUERZO";
     public static final String DRINK_ORDER = "BEBIDAS";
 
     // RESPONSES CODES
@@ -32,6 +32,7 @@ public class Constants {
     public static final String ACTION_SELECTED_MENU = "ACTION_SELECTED_MENU";
     public static final String SERIALIZABLE = "SERIALIZABLE";
     public static final String SINGLE_LUNCH_OBJECT = "SINGLE_LUNCH_OBJECT";
+    public static final String SEND_ORDER_OBJECT = "SEND_ORDER_OBJECT";
 
 
 }

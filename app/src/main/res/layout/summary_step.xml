@@ -6,15 +6,16 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <RelativeLayout
+        android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
 
         <LinearLayout
+            android:id="@+id/container_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
@@ -26,7 +27,7 @@
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:gravity="center"
                 android:text="@string/label_summary_lunch_description"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/summary_main_menu_textView"
@@ -66,35 +67,36 @@
                 android:textColor="@color/primary_text"
                 android:textSize="17sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
-    </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_summary_drinks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/summary_price_textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_summary_drinks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/summary_price_textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/container_view"
+            android:layout_margin="@dimen/activity_horizontal_margin">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/summary_price_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:gravity="start"
-        android:paddingBottom="@dimen/activity_horizontal_margin"
-        android:text="@string/label_summary_total_price"
-        android:textColor="@color/primary_text"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/summary_price_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="@string/label_summary_total_price"
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -12,8 +12,8 @@ import tesis.com.py.sisgourmetmobile.utils.MainSession;
 
 public class QualificationRepository {
 
-    public static void store(Qualification qualification) {
-        getDao().insertOrReplace(qualification);
+    public static long store(Qualification qualification) {
+        return getDao().insertOrReplace(qualification);
     }
 
     public static List<Qualification> getAllQualification() {

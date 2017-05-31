@@ -22,11 +22,13 @@ public class MyDaoGenerator {
         persona.addBooleanProperty("nutritionalSatus");
 
 
-        Entity calificacion = schema.addEntity("Qualification");
-        calificacion.addIdProperty();
-        calificacion.addStringProperty("provider");
-        calificacion.addStringProperty("qualification");
-        calificacion.addStringProperty("commentary");
+        Entity qualification = schema.addEntity("Qualification");
+        qualification.addIdProperty();
+        qualification.addLongProperty("providerId");
+        qualification.addLongProperty("qualificationValue");
+        qualification.addStringProperty("commentary");
+        qualification.addLongProperty("lunchId");
+        qualification.addLongProperty("garnishId");
 
 
         Entity users = schema.addEntity("Users");
@@ -52,22 +54,21 @@ public class MyDaoGenerator {
         lunch.addStringProperty("mainMenuDescription");
         lunch.addLongProperty("providerId");
         lunch.addDateProperty("menuDate");
-        lunch.addLongProperty("raitingMenu");
-        lunch.addBooleanProperty("isCombinable");
-
+        lunch.addLongProperty("ratingMenu");
 
 
         Entity order = schema.addEntity("Order");
         order.addIdProperty();
         order.addStringProperty("orderType");
-        order.addStringProperty("statusDescription");
         order.addIntProperty("statusOrder");
-        order.addIntProperty("drinksId");
-        order.addIntProperty("lunchId");
-        order.addIntProperty("drinkDetails");
-        order.addIntProperty("launchDetails");
-        order.addDateProperty("createdAt");
-        order.addDoubleProperty("orderAmount");
+        order.addLongProperty("lunchId");
+        order.addStringProperty("selectedDrinks");
+        order.addIntProperty("garnishId");
+        order.addLongProperty("createdAt");
+        order.addStringProperty("SendAppAt");
+        order.addLongProperty("providerId");
+        order.addStringProperty("orderAmount");
+        order.addLongProperty("ratingLunch");
 
         Entity providers = schema.addEntity("Provider");
         providers.addIdProperty();

@@ -33,13 +33,6 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.QualificationProviderActivity"
-            android:label="@string/title_activity_qualification"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".activities.ResetPassActivity"
             android:label="@string/title_activity_reset_pass"
             android:parentActivityName=".activities.MainActivity"
@@ -47,21 +40,12 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.SelectedLunchActivity"
-            android:label="@string/title_activity_selected_lunch"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity android:name=".activities.MainStepper"
-            android:theme="@style/AppTheme.DarkActionBar"/>
-
-
+            android:name=".activities.MainStepper"
+            android:theme="@style/AppTheme.DarkActionBar" />
         <activity
-            android:name=".activities.OrderActivity"
-            android:label="@string/title_activity_order"
-            android:theme="@style/AppTheme" />
+            android:name=".activities.QualificationActivity"
+            android:label="@string/title_activity_qualification"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

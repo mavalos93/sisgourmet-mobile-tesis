@@ -7,9 +7,11 @@ package tesis.com.py.sisgourmetmobile.entities;
 public class Qualification {
 
     private Long id;
-    private String provider;
-    private String qualification;
+    private Long providerId;
+    private Long qualificationValue;
     private String commentary;
+    private Long lunchId;
+    private Long garnishId;
 
     public Qualification() {
     }
@@ -18,11 +20,13 @@ public class Qualification {
         this.id = id;
     }
 
-    public Qualification(Long id, String provider, String qualification, String commentary) {
+    public Qualification(Long id, Long providerId, Long qualificationValue, String commentary, Long lunchId, Long garnishId) {
         this.id = id;
-        this.provider = provider;
-        this.qualification = qualification;
+        this.providerId = providerId;
+        this.qualificationValue = qualificationValue;
         this.commentary = commentary;
+        this.lunchId = lunchId;
+        this.garnishId = garnishId;
     }
 
     public Long getId() {
@@ -33,20 +37,20 @@ public class Qualification {
         this.id = id;
     }
 
-    public String getProvider() {
-        return provider;
+    public Long getProviderId() {
+        return providerId;
     }
 
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public void setProviderId(Long providerId) {
+        this.providerId = providerId;
     }
 
-    public String getQualification() {
-        return qualification;
+    public Long getQualificationValue() {
+        return qualificationValue;
     }
 
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
+    public void setQualificationValue(Long qualificationValue) {
+        this.qualificationValue = qualificationValue;
     }
 
     public String getCommentary() {
@@ -55,6 +59,22 @@ public class Qualification {
 
     public void setCommentary(String commentary) {
         this.commentary = commentary;
+    }
+
+    public Long getLunchId() {
+        return lunchId;
+    }
+
+    public void setLunchId(Long lunchId) {
+        this.lunchId = lunchId;
+    }
+
+    public Long getGarnishId() {
+        return garnishId;
+    }
+
+    public void setGarnishId(Long garnishId) {
+        this.garnishId = garnishId;
     }
 
 }

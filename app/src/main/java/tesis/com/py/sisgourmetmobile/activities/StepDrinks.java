@@ -73,7 +73,6 @@ public class StepDrinks extends AbstractStep {
 
         setupDataView();
         setupSwitchListener();
-
         return customeView;
     }
 
@@ -92,9 +91,9 @@ public class StepDrinks extends AbstractStep {
 
 
     private void setupDataView() {
-
-
         mDrinkList = DrinksRepository.getAllDrinks();
+
+
         if (mDrinkList.size() != 0) {
             for (Drinks drinks : mDrinkList) {
                 final CheckBox mDrinkCheckBox = new CheckBox(getContext());
@@ -114,7 +113,16 @@ public class StepDrinks extends AbstractStep {
                     if (isChecked) {
                         mSelectionId = drinkCheckBox.getId();
                         mSelectedDrinkItem.add(String.valueOf(mSelectionId));
+                    } else {
+                        if (mSelectedDrinkItem.size() != 0) {
+                            for (int i = 0; i < mSelectedDrinkItem.size(); i++) {
+                                if (mSelectedDrinkItem.get(i).equals(String.valueOf(drinkCheckBox.getId()))) {
+                                    mSelectedDrinkItem.remove(i);
+                                }
+                            }
+                        }
                     }
+
                 }
             });
         }
@@ -142,7 +150,6 @@ public class StepDrinks extends AbstractStep {
 
     @Override
     public void onStepVisible() {
-        mSelectedDrinkItem.clear();
     }
 
     @Override

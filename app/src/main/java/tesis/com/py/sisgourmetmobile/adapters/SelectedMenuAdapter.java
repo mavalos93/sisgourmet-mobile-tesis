@@ -29,7 +29,6 @@ import tesis.com.py.sisgourmetmobile.entities.Lunch;
 public class SelectedMenuAdapter extends RecyclerView.Adapter<SelectedMenuAdapter.SelectedMenuViewHolder> {
     private List<Lunch> mLunchList = new ArrayList<>();
     private Context mContext;
-    SparseBooleanArray mSelectedItems = new SparseBooleanArray();
 
 // When selecting an item, save it
 
@@ -74,7 +73,7 @@ public class SelectedMenuAdapter extends RecyclerView.Adapter<SelectedMenuAdapte
         holder.mPriceUnitTextView.setText("Precio: "+ mLunch.getPriceUnit()+" Gs.");
 
 
-        String stringRaiting = String.valueOf(mLunch.getRaitingMenu());
+        String stringRaiting = String.valueOf(mLunch.getRatingMenu());
         float mRaitingValue = Float.parseFloat(stringRaiting);
 
         switch (stringRaiting) {

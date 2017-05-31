@@ -1,31 +1,39 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
-import android.content.Context;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import py.com.library.AbstractStep;
 import tesis.com.py.sisgourmetmobile.R;
+import tesis.com.py.sisgourmetmobile.adapters.SummaryDrinksAdapter;
+import tesis.com.py.sisgourmetmobile.dialogs.AlertDialogFragment;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
+import tesis.com.py.sisgourmetmobile.entities.Order;
+import tesis.com.py.sisgourmetmobile.recivers.OrdersObserver;
 import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
+import tesis.com.py.sisgourmetmobile.repositories.OrderRepository;
+import tesis.com.py.sisgourmetmobile.utils.Constants;
+import tesis.com.py.sisgourmetmobile.utils.DividerItemDecoration;
+import tesis.com.py.sisgourmetmobile.utils.RecyclerItemClickListener;
+import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 /**
  * Created by Manu0 on 22/5/2017.
@@ -34,30 +42,33 @@ import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 public class SummaryStep extends AbstractStep {
 
     private int i = 3;
-    private Button button;
     private final static String CLICK = "click";
+    private final String TAG_CLASS = SummaryStep.class.getName();
 
     // View
     private LayoutInflater mlayoutInflater;
     private View customeView;
-    private LinearLayout mDrinkContainer;
-    private Switch mNotDrinkSwitch;
     private TextView mMainMenuTextView;
     private TextView mGarnishTextView;
     private TextView mTotalPriceTextView;
     private TextView mDrinkSelectedTextView;
+    RecyclerView mSummaryDrinkRecyclerView;
 
 
     // Objects & variable
-    private Lunch luncObject = new Lunch();
-    private List<Garnish> mGarnishList = new ArrayList<>();
+    private Lunch lunchObject = new Lunch();
     private boolean isDone = true;
-    private int selection = StepDrinks.mSelectionId;
     private int mGarnishPrice;
     private int mLunchPrice;
+    private List<Drinks> selectedDrinkList = new ArrayList<>();
+    private SummaryDrinksAdapter mAdapterSummaryDrink;
+    private String mTotalPrice;
+
+    // Dialogs
+    private android.app.AlertDialog.Builder sendOrderDialog;
 
     public SummaryStep(Lunch lunchObject) {
-        this.luncObject = lunchObject;
+        this.lunchObject = lunchObject;
     }
 
 
@@ -71,24 +82,56 @@ public class SummaryStep extends AbstractStep {
         mGarnishTextView = (TextView) customeView.findViewById(R.id.summary_garnish_textView);
         mTotalPriceTextView = (TextView) customeView.findViewById(R.id.summary_price_textView);
         mDrinkSelectedTextView = (TextView) customeView.findViewById(R.id.summary_drink_textView);
-        RecyclerView mSummaryDrinkRecyclerView = (RecyclerView) customeView.findViewById(R.id.recyclerView_summary_drinks);
+        mSummaryDrinkRecyclerView = (RecyclerView) customeView.findViewById(R.id.recyclerView_summary_drinks);
+
+
+        mSummaryDrinkRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mSummaryDrinkRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        mSummaryDrinkRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mSummaryDrinkRecyclerView.setHasFixedSize(true);
+        mSummaryDrinkRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mSummaryDrinkRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                mAdapterSummaryDrink.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        }));
 
 
         return customeView;
     }
 
 
-    private void setupData(int mGarnishSelectedId, int mTypeLunch) {
+    private void setupData(int mGarnishSelectedId, int mTypeLunch, List<String> mDrinkSelectedList) {
 
-        mMainMenuTextView.setText("Menú principal: " +luncObject.getMainMenuDescription());
-        mLunchPrice = luncObject.getPriceUnit();
+        int acumPriceDrink = 0;
+
+        if (mDrinkSelectedList.size() != 0) {
+            for (int position = 0; position < mDrinkSelectedList.size(); position++) {
+                Drinks mQueryDrink = DrinksRepository.getDrinkById(Long.valueOf(mDrinkSelectedList.get(position)));
+                if (mQueryDrink != null) {
+                    acumPriceDrink = acumPriceDrink + mQueryDrink.getPriceUnit();
+                    selectedDrinkList.add(mQueryDrink);
+                    mAdapterSummaryDrink.setData(selectedDrinkList);
+                    mAdapterSummaryDrink.notifyDataSetChanged();
+                }
+            }
+        }
+
+        mMainMenuTextView.setText("Menú principal: " + lunchObject.getMainMenuDescription());
+        mLunchPrice = lunchObject.getPriceUnit();
+
 
         switch (mTypeLunch) {
             case 1:
-                Garnish mGarnihsQuery = GarnishRepository.getGarnishById(luncObject.getProviderId());
+                Garnish mGarnihsQuery = GarnishRepository.getGarnishById(lunchObject.getProviderId());
                 if (mGarnihsQuery != null) {
                     mGarnishPrice = mGarnihsQuery.getUnitPrice();
-                    mGarnishTextView.setText("Guarnición: "+mGarnihsQuery.getDescription());
+                    mGarnishTextView.setText("Guarnición: " + mGarnihsQuery.getDescription());
                 }
 
                 break;
@@ -96,12 +139,51 @@ public class SummaryStep extends AbstractStep {
                 Garnish mGarnihsQuerySelected = GarnishRepository.getGarnishById(mGarnishSelectedId);
                 if (mGarnihsQuerySelected != null) {
                     mGarnishPrice = mGarnihsQuerySelected.getUnitPrice();
-                    mGarnishTextView.setText("Guarnición: "+ mGarnihsQuerySelected.getDescription());
+                    mGarnishTextView.setText("Guarnición: " + mGarnihsQuerySelected.getDescription());
                 }
                 break;
         }
 
-        mTotalPriceTextView.setText("Total: "+ String.valueOf(mLunchPrice + mGarnishPrice) + " Gs.");
+        mTotalPrice = String.valueOf(mLunchPrice + mGarnishPrice + acumPriceDrink) + " Gs.";
+        mTotalPriceTextView.setText("Total: " + mTotalPrice);
+    }
+
+    private void saveOrder(Lunch lunchObject, int mGarnishSelectedId, List<String> mDrinkSelectedList) {
+        try {
+            long mOrderId = 0;
+            String mDrinksDetails = String.valueOf(mDrinkSelectedList);
+            Order orderObject = new Order();
+            orderObject.setOrderType(Constants.LUNCH_PACKAGE_ORDER);
+            orderObject.setStatusOrder(Constants.TRANSACTION_SEND);
+            orderObject.setSelectedDrinks(mDrinksDetails);
+            orderObject.setLunchId(lunchObject.getId());
+            orderObject.setGarnishId(mGarnishSelectedId);
+            orderObject.setSendAppAt(Utils.formatDate(new Date(), Constants.DEFAULT_DATETIME_FORMAT));
+            orderObject.setCreatedAt(Utils.getToday().getTime());
+            orderObject.setOrderAmount(mTotalPrice);
+            orderObject.setProviderId(lunchObject.getProviderId());
+            mOrderId = OrderRepository.store(orderObject);
+
+
+            if (mOrderId > 0) {
+                sendOrderDialog = Utils.createSimpleDialog(getContext(),
+                        getString(R.string.my_lunch),
+                        getString(R.string.order_send_succes_message),
+                        R.mipmap.ic_done_black_36dp, false);
+                sendOrderDialog.setPositiveButton(getString(R.string.label_accept), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().finish();
+                        getActivity().sendBroadcast(new Intent(OrdersObserver.ACTION_LOAD_ORDERS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                    }
+                });
+                sendOrderDialog.create();
+                sendOrderDialog.show();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
 
     }
@@ -116,7 +198,8 @@ public class SummaryStep extends AbstractStep {
 
     @Override
     public String name() {
-        return "Resúmen";
+        Log.d("TAG", "NAME");
+        return "Tú Resúmen";
     }
 
     @Override
@@ -127,16 +210,16 @@ public class SummaryStep extends AbstractStep {
 
     @Override
     public void onStepVisible() {
-        Log.d("BEBIDAS", "VARIABLE_DRINKS: " + StepLunch.typeLunchCase);
-        Log.d("MENU_PRINCIPAL", "VARIABLE_LUNCH: " + StepLunch.radioId);
-
-        setupData(StepLunch.radioId,StepLunch.typeLunchCase);
-
+        selectedDrinkList.clear();
+        mAdapterSummaryDrink = new SummaryDrinksAdapter(new ArrayList<Drinks>());
+        mSummaryDrinkRecyclerView.setAdapter(mAdapterSummaryDrink);
+        setupData(StepLunch.radioGarnishId, StepLunch.typeLunchCase, StepDrinks.mSelectedDrinkItem);
 
     }
 
     @Override
     public void onNext() {
+        Log.d("TAG", "onNext");
         System.out.println("onNext");
     }
 
@@ -147,12 +230,14 @@ public class SummaryStep extends AbstractStep {
 
     @Override
     public String optional() {
+
         return "Tu resúmen ";
     }
 
 
     @Override
     public boolean nextIf() {
+        saveOrder(lunchObject, StepLunch.radioGarnishId, StepDrinks.mSelectedDrinkItem);
         return true;
     }
 
