@@ -6,94 +6,100 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
-        android:id="@+id/container_all_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:padding="@dimen/activity_horizontal_margin"
-        tools:ignore="UselessParent">
+        android:layout_height="match_parent">
 
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/provider_imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/description_image"
-                android:src="@mipmap/nha_esutaquia" />
-        </LinearLayout>
+            android:layout_height="wrap_content">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/selected_main_menu_textView"
+            <LinearLayout
+                android:id="@+id/container_all_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/item_main_menu"
-                android:textColor="@color/primary_text"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/selected_garnish_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/item_garnish"
-                android:textSize="16sp" />
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                android:padding="@dimen/activity_horizontal_margin"
+                tools:ignore="UselessParent">
 
 
-            <android.support.v7.widget.AppCompatRatingBar
-                android:id="@+id/selected_provider_rating_menu"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/selected_rating_description_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/item_qualification"
-                android:textColor="@color/primary_text" />
+                    <ImageView
+                        android:id="@+id/provider_imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/nav_header_height"
+                        android:contentDescription="@string/description_image"
+                        android:src="@mipmap/nha_esutaquia" />
+                </LinearLayout>
 
-        </LinearLayout>
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lunch_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/selected_main_menu_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/item_main_menu"
+                        android:textColor="@color/primary_text"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/selected_garnish_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/item_garnish"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
 
-    <LinearLayout
-        android:id="@+id/garnish_selected_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/container_all_view"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:orientation="vertical">
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/selected_provider_rating_menu"
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/selected_rating_description_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/item_qualification"
+                        android:textColor="@color/primary_text"
+                        android:textStyle="italic" />
 
-            <RadioGroup
-                android:id="@+id/radioContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/garnish_selected_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/activity_horizontal_margin">
 
-            </RadioGroup>
-        </ScrollView>
+                        <RadioGroup
+                            android:id="@+id/radioContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-    </LinearLayout>
+                        </RadioGroup>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </ScrollView>
 
 </RelativeLayout>

@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:subtitle="@string/menu_selected_principal_menu"
             app:subtitleTextColor="@android:color/white"
             app:title="@string/app_name"
             app:titleTextColor="@android:color/white"

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import tesis.com.py.sisgourmetmobile.entities.Comments;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
+import tesis.com.py.sisgourmetmobile.repositories.AllCommentsRepository;
 import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
@@ -25,17 +27,14 @@ public class DataSyncTest {
         Provider providerObject2 = new Provider();
         providerObject2.setId(1L);
         providerObject2.setProviderName("La Vienesa");
-        providerObject2.setProviderType("Menu Principal");
 
         Provider providerObject3 = new Provider();
         providerObject3.setId(2L);
         providerObject3.setProviderName("Ña Eustaquia");
-        providerObject3.setProviderType("Guarnicion");
 
         Provider providerObject4 = new Provider();
         providerObject4.setId(3L);
         providerObject4.setProviderName("Bolsi");
-        providerObject4.setProviderType("Menu principal");
 
         List<Provider> providerList = new ArrayList<>();
         providerList.add(providerObject2);
@@ -139,44 +138,34 @@ public class DataSyncTest {
         Drinks drinks1 = new Drinks();
         drinks1.setId(1L);
         drinks1.setPriceUnit(2000);
-        drinks1.setCurrentStock(10);
         drinks1.setDescription("Puro sol 200 ml.");
-        drinks1.setMinimunStock(2);
         drinks1.setProvider("Pulp S.A");
 
         Drinks drinks2 = new Drinks();
         drinks2.setId(2L);
         drinks2.setPriceUnit(2000);
-        drinks2.setCurrentStock(10);
         drinks2.setDescription("Frugos de Naranja 200 ml.");
-        drinks2.setMinimunStock(2);
         drinks2.setProvider("Coca Cola Company");
 
 
         Drinks drinks3 = new Drinks();
         drinks3.setId(3L);
         drinks3.setPriceUnit(3000);
-        drinks3.setCurrentStock(10);
         drinks3.setDescription("Coca Cola 200 ml.");
-        drinks3.setMinimunStock(2);
         drinks3.setProvider("Coca Cola Company");
 
 
         Drinks drinks4 = new Drinks();
         drinks4.setId(4L);
         drinks4.setPriceUnit(3000);
-        drinks4.setCurrentStock(10);
         drinks4.setDescription("Guaraná 200 ml.");
-        drinks4.setMinimunStock(2);
         drinks4.setProvider("Coca Cola Company");
 
 
         Drinks drinks5 = new Drinks();
         drinks5.setId(5L);
         drinks5.setPriceUnit(5000);
-        drinks5.setCurrentStock(10);
         drinks5.setDescription("Purifrú 500 ml.");
-        drinks5.setMinimunStock(2);
         drinks5.setProvider("Proveedor S.A.");
 
         List<Drinks> drinksList = new ArrayList<>();
@@ -308,7 +297,70 @@ public class DataSyncTest {
         for (Garnish gn : garnishList) {
             GarnishRepository.store(gn);
         }
+    }
 
+    public static void setAllComments() {
+        List<Comments> commentsList = new ArrayList<>();
+        Comments comments1 = new Comments();
+        comments1.setId(1L);
+        comments1.setDateComment("12/05/2017");
+        comments1.setDrinkDescription("Puro sol de 500 ml.");
+        comments1.setLunchPackageDescription("Marinera de Carne - Arroz a la crema");
+        comments1.setProviderId(1);
+        comments1.setUserName("mavalos");
+        comments1.setCommentDescription("El grille de pollo estuvo muy bueno");
+        comments1.setRatingValue(3);
+
+        Comments comments2 = new Comments();
+        comments2.setId(2L);
+        comments2.setDateComment("09/07/2017");
+        comments2.setDrinkDescription("Guaraná de 500 ml.");
+        comments2.setLunchPackageDescription("Bife a la plancha - Puré de papas");
+        comments2.setProviderId(2);
+        comments2.setUserName("pgonzalez");
+        comments2.setCommentDescription("El bife de pollo estuvo muy salado");
+        comments2.setRatingValue(2);
+
+        Comments comments3 = new Comments();
+        comments3.setId(3L);
+        comments3.setDateComment("05/04/2017");
+        comments3.setDrinkDescription("Coca cola de 250 ml.");
+        comments3.setLunchPackageDescription("Ensalada Pescador - Papas Fritas");
+        comments3.setProviderId(3);
+        comments3.setUserName("dalvarez");
+        comments3.setCommentDescription("Excelente la Ensalada pescador");
+        comments3.setRatingValue(5);
+
+        Comments comments4 = new Comments();
+        comments4.setId(4L);
+        comments4.setDateComment("10/04/2017");
+        comments4.setDrinkDescription("Ades de 500 ml.");
+        comments4.setLunchPackageDescription("Lasagna de Carne - Ensalada Bolsi");
+        comments4.setProviderId(3);
+        comments4.setUserName("dmaldonado");
+        comments4.setCommentDescription("Lasagna de Carne muy buena");
+        comments4.setRatingValue(3);
+
+        Comments comments5 = new Comments();
+        comments5.setId(5L);
+        comments5.setDateComment("07/04/2017");
+        comments5.setDrinkDescription("Purifrú de 500 ml.");
+        comments5.setLunchPackageDescription("Bife a la plancha - Ensalada Mixta");
+        comments5.setProviderId(1);
+        comments5.setUserName("dmaldonado");
+        comments5.setCommentDescription("Bife a la plancha bastante buena");
+        comments5.setRatingValue(4);
+
+        commentsList.add(comments1);
+        commentsList.add(comments2);
+        commentsList.add(comments3);
+        commentsList.add(comments4);
+        commentsList.add(comments5);
+
+
+        for (Comments comments : commentsList) {
+            AllCommentsRepository.store(comments);
+        }
 
     }
 }

@@ -8,8 +8,6 @@ public class Drinks {
 
     private Long id;
     private String description;
-    private Integer currentStock;
-    private Integer minimunStock;
     private Integer priceUnit;
     private String provider;
 
@@ -20,11 +18,9 @@ public class Drinks {
         this.id = id;
     }
 
-    public Drinks(Long id, String description, Integer currentStock, Integer minimunStock, Integer priceUnit, String provider) {
+    public Drinks(Long id, String description, Integer priceUnit, String provider) {
         this.id = id;
         this.description = description;
-        this.currentStock = currentStock;
-        this.minimunStock = minimunStock;
         this.priceUnit = priceUnit;
         this.provider = provider;
     }
@@ -43,22 +39,6 @@ public class Drinks {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getCurrentStock() {
-        return currentStock;
-    }
-
-    public void setCurrentStock(Integer currentStock) {
-        this.currentStock = currentStock;
-    }
-
-    public Integer getMinimunStock() {
-        return minimunStock;
-    }
-
-    public void setMinimunStock(Integer minimunStock) {
-        this.minimunStock = minimunStock;
     }
 
     public Integer getPriceUnit() {

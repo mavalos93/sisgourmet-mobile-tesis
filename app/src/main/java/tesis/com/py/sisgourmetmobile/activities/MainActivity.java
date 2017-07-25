@@ -1,5 +1,6 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
+import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,20 +21,23 @@ import py.com.library.util.LinearityChecker;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.dialogs.CancelableAlertDialogFragment;
 import tesis.com.py.sisgourmetmobile.entities.Order;
+import tesis.com.py.sisgourmetmobile.entities.Qualification;
 import tesis.com.py.sisgourmetmobile.fragments.MenuFragment;
+import tesis.com.py.sisgourmetmobile.fragments.MyCommentsFragment;
 import tesis.com.py.sisgourmetmobile.fragments.OrdersFragment;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.DataSyncTest;
-import tesis.com.py.sisgourmetmobile.utils.OperationList;
 import tesis.com.py.sisgourmetmobile.utils.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MenuFragment.OnItemMenuListener,
         OrdersFragment.OnItemOrderListenerSelected,
-        CancelableAlertDialogFragment.CancelableAlertDialogFragmentListener {
+        CancelableAlertDialogFragment.CancelableAlertDialogFragmentListener,
+        MyCommentsFragment.OnItemMyCommentsListenerSelected {
     private CoordinatorLayout mCoordinatorLayoutView;
     private ViewPager mViewPager;
+    private Toolbar toolbar;
     private final String TAG_CLASS = MainActivity.class.getName();
 
     private TabLayout mTabLayout;
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -51,17 +55,45 @@ public class MainActivity extends AppCompatActivity
         mCoordinatorLayoutView = (CoordinatorLayout) findViewById(R.id.main_coordinator_view);
         setupViewPager(mViewPager);
         setupTabIcons();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        toolbar.setSubtitle(getString(R.string.tab_menu));
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        localSync();
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        toolbar.setSubtitle(getString(R.string.tab_menu));
+                        break;
+                    case 1:
+                        toolbar.setSubtitle(getString(R.string.tab_orders));
+                        break;
+                    case 2:
+                        toolbar.setSubtitle(getString(R.string.tab_my_comments));
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        if (AppPreferences.getAppPreferences(this).getBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, false)) {
+            localSync();
+        }
     }
 
     @Override
@@ -71,20 +103,26 @@ public class MainActivity extends AppCompatActivity
         LinearityChecker.mDone.clear();
         StepLunch.radioGarnishId = 0;
         StepLunch.typeLunchCase = 0;
-        StepDrinks.mSelectedDrinkItem.clear();
+        StepDrinks.mDrinkId = 0;
 
     }
 
     private void setupTabIcons() {
+
         try {
+
             TabLayout.Tab tab1 = mTabLayout.getTabAt(0);
             tab1.setIcon(R.drawable.menu_tab_selector);
             TabLayout.Tab tab2 = mTabLayout.getTabAt(1);
             tab2.setIcon(R.drawable.orders_tab_selector);
+            TabLayout.Tab tab3 = mTabLayout.getTabAt(2);
+            tab3.setIcon(R.drawable.comments_tab_selector);
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 
 
@@ -124,8 +162,10 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_sesion) {
             logoutMethod();
-
+        } else if (id == R.id.comment_id) {
+            startActivity(new Intent(MainActivity.this, CommentsViewActivity.class));
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -134,8 +174,9 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(MenuFragment.newInstance(), getString(R.string.tab_menu));
-        adapter.addFrag(OrdersFragment.newInstance(), getString(R.string.tab_orders));
+        adapter.addFrag(MenuFragment.newInstance());
+        adapter.addFrag(OrdersFragment.newInstance());
+        adapter.addFrag(MyCommentsFragment.newInstance());
         viewPager.setAdapter(adapter);
     }
 
@@ -144,6 +185,7 @@ public class MainActivity extends AppCompatActivity
         DataSyncTest.setMenuData();
         DataSyncTest.setDrinks();
         DataSyncTest.setGarnish();
+        DataSyncTest.setAllComments();
     }
 
     private void logoutMethod() {
@@ -159,7 +201,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCancelableAlertDialogPositiveClick(DialogFragment dialog) {
-        AppPreferences.getAppPreferences(this).edit().remove(AppPreferences.KEY_PREFERENCE_LOGGED_IN).apply();
+        AppPreferences.getAppPreferences(this).edit().clear().apply();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
 
@@ -172,11 +214,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemOrderListenerSelected(Order orders) {
-
     }
 
     @Override
     public void onItemMenuSelectedListener(Menu menu) {
 
     }
+
+    @Override
+    public void onItemMyCommentsListenerSelected(Qualification qualification) {
+
+    }
+
+
 }

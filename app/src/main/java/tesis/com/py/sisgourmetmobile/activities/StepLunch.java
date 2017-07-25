@@ -1,4 +1,5 @@
 package tesis.com.py.sisgourmetmobile.activities;
+
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -94,8 +95,9 @@ public class StepLunch extends AbstractStep {
             case 1:
                 setupDataRatingBar();
                 typeLunchCase = 1;
-                for (Garnish dr : mGarnishList) {
-                    mSelectedGarnishTextView.setText(dr.getDescription());
+                for (Garnish gr : mGarnishList) {
+                    mSelectedGarnishTextView.setText(gr.getDescription());
+                    radioGarnishId = gr.getId().intValue();
                 }
                 setupDoneIcon = true;
                 TabStepper.isDone = true;
@@ -125,7 +127,6 @@ public class StepLunch extends AbstractStep {
         mRadioGroupGarnish.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                Log.d("TAG_CLASS", "test: " + mRadioGroupGarnish.getCheckedRadioButtonId());
                 radioGarnishId = checkedId;
                 Garnish mGarnihsQuery = GarnishRepository.getGarnishById(radioGarnishId);
                 if (mGarnihsQuery != null) {

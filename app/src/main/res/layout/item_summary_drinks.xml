@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description"
-        android:src="@mipmap/ic_local_drink_black_48dp" />
+        android:src="@mipmap/drink_icon" />
 
 
 </RelativeLayout>

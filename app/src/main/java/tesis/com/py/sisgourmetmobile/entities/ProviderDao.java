@@ -25,7 +25,6 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property ProviderName = new Property(1, String.class, "providerName", false, "PROVIDER_NAME");
-        public final static Property ProviderType = new Property(2, String.class, "providerType", false, "PROVIDER_TYPE");
     };
 
 
@@ -42,8 +41,7 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PROVIDER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"PROVIDER_NAME\" TEXT," + // 1: providerName
-                "\"PROVIDER_TYPE\" TEXT);"); // 2: providerType
+                "\"PROVIDER_NAME\" TEXT);"); // 1: providerName
     }
 
     /** Drops the underlying database table. */
@@ -66,11 +64,6 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
         if (providerName != null) {
             stmt.bindString(2, providerName);
         }
- 
-        String providerType = entity.getProviderType();
-        if (providerType != null) {
-            stmt.bindString(3, providerType);
-        }
     }
 
     /** @inheritdoc */
@@ -84,8 +77,7 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
     public Provider readEntity(Cursor cursor, int offset) {
         Provider entity = new Provider( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // providerName
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // providerType
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // providerName
         );
         return entity;
     }
@@ -95,7 +87,6 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
     public void readEntity(Cursor cursor, Provider entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setProviderName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setProviderType(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     /** @inheritdoc */

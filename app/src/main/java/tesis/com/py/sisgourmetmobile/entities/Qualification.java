@@ -10,8 +10,14 @@ public class Qualification {
     private Long providerId;
     private Long qualificationValue;
     private String commentary;
-    private Long lunchId;
-    private Long garnishId;
+    private String mainMenu;
+    private String garnish;
+    private Integer order;
+    private Integer statusSend;
+    private Long createdAt;
+    private String SendAppAt;
+    private String user;
+    private String httpDetail;
 
     public Qualification() {
     }
@@ -20,13 +26,19 @@ public class Qualification {
         this.id = id;
     }
 
-    public Qualification(Long id, Long providerId, Long qualificationValue, String commentary, Long lunchId, Long garnishId) {
+    public Qualification(Long id, Long providerId, Long qualificationValue, String commentary, String mainMenu, String garnish, Integer order, Integer statusSend, Long createdAt, String SendAppAt, String user, String httpDetail) {
         this.id = id;
         this.providerId = providerId;
         this.qualificationValue = qualificationValue;
         this.commentary = commentary;
-        this.lunchId = lunchId;
-        this.garnishId = garnishId;
+        this.mainMenu = mainMenu;
+        this.garnish = garnish;
+        this.order = order;
+        this.statusSend = statusSend;
+        this.createdAt = createdAt;
+        this.SendAppAt = SendAppAt;
+        this.user = user;
+        this.httpDetail = httpDetail;
     }
 
     public Long getId() {
@@ -61,20 +73,68 @@ public class Qualification {
         this.commentary = commentary;
     }
 
-    public Long getLunchId() {
-        return lunchId;
+    public String getMainMenu() {
+        return mainMenu;
     }
 
-    public void setLunchId(Long lunchId) {
-        this.lunchId = lunchId;
+    public void setMainMenu(String mainMenu) {
+        this.mainMenu = mainMenu;
     }
 
-    public Long getGarnishId() {
-        return garnishId;
+    public String getGarnish() {
+        return garnish;
     }
 
-    public void setGarnishId(Long garnishId) {
-        this.garnishId = garnishId;
+    public void setGarnish(String garnish) {
+        this.garnish = garnish;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public Integer getStatusSend() {
+        return statusSend;
+    }
+
+    public void setStatusSend(Integer statusSend) {
+        this.statusSend = statusSend;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getSendAppAt() {
+        return SendAppAt;
+    }
+
+    public void setSendAppAt(String SendAppAt) {
+        this.SendAppAt = SendAppAt;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getHttpDetail() {
+        return httpDetail;
+    }
+
+    public void setHttpDetail(String httpDetail) {
+        this.httpDetail = httpDetail;
     }
 
 }

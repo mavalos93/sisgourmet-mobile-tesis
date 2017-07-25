@@ -41,11 +41,22 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.MainStepper"
-            android:theme="@style/AppTheme.DarkActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.DarkActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.QualificationActivity"
             android:label="@string/title_activity_qualification"
-            android:theme="@style/AppTheme"></activity>
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.CommentsViewActivity"
+            android:label="@string/title_activity_commets_view"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

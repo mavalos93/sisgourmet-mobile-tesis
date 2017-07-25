@@ -1,5 +1,7 @@
 package tesis.com.py.sisgourmetmobile.repositories;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.entities.Qualification;
@@ -16,16 +18,15 @@ public class QualificationRepository {
         return getDao().insertOrReplace(qualification);
     }
 
-    public static List<Qualification> getAllQualification() {
-        return getDao().queryBuilder()
-                .list();
+    public static List<Qualification> getQualificationDesc() {
+        return getDao().queryBuilder().orderDesc(QualificationDao.Properties.Order).list();
     }
 
-    public static long count(){
+    public static long count() {
         return getDao().queryBuilder().count();
     }
 
-    private static QualificationDao getDao() {
+    public static QualificationDao getDao() {
         return MainSession.getDaoSession().
                 getQualificationDao();
     }

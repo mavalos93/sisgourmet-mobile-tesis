@@ -3,6 +3,7 @@ package tesis.com.py.sisgourmetmobile.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,20 +46,18 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
 public class StepDrinks extends AbstractStep {
 
     private int i = 2;
-    private Button button;
+    public static int mDrinkId = 0;
     private final static String CLICK = "click";
 
     // View
     private LayoutInflater mlayoutInflater;
     private View customeView;
-    private LinearLayout mDrinkContainer;
-    private Switch mNotDrinkSwitch;
-    public static List<String> mSelectedDrinkItem = new ArrayList<>();
+    private RadioGroup mDrinkRadioContainer;
+    private AppCompatCheckBox mNotDrinkCheckBox;
 
 
     // Objects & variable
     private boolean isDone = true;
-    public static int mSelectionId = 0;
     private List<Drinks> mDrinkList = new ArrayList<>();
 
 
@@ -68,66 +67,60 @@ public class StepDrinks extends AbstractStep {
 
         mlayoutInflater = LayoutInflater.from(getContext());
         customeView = mlayoutInflater.inflate(R.layout.selected_drinks_fragment, null);
-        mDrinkContainer = (LinearLayout) customeView.findViewById(R.id.container_drinks);
-        mNotDrinkSwitch = (Switch) customeView.findViewById(R.id.not_drink_switch);
-
-        setupDataView();
-        setupSwitchListener();
+        mDrinkRadioContainer = (RadioGroup) customeView.findViewById(R.id.drink_radio_container);
+        mNotDrinkCheckBox = (AppCompatCheckBox) customeView.findViewById(R.id.not_drink_checkBox);
+        setupData();
+        setupCheckBoxListener();
         return customeView;
     }
 
-    private void setupSwitchListener() {
-        mNotDrinkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mDrinkContainer.setVisibility(View.GONE);
-                } else {
-                    mDrinkContainer.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-    }
+    private void setupData() {
 
-
-    private void setupDataView() {
-        mDrinkList = DrinksRepository.getAllDrinks();
-
-
-        if (mDrinkList.size() != 0) {
-            for (Drinks drinks : mDrinkList) {
-                final CheckBox mDrinkCheckBox = new CheckBox(getContext());
-                mDrinkCheckBox.setText(drinks.getDescription() + "\n" + "Precio: " + drinks.getPriceUnit() + " Gs.");
-                mDrinkCheckBox.setId(drinks.getId().intValue());
-                mDrinkCheckBox.setPadding(0, 20, 0, 20);
-                mDrinkCheckBox.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_local_drink_black_48dp, 0, 0, 0);
-                mDrinkContainer.addView(mDrinkCheckBox);
-            }
-        }
-
-        for (Drinks drinks : mDrinkList) {
-            final CheckBox drinkCheckBox = (CheckBox) mDrinkContainer.findViewById(drinks.getId().intValue());
-            drinkCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        if (DrinksRepository.count() == 0) {
+            Utils.builToast(getContext(), getString(R.string.error_not_data_drinks));
+        } else {
+            mDrinkList = DrinksRepository.getAllDrinks();
+            setupDrinkView(mDrinkList, true);
+            mDrinkRadioContainer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        mSelectionId = drinkCheckBox.getId();
-                        mSelectedDrinkItem.add(String.valueOf(mSelectionId));
-                    } else {
-                        if (mSelectedDrinkItem.size() != 0) {
-                            for (int i = 0; i < mSelectedDrinkItem.size(); i++) {
-                                if (mSelectedDrinkItem.get(i).equals(String.valueOf(drinkCheckBox.getId()))) {
-                                    mSelectedDrinkItem.remove(i);
-                                }
-                            }
-                        }
-                    }
-
+                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                    Log.d("TAG_CLASS", "test: " + mDrinkRadioContainer.getCheckedRadioButtonId());
+                    mDrinkId = checkedId;
                 }
             });
         }
+
     }
 
+    private void setupCheckBoxListener() {
+
+        mNotDrinkCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    setupDrinkView(mDrinkList, false);
+                } else {
+                    setupDrinkView(mDrinkList, true);
+                }
+            }
+        });
+
+    }
+
+    private void setupDrinkView(List<Drinks> mDrinkList, boolean isEnable) {
+        mDrinkRadioContainer.removeAllViews();
+        if (mDrinkList.size() != 0) {
+            for (Drinks drinks : mDrinkList) {
+                final RadioButton mDrinkRadioButton = new RadioButton(getContext());
+                mDrinkRadioButton.setText(drinks.getDescription() + "\n" + "Precio: " + drinks.getPriceUnit() + " Gs.");
+                mDrinkRadioButton.setId(drinks.getId().intValue());
+                mDrinkRadioButton.setPadding(0, 20, 0, 20);
+                mDrinkRadioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.drink_icon, 0, 0, 0);
+                mDrinkRadioButton.setEnabled(isEnable);
+                mDrinkRadioContainer.addView(mDrinkRadioButton);
+            }
+        }
+    }
 
     @Override
     public void onSaveInstanceState(Bundle state) {

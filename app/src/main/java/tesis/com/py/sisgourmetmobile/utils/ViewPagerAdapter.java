@@ -32,16 +32,16 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-    public void addFrag(Fragment fragment, String title) {
+    public void addFrag(Fragment fragment) {
         mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
+        //mFragmentTitleList.add(title);
     }
 
 
-    @Override
+   /* @Override
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
-    }
+    }*/
 
 
 }

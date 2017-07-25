@@ -1,6 +1,7 @@
 package tesis.com.py.sisgourmetmobile.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +19,15 @@ import java.util.List;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.activities.MainStepper;
 import tesis.com.py.sisgourmetmobile.activities.QualificationActivity;
+import tesis.com.py.sisgourmetmobile.entities.Drinks;
+import tesis.com.py.sisgourmetmobile.entities.Garnish;
+import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Order;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.entities.Qualification;
+import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
+import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
+import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
@@ -42,23 +49,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView orderTypeTextView;
         TextView orderAmountTextView;
-        TextView orderDateTextView;
         TextView orderStatusTextView;
         TextView ratingValueTextView;
         ImageView orderStatusIcon;
         ImageView orderTypeImageView;
         ImageButton starCommetButton;
+        ImageButton detailsButton;
 
         public OrderViewHolder(View view) {
             super(view);
             orderTypeTextView = (TextView) view.findViewById(R.id.item_order_type);
             orderAmountTextView = (TextView) view.findViewById(R.id.item_order_amount);
-            orderDateTextView = (TextView) view.findViewById(R.id.item_order_date);
             orderStatusTextView = (TextView) view.findViewById(R.id.id_order_status);
             orderStatusIcon = (ImageView) view.findViewById(R.id.status_image_icon);
             orderTypeImageView = (ImageView) view.findViewById(R.id.order_type_imageView);
             ratingValueTextView = (TextView) view.findViewById(R.id.item_rating_value_textView);
             starCommetButton = (ImageButton) view.findViewById(R.id.star_comment_button);
+            detailsButton = (ImageButton) view.findViewById(R.id.details_button);
             starCommetButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,6 +76,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+                }
+            });
+            detailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    detailsOrder(getItemAtPosition(getAdapterPosition()));
                 }
             });
 
@@ -84,22 +97,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(OrderAdapter.OrderViewHolder holder, int position) {
         Order mOrder = mOrderList.get(position);
-        Provider mProviderObject = new Provider();
         int iconResource;
         int iconOrder = 0;
         String mStatusOrder = "";
         String transactionType = "N/A";
         holder.orderTypeTextView.setText("Tipo: " + mOrder.getOrderType());
-        holder.orderAmountTextView.setText("Total: " + mOrder.getOrderAmount());
-        holder.orderDateTextView.setText("Fecha: " + mOrder.getSendAppAt());
+        holder.orderAmountTextView.setText("Total: " + mOrder.getOrderAmount() + "Gs.");
 
 
         if (mOrder.getStatusOrder() == Constants.TRANSACTION_NO_SEND) {
-            iconResource = R.mipmap.ic_thumb_down_black_24dp;
+            iconResource = R.mipmap.ic_error_black_36dp;
             holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
             mStatusOrder = "PENDIENTE";
         } else {
-            iconResource = R.mipmap.ic_thumb_up_black_24dp;
+            iconResource = R.mipmap.ic_done_black_36dp;
             holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.accent));
             mStatusOrder = "ENVIADO";
         }
@@ -123,7 +134,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
 
-        mProviderObject = ProviderRepository.getProviderById(mOrder.getProviderId());
+        Provider mProviderObject = ProviderRepository.getProviderById(mOrder.getProviderId());
 
         if (mProviderObject != null) {
             switch (mProviderObject.getProviderName()) {
@@ -140,7 +151,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
         if (mOrder.getRatingLunch() == null || mOrder.getRatingLunch() == 0) {
-            holder.ratingValueTextView.setText("Valorar");
+            holder.ratingValueTextView.setText("0.0");
         } else {
             String stringRaiting = String.valueOf(mOrder.getRatingLunch());
 
@@ -171,11 +182,84 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.orderTypeImageView.setBackgroundResource(iconOrder);
     }
 
+    private void detailsOrder(Order orderObject) {
+        String mSelectedDrink = "SIN BEBIDA";
+        String mSelectedMainMenu = "";
+        String mSelectedGarnish = "";
+        String mSelectedProvider = "";
+        String mRatingValue = "SIN CALIFICAR";
+
+        if (orderObject.getDrinkId() != 0) {
+            Drinks mDrinkQuery = DrinksRepository.getDrinkById(orderObject.getDrinkId());
+            if (mDrinkQuery != null) {
+                mSelectedDrink = mDrinkQuery.getDescription();
+            }
+        }
+        if (orderObject.getLunchId() != 0) {
+            Lunch mLunchQuery = LunchRepository.getLunchById(orderObject.getLunchId());
+            if (mLunchQuery != null) {
+                mSelectedMainMenu = mLunchQuery.getMainMenuDescription();
+            }
+        }
+
+        if (orderObject.getGarnishId() != 0) {
+            Garnish mGarnishQuery = GarnishRepository.getGarnishById(orderObject.getGarnishId());
+            if (mGarnishQuery != null) {
+                mSelectedGarnish = mGarnishQuery.getDescription();
+            }
+        }
+
+        if (orderObject.getProviderId() != 0) {
+            Provider mProviderQuery = ProviderRepository.getProviderById(orderObject.getProviderId());
+            if (mProviderQuery != null) {
+                mSelectedProvider = mProviderQuery.getProviderName();
+            }
+        }
+
+        if (orderObject.getRatingLunch() != null) {
+            mRatingValue = String.valueOf(orderObject.getRatingLunch());
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("TIPO: ")
+                .append(orderObject.getOrderType())
+                .append("\n")
+                .append("FECHA/HORA-ENVIO: ")
+                .append(orderObject.getSendAppAt())
+                .append("\n")
+                .append("MENU PRINCIPAL: ")
+                .append(mSelectedMainMenu)
+                .append("\n")
+                .append("GUARNICION: ")
+                .append(mSelectedGarnish)
+                .append("\n")
+                .append("BEBIDAS: ")
+                .append(mSelectedDrink)
+                .append("\n")
+                .append("PROVEEDOR: ")
+                .append(mSelectedProvider)
+                .append("\n")
+                .append("CALIFICACION: ")
+                .append(mRatingValue);
+        android.app.AlertDialog.Builder builder = Utils.createSimpleDialog(mContext, mContext.getString(R.string.order_dialog_title), sb.toString(), R.mipmap.ic_thumb_up_black_24dp, false);
+        builder.setPositiveButton(mContext.getString(R.string.label_accept), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
+
+    }
+
     private void sendOrderObject(List<Order> orderList, int position) {
         Bundle menuBundle = new Bundle();
         menuBundle.putSerializable(Constants.SEND_ORDER_OBJECT, orderList.get(position));
         Intent menuIntent = new Intent(mContext, QualificationActivity.class);
         menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
+        menuIntent.putExtra("KEY_ACTIVITY", "SEND_ORDER_OBJECT");
         mContext.startActivity(menuIntent);
     }
 
@@ -203,4 +287,5 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         mOrderList.addAll(data);
         notifyDataSetChanged();
     }
+
 }

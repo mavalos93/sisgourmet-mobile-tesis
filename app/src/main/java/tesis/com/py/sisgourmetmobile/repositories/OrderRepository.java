@@ -23,6 +23,7 @@ public class OrderRepository {
                 .list();
     }
 
+
     public static long count() {
         return getDao().queryBuilder().count();
     }

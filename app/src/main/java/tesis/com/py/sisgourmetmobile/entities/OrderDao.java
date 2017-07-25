@@ -27,13 +27,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
         public final static Property OrderType = new Property(1, String.class, "orderType", false, "ORDER_TYPE");
         public final static Property StatusOrder = new Property(2, Integer.class, "statusOrder", false, "STATUS_ORDER");
         public final static Property LunchId = new Property(3, Long.class, "lunchId", false, "LUNCH_ID");
-        public final static Property SelectedDrinks = new Property(4, String.class, "selectedDrinks", false, "SELECTED_DRINKS");
+        public final static Property DrinkId = new Property(4, Integer.class, "drinkId", false, "DRINK_ID");
         public final static Property GarnishId = new Property(5, Integer.class, "garnishId", false, "GARNISH_ID");
         public final static Property CreatedAt = new Property(6, Long.class, "createdAt", false, "CREATED_AT");
         public final static Property SendAppAt = new Property(7, String.class, "SendAppAt", false, "SEND_APP_AT");
         public final static Property ProviderId = new Property(8, Long.class, "providerId", false, "PROVIDER_ID");
         public final static Property OrderAmount = new Property(9, String.class, "orderAmount", false, "ORDER_AMOUNT");
         public final static Property RatingLunch = new Property(10, Long.class, "ratingLunch", false, "RATING_LUNCH");
+        public final static Property User = new Property(11, String.class, "user", false, "USER");
+        public final static Property HttpDetail = new Property(12, String.class, "httpDetail", false, "HTTP_DETAIL");
     };
 
 
@@ -53,13 +55,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
                 "\"ORDER_TYPE\" TEXT," + // 1: orderType
                 "\"STATUS_ORDER\" INTEGER," + // 2: statusOrder
                 "\"LUNCH_ID\" INTEGER," + // 3: lunchId
-                "\"SELECTED_DRINKS\" TEXT," + // 4: selectedDrinks
+                "\"DRINK_ID\" INTEGER," + // 4: drinkId
                 "\"GARNISH_ID\" INTEGER," + // 5: garnishId
                 "\"CREATED_AT\" INTEGER," + // 6: createdAt
                 "\"SEND_APP_AT\" TEXT," + // 7: SendAppAt
                 "\"PROVIDER_ID\" INTEGER," + // 8: providerId
                 "\"ORDER_AMOUNT\" TEXT," + // 9: orderAmount
-                "\"RATING_LUNCH\" INTEGER);"); // 10: ratingLunch
+                "\"RATING_LUNCH\" INTEGER," + // 10: ratingLunch
+                "\"USER\" TEXT," + // 11: user
+                "\"HTTP_DETAIL\" TEXT);"); // 12: httpDetail
     }
 
     /** Drops the underlying database table. */
@@ -93,9 +97,9 @@ public class OrderDao extends AbstractDao<Order, Long> {
             stmt.bindLong(4, lunchId);
         }
  
-        String selectedDrinks = entity.getSelectedDrinks();
-        if (selectedDrinks != null) {
-            stmt.bindString(5, selectedDrinks);
+        Integer drinkId = entity.getDrinkId();
+        if (drinkId != null) {
+            stmt.bindLong(5, drinkId);
         }
  
         Integer garnishId = entity.getGarnishId();
@@ -127,6 +131,16 @@ public class OrderDao extends AbstractDao<Order, Long> {
         if (ratingLunch != null) {
             stmt.bindLong(11, ratingLunch);
         }
+ 
+        String user = entity.getUser();
+        if (user != null) {
+            stmt.bindString(12, user);
+        }
+ 
+        String httpDetail = entity.getHttpDetail();
+        if (httpDetail != null) {
+            stmt.bindString(13, httpDetail);
+        }
     }
 
     /** @inheritdoc */
@@ -143,13 +157,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // orderType
             cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // statusOrder
             cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // lunchId
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // selectedDrinks
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // drinkId
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // garnishId
             cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6), // createdAt
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // SendAppAt
             cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // providerId
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // orderAmount
-            cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10) // ratingLunch
+            cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10), // ratingLunch
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // user
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // httpDetail
         );
         return entity;
     }
@@ -161,13 +177,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
         entity.setOrderType(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setStatusOrder(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
         entity.setLunchId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
-        entity.setSelectedDrinks(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setDrinkId(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
         entity.setGarnishId(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setCreatedAt(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
         entity.setSendAppAt(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setProviderId(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
         entity.setOrderAmount(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setRatingLunch(cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10));
+        entity.setUser(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setHttpDetail(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
      }
     
     /** @inheritdoc */

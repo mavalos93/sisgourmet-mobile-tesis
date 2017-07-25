@@ -13,13 +13,15 @@ public class Order implements Serializable{
     private String orderType;
     private Integer statusOrder;
     private Long lunchId;
-    private String selectedDrinks;
+    private Integer drinkId;
     private Integer garnishId;
     private Long createdAt;
     private String SendAppAt;
     private Long providerId;
     private String orderAmount;
     private Long ratingLunch;
+    private String user;
+    private String httpDetail;
 
     public Order() {
     }
@@ -28,18 +30,20 @@ public class Order implements Serializable{
         this.id = id;
     }
 
-    public Order(Long id, String orderType, Integer statusOrder, Long lunchId, String selectedDrinks, Integer garnishId, Long createdAt, String SendAppAt, Long providerId, String orderAmount, Long ratingLunch) {
+    public Order(Long id, String orderType, Integer statusOrder, Long lunchId, Integer drinkId, Integer garnishId, Long createdAt, String SendAppAt, Long providerId, String orderAmount, Long ratingLunch, String user, String httpDetail) {
         this.id = id;
         this.orderType = orderType;
         this.statusOrder = statusOrder;
         this.lunchId = lunchId;
-        this.selectedDrinks = selectedDrinks;
+        this.drinkId = drinkId;
         this.garnishId = garnishId;
         this.createdAt = createdAt;
         this.SendAppAt = SendAppAt;
         this.providerId = providerId;
         this.orderAmount = orderAmount;
         this.ratingLunch = ratingLunch;
+        this.user = user;
+        this.httpDetail = httpDetail;
     }
 
     public Long getId() {
@@ -74,12 +78,12 @@ public class Order implements Serializable{
         this.lunchId = lunchId;
     }
 
-    public String getSelectedDrinks() {
-        return selectedDrinks;
+    public Integer getDrinkId() {
+        return drinkId;
     }
 
-    public void setSelectedDrinks(String selectedDrinks) {
-        this.selectedDrinks = selectedDrinks;
+    public void setDrinkId(Integer drinkId) {
+        this.drinkId = drinkId;
     }
 
     public Integer getGarnishId() {
@@ -128,6 +132,22 @@ public class Order implements Serializable{
 
     public void setRatingLunch(Long ratingLunch) {
         this.ratingLunch = ratingLunch;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getHttpDetail() {
+        return httpDetail;
+    }
+
+    public void setHttpDetail(String httpDetail) {
+        this.httpDetail = httpDetail;
     }
 
 }

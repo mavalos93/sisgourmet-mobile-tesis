@@ -8,7 +8,6 @@ public class Provider {
 
     private Long id;
     private String providerName;
-    private String providerType;
 
     public Provider() {
     }
@@ -17,10 +16,9 @@ public class Provider {
         this.id = id;
     }
 
-    public Provider(Long id, String providerName, String providerType) {
+    public Provider(Long id, String providerName) {
         this.id = id;
         this.providerName = providerName;
-        this.providerType = providerType;
     }
 
     public Long getId() {
@@ -37,14 +35,6 @@ public class Provider {
 
     public void setProviderName(String providerName) {
         this.providerName = providerName;
-    }
-
-    public String getProviderType() {
-        return providerType;
-    }
-
-    public void setProviderType(String providerType) {
-        this.providerType = providerType;
     }
 
 }

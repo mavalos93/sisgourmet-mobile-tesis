@@ -2,6 +2,7 @@ package tesis.com.py.sisgourmetmobile.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
+import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 
 /**
@@ -50,7 +52,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-        Lunch lunchItem = itemsList.get(i);
+        final Lunch lunchItem = itemsList.get(i);
         String mGarnishText = "";
         int listSize = 0;
         float mRatingValue;
@@ -93,6 +95,18 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         holder.mainMenuDescription.setText(lunchItem.getMainMenuDescription());
         holder.garnishDescription.setText(mGarnishText);
         holder.mQualificationMenuValue.setText(String.valueOf(mRatingValue));
+
+        holder.mQualificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle menuBundle = new Bundle();
+                menuBundle.putSerializable(Constants.ACTION_QUALIFICATION_MENU, lunchItem);
+                Intent menuIntent = new Intent(mContext, QualificationActivity.class);
+                menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
+                menuIntent.putExtra("KEY_ACTIVITY", "ACTION_QUALIFICATION_MENU");
+                mContext.startActivity(menuIntent);
+            }
+        });
     }
 
     @Override
@@ -106,6 +120,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         private ImageView itemImage;
         private TextView garnishDescription;
         private TextView mQualificationMenuValue;
+        private ImageButton mQualificationButton;
 
 
         public SingleItemRowHolder(View view) {
@@ -115,6 +130,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             this.garnishDescription = (TextView) view.findViewById(R.id.garnish_description);
             this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
             this.mQualificationMenuValue = (TextView) view.findViewById(R.id.qualification_menu_value);
+            this.mQualificationButton = (ImageButton) view.findViewById(R.id.star_imageButton);
 
 
             view.setOnClickListener(new View.OnClickListener() {

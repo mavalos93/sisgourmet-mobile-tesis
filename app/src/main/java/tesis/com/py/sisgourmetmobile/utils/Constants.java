@@ -33,6 +33,7 @@ public class Constants {
     public static final String SERIALIZABLE = "SERIALIZABLE";
     public static final String SINGLE_LUNCH_OBJECT = "SINGLE_LUNCH_OBJECT";
     public static final String SEND_ORDER_OBJECT = "SEND_ORDER_OBJECT";
+    public static final String ACTION_QUALIFICATION_MENU = "ACTION_QUALIFICATION_MENU";
 
 
 }

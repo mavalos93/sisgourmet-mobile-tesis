@@ -12,9 +12,19 @@
     <string name="label_choose_option">Opcion</string>
     <string name="launch_label">Mi Almuerzo</string>
 
+    <!-- Provider labels-->
+    <string name="provider_vienesa">La Vienesa</string>
+    <string name="provider_nha_eustaquia">Ña Eustaquia</string>
+    <string name="provider_bolsi">Bolsi</string>
+    <string name="provider_rating_example">4,5</string>
+    <string name="total_comments">1200</string>
+
     <!--Default Dialogs-->
     <string name="label_transaction_done">Operacion Exitosa</string>
     <string name="database_error_message">Error al guardar datos</string>
+    <string name="dialog_confirmation_title">Confirmación</string>
+    <string name="dialog_confirmation_message">Desea confirmar esta operación?</string>
+    <string name="dialog_success_title">Operación Exitosa</string>
 
     <!-- Order Type-->
     <string name="main_menu_order">Menu principal</string>
@@ -40,13 +50,19 @@
     <string name="label_session">Sesion</string>
     <string name="label_send">Enviar</string>
     <string name="label_back">Atrás</string>
-    <string name="label_view">Ver</string>
+    <string name="label_view">VER</string>
+    <string name="label_retry">Reintentar</string>
     <string name="label_close_session">Cerrar sesion</string>
     <string name="confirm_logout_session_title">Cerrar Sesion</string>
     <string name="confirm_logout_message">¿ Desea cerrar la sesion actual ?.</string>
     <string name="label_next">Siguiente</string>
     <string name="label_summary">Resúmen</string>
     <string name="comments_label">Comentarios</string>
+    <string name="error_save_transaction">Error a guardar la operación</string>
+    <string name="dialog_error_title">Error en la operación</string>
+    <string name="label_send_queue">Enviar luego</string>
+    <string name="error_parsing_json">Error al interpretar la respuesta</string>
+
 
     <!--LoginFormActivity labels-->
     <string name="login_form_activity_title">Registro de usuarios</string>
@@ -68,10 +84,11 @@
     <string name="reset_password_menu_description">Cambiar Contraseña</string>
     <string name="qualification_menu">Calificacion</string>
     <string name="qualification_menu_decription">Calificacion del Servicio</string>
-    <string name="tab_menu">Menu</string>
+    <string name="tab_menu">Menú</string>
     <string name="tab_orders">Pedidos</string>
+    <string name="tab_my_comments">Mis Comentarios</string>
     <string name="title_activity_provider">Proveedores</string>
-    <string name="title_activity_qualification">Calificacion</string>
+    <string name="title_activity_qualification">Calificación</string>
     <string name="title_activity_reset_pass">Cambio de Contraseña</string>
 
     <!--Principal Selected Activity-->
@@ -148,7 +165,7 @@
     <string name="lunch_selected">Selección de Almuerzos</string>
     <string name="error_get_provider_by_recyclerview">No se pudo optener el proveedor</string>
     <string name="label_selected_menu">Menú  Seleccionado</string>
-    <string name="label_details_selected_menu">Detalles</string>
+    <string name="label_details_selected_menu">DETALLES</string>
     <string name="label_provider_menu">Proveedor</string>
     <string name="label_main_menu_selected">Menú Principal</string>
     <string name="label_garnish_selected">Guarnición</string>
@@ -163,10 +180,43 @@
     <string name="not_drink">Sin bebida</string>
     <string name="my_lunch">Mi almuerzo</string>
     <string name="order_send_succes_message">Pedido de almuerzo enviado exitosamente</string>
+    <string name="error_not_data_drinks">Debes descargar las bebidas</string>
 
     <!-- Qualification menu-->
     <string name="qualification_activity_title">Calificaciones</string>
     <string name="error_comment_empty">Debes ingresar un comentario</string>
     <string name="qualification_send_succes_message">Calificación enviada exitosamente</string>
     <string name="unexpected_error_comment">Error inesperado al procesar comentarios</string>
+    <string name="label_comment">Comentarios</string>
+    <string name="title_activity_comment_view">CommentViewActivity</string>
+    <string name="item_username_comment">Usuario</string>
+    <string name="item_comment">Comentario: </string>
+    <string name="item_selected_menu">Almuerzo</string>
+    <string name="error_not_qualification">Debes asignar una calificación</string>
+    <string name="error_provider_id_is_empty">No se encontro el identificador del proveedor</string>
+    <string name="error_main_menu_is_empty">Error, no se encontró menú principal</string>
+    <string name="error_garnish_is_empty">No se encontro guarnición</string>
+
+
+    <!-- Labels dialogs-->
+    <string name="order_dialog_title">Mi Pedido</string>
+    <string name="title_activity_commets_view">CommetsViewActivity</string>
+    <string name="title_activity_sync">Sync</string>
+
+
+
+
+    <!--Volley Network Error -->
+    <string name="volley_no_connection_error">No posee conexion a internet, favor verifiquela.</string>
+    <string name="volley_network_error">Intento de conexion con el servidor fallida, favor intente de nuevo.</string>
+    <string name="volley_server_error">Error de servidor, favor intente de nuevo.</string>
+    <string name="volley_authentication_error">Error de Autenticacion.</string>
+    <string name="volley_auth_error">Error al autenticarse en el servidor.</string>
+    <string name="volley_parse_error">Error al capturar la respuesta.</string>
+    <string name="error_invalid_credentials">Credenciales incorrectas.</string>
+    <string name="error_expired_session">Sesion Expirada</string>
+    <string name="dialog_error_unexpected">Error inesperado</string>
+    <string name="volley_time_out_error">Tiempo de espera de conexio agotado.</string>
+    <string name="volley_default_error">Error inesperado, favor intente de vuelta.</string>
+
 </resources>

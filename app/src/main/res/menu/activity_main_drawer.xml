@@ -8,6 +8,15 @@
             android:title="Tools" />-->
     </group>
 
+    <item android:title="@string/label_comment">
+        <menu>
+            <item
+                android:id="@+id/comment_id"
+                android:icon="@mipmap/ic_create_black_36dp"
+                android:title="@string/label_comment" />
+        </menu>
+    </item>
+
     <item android:title="@string/label_session">
         <menu>
             <item

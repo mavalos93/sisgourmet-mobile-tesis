@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Entity mapped to table "LUNCH".
  */
-public class Lunch implements Serializable {
+public class Lunch implements Serializable{
 
     private Long id;
     private Integer priceUnit;

@@ -27,8 +27,14 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
         public final static Property ProviderId = new Property(1, Long.class, "providerId", false, "PROVIDER_ID");
         public final static Property QualificationValue = new Property(2, Long.class, "qualificationValue", false, "QUALIFICATION_VALUE");
         public final static Property Commentary = new Property(3, String.class, "commentary", false, "COMMENTARY");
-        public final static Property LunchId = new Property(4, Long.class, "lunchId", false, "LUNCH_ID");
-        public final static Property GarnishId = new Property(5, Long.class, "garnishId", false, "GARNISH_ID");
+        public final static Property MainMenu = new Property(4, String.class, "mainMenu", false, "MAIN_MENU");
+        public final static Property Garnish = new Property(5, String.class, "garnish", false, "GARNISH");
+        public final static Property Order = new Property(6, Integer.class, "order", false, "ORDER");
+        public final static Property StatusSend = new Property(7, Integer.class, "statusSend", false, "STATUS_SEND");
+        public final static Property CreatedAt = new Property(8, Long.class, "createdAt", false, "CREATED_AT");
+        public final static Property SendAppAt = new Property(9, String.class, "SendAppAt", false, "SEND_APP_AT");
+        public final static Property User = new Property(10, String.class, "user", false, "USER");
+        public final static Property HttpDetail = new Property(11, String.class, "httpDetail", false, "HTTP_DETAIL");
     };
 
 
@@ -48,8 +54,14 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
                 "\"PROVIDER_ID\" INTEGER," + // 1: providerId
                 "\"QUALIFICATION_VALUE\" INTEGER," + // 2: qualificationValue
                 "\"COMMENTARY\" TEXT," + // 3: commentary
-                "\"LUNCH_ID\" INTEGER," + // 4: lunchId
-                "\"GARNISH_ID\" INTEGER);"); // 5: garnishId
+                "\"MAIN_MENU\" TEXT," + // 4: mainMenu
+                "\"GARNISH\" TEXT," + // 5: garnish
+                "\"ORDER\" INTEGER," + // 6: order
+                "\"STATUS_SEND\" INTEGER," + // 7: statusSend
+                "\"CREATED_AT\" INTEGER," + // 8: createdAt
+                "\"SEND_APP_AT\" TEXT," + // 9: SendAppAt
+                "\"USER\" TEXT," + // 10: user
+                "\"HTTP_DETAIL\" TEXT);"); // 11: httpDetail
     }
 
     /** Drops the underlying database table. */
@@ -83,14 +95,44 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
             stmt.bindString(4, commentary);
         }
  
-        Long lunchId = entity.getLunchId();
-        if (lunchId != null) {
-            stmt.bindLong(5, lunchId);
+        String mainMenu = entity.getMainMenu();
+        if (mainMenu != null) {
+            stmt.bindString(5, mainMenu);
         }
  
-        Long garnishId = entity.getGarnishId();
-        if (garnishId != null) {
-            stmt.bindLong(6, garnishId);
+        String garnish = entity.getGarnish();
+        if (garnish != null) {
+            stmt.bindString(6, garnish);
+        }
+ 
+        Integer order = entity.getOrder();
+        if (order != null) {
+            stmt.bindLong(7, order);
+        }
+ 
+        Integer statusSend = entity.getStatusSend();
+        if (statusSend != null) {
+            stmt.bindLong(8, statusSend);
+        }
+ 
+        Long createdAt = entity.getCreatedAt();
+        if (createdAt != null) {
+            stmt.bindLong(9, createdAt);
+        }
+ 
+        String SendAppAt = entity.getSendAppAt();
+        if (SendAppAt != null) {
+            stmt.bindString(10, SendAppAt);
+        }
+ 
+        String user = entity.getUser();
+        if (user != null) {
+            stmt.bindString(11, user);
+        }
+ 
+        String httpDetail = entity.getHttpDetail();
+        if (httpDetail != null) {
+            stmt.bindString(12, httpDetail);
         }
     }
 
@@ -108,8 +150,14 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // providerId
             cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // qualificationValue
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // commentary
-            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // lunchId
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5) // garnishId
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // mainMenu
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // garnish
+            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // order
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // statusSend
+            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // createdAt
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // SendAppAt
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // user
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // httpDetail
         );
         return entity;
     }
@@ -121,8 +169,14 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
         entity.setProviderId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setQualificationValue(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
         entity.setCommentary(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setLunchId(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
-        entity.setGarnishId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setMainMenu(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setGarnish(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setOrder(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
+        entity.setStatusSend(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
+        entity.setCreatedAt(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
+        entity.setSendAppAt(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setUser(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setHttpDetail(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }
     
     /** @inheritdoc */

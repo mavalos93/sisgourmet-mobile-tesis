@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
 
+import py.com.library.AbstractStep;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.entities.Users;
 import tesis.com.py.sisgourmetmobile.repositories.UsersRepository;
@@ -89,6 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         controlUser = UsersRepository.loginControlQuery(userNameString, userPasswordString);
         if (controlUser != null) {
             AppPreferences.getAppPreferences(this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
+            AppPreferences.getAppPreferences(this).edit().putString(AppPreferences.KEY_PREFERENCE_USER, controlUser.getUserName()).apply();
+            AppPreferences.getAppPreferences(this).edit().putString(AppPreferences.KEY_IDENTIYFY_CARD, controlUser.getIdentifyCardNumber()).apply();
             startActivity(new Intent(this, MainActivity.class));
             finish();
         } else {

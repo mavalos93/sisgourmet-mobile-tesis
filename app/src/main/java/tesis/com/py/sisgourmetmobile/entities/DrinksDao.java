@@ -25,10 +25,8 @@ public class DrinksDao extends AbstractDao<Drinks, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Description = new Property(1, String.class, "description", false, "DESCRIPTION");
-        public final static Property CurrentStock = new Property(2, Integer.class, "currentStock", false, "CURRENT_STOCK");
-        public final static Property MinimunStock = new Property(3, Integer.class, "minimunStock", false, "MINIMUN_STOCK");
-        public final static Property PriceUnit = new Property(4, Integer.class, "priceUnit", false, "PRICE_UNIT");
-        public final static Property Provider = new Property(5, String.class, "provider", false, "PROVIDER");
+        public final static Property PriceUnit = new Property(2, Integer.class, "priceUnit", false, "PRICE_UNIT");
+        public final static Property Provider = new Property(3, String.class, "provider", false, "PROVIDER");
     };
 
 
@@ -46,10 +44,8 @@ public class DrinksDao extends AbstractDao<Drinks, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"DRINKS\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"DESCRIPTION\" TEXT," + // 1: description
-                "\"CURRENT_STOCK\" INTEGER," + // 2: currentStock
-                "\"MINIMUN_STOCK\" INTEGER," + // 3: minimunStock
-                "\"PRICE_UNIT\" INTEGER," + // 4: priceUnit
-                "\"PROVIDER\" TEXT);"); // 5: provider
+                "\"PRICE_UNIT\" INTEGER," + // 2: priceUnit
+                "\"PROVIDER\" TEXT);"); // 3: provider
     }
 
     /** Drops the underlying database table. */
@@ -73,24 +69,14 @@ public class DrinksDao extends AbstractDao<Drinks, Long> {
             stmt.bindString(2, description);
         }
  
-        Integer currentStock = entity.getCurrentStock();
-        if (currentStock != null) {
-            stmt.bindLong(3, currentStock);
-        }
- 
-        Integer minimunStock = entity.getMinimunStock();
-        if (minimunStock != null) {
-            stmt.bindLong(4, minimunStock);
-        }
- 
         Integer priceUnit = entity.getPriceUnit();
         if (priceUnit != null) {
-            stmt.bindLong(5, priceUnit);
+            stmt.bindLong(3, priceUnit);
         }
  
         String provider = entity.getProvider();
         if (provider != null) {
-            stmt.bindString(6, provider);
+            stmt.bindString(4, provider);
         }
     }
 
@@ -106,10 +92,8 @@ public class DrinksDao extends AbstractDao<Drinks, Long> {
         Drinks entity = new Drinks( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // description
-            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // currentStock
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // minimunStock
-            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // priceUnit
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // provider
+            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // priceUnit
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // provider
         );
         return entity;
     }
@@ -119,10 +103,8 @@ public class DrinksDao extends AbstractDao<Drinks, Long> {
     public void readEntity(Cursor cursor, Drinks entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setDescription(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setCurrentStock(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
-        entity.setMinimunStock(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
-        entity.setPriceUnit(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setProvider(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setPriceUnit(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
+        entity.setProvider(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     /** @inheritdoc */

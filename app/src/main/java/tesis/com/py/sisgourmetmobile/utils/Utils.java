@@ -1,5 +1,6 @@
 package tesis.com.py.sisgourmetmobile.utils;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,7 +20,11 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -208,7 +213,7 @@ public class Utils {
     }
 
 
-    public static String getDayOfWeek(Date date, String format){
+    public static String getDayOfWeek(Date date, String format) {
 
         String result = "";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -216,7 +221,7 @@ public class Utils {
 
         String[] weekday = new String[7];
         String returnDate;
-        weekday[0] =  "Domingo";
+        weekday[0] = "Domingo";
         weekday[1] = "Lunes";
         weekday[2] = "Martes";
         weekday[3] = "Miercoles";
@@ -225,7 +230,7 @@ public class Utils {
         weekday[6] = "Sábado";
 
         returnDate = weekday[date.getDay()];
-        return returnDate + " " +result;
+        return returnDate + " " + result;
     }
 
 
@@ -247,5 +252,37 @@ public class Utils {
 
     }
 
+    public static void setupAnimationProgressBar(ProgressBar mProgressBar, boolean indeterminate, int mInitValue, int mEndValue, int maxValue) {
+        mProgressBar.setMax(maxValue);
+        mProgressBar.setIndeterminate(indeterminate);
+        ObjectAnimator animation = ObjectAnimator.ofInt(mProgressBar, "progress", mInitValue, mEndValue);
+        animation.setDuration(1000);
+        animation.setInterpolator(new AccelerateInterpolator());
+        animation.start();
 
+        Log.d("TAG", "CALL_ANIMATOR_PROGRESSBAR");
+    }
+
+
+
+    public static class ProgressBarAnimation extends Animation {
+        private ProgressBar progressBar;
+        private double from;
+        private double  to;
+
+        public ProgressBarAnimation(ProgressBar progressBar, double from, double to) {
+            super();
+            this.progressBar = progressBar;
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            double value = from + (to - from) * interpolatedTime;
+            progressBar.setProgress((int) value);
+        }
+
+    }
 }

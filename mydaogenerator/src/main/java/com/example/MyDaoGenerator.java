@@ -27,8 +27,14 @@ public class MyDaoGenerator {
         qualification.addLongProperty("providerId");
         qualification.addLongProperty("qualificationValue");
         qualification.addStringProperty("commentary");
-        qualification.addLongProperty("lunchId");
-        qualification.addLongProperty("garnishId");
+        qualification.addStringProperty("mainMenu");
+        qualification.addStringProperty("garnish");
+        qualification.addIntProperty("order");
+        qualification.addIntProperty("statusSend");
+        qualification.addLongProperty("createdAt");
+        qualification.addStringProperty("SendAppAt");
+        qualification.addStringProperty("user");
+        qualification.addStringProperty("httpDetail");
 
 
         Entity users = schema.addEntity("Users");
@@ -42,8 +48,6 @@ public class MyDaoGenerator {
         Entity drinks = schema.addEntity("Drinks");
         drinks.addIdProperty();
         drinks.addStringProperty("description");
-        drinks.addIntProperty("currentStock");
-        drinks.addIntProperty("minimunStock");
         drinks.addIntProperty("priceUnit");
         drinks.addStringProperty("provider");
 
@@ -62,18 +66,19 @@ public class MyDaoGenerator {
         order.addStringProperty("orderType");
         order.addIntProperty("statusOrder");
         order.addLongProperty("lunchId");
-        order.addStringProperty("selectedDrinks");
+        order.addIntProperty("drinkId");
         order.addIntProperty("garnishId");
         order.addLongProperty("createdAt");
         order.addStringProperty("SendAppAt");
         order.addLongProperty("providerId");
         order.addStringProperty("orderAmount");
         order.addLongProperty("ratingLunch");
+        order.addStringProperty("user");
+        order.addStringProperty("httpDetail");
 
         Entity providers = schema.addEntity("Provider");
         providers.addIdProperty();
         providers.addStringProperty("providerName");
-        providers.addStringProperty("providerType");
 
 
         Entity garnish = schema.addEntity("Garnish");
@@ -82,6 +87,16 @@ public class MyDaoGenerator {
         garnish.addStringProperty("description");
         garnish.addIntProperty("unitPrice");
 
+
+        Entity comments = schema.addEntity("Comments");
+        comments.addIdProperty();
+        comments.addIntProperty("providerId");
+        comments.addStringProperty("userName");
+        comments.addStringProperty("lunchPackageDescription");
+        comments.addStringProperty("drinkDescription");
+        comments.addIntProperty("ratingValue");
+        comments.addStringProperty("dateComment");
+        comments.addStringProperty("commentDescription");
 
         new DaoGenerator().generateAll(schema, "../app/src/main/java");
 

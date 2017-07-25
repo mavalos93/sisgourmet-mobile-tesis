@@ -41,20 +41,20 @@ public class UsersRepository {
     }
 
 
-    public static Users loginControlQuery(String username, String password){
+    public static Users loginControlQuery(String username, String password) {
         return getDao().queryBuilder()
                 .where(UsersDao.Properties.UserName.eq(username))
                 .where(UsersDao.Properties.Password.eq(password)).unique();
     }
 
+    public static Users getUserById(long userId) {
+        return getDao().queryBuilder().where(UsersDao.Properties.Id.eq(userId)).unique();
+    }
 
     private static UsersDao getDao() {
         return MainSession.getDaoSession().
                 getUsersDao();
     }
-
-
-
 
 
 }
