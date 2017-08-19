@@ -1,6 +1,7 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 import tesis.com.py.sisgourmetmobile.utils.URLS;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
-public class QualificationActivity extends AppCompatActivity {
+public class QualificationActivity extends AppCompatActivity implements AlertDialogFragment.AlertDialogFragmentListener, CancelableAlertDialogFragment.CancelableAlertDialogFragmentListener {
 
     private final String TAG_CLASS = QualificationActivity.class.getName();
 
@@ -307,6 +308,7 @@ public class QualificationActivity extends AppCompatActivity {
                 OrderRepository.store(mOrderObject);
             }
             String mUsername = AppPreferences.getAppPreferences(this).getString(AppPreferences.KEY_PREFERENCE_USER, null);
+            Log.d(TAG_CLASS, "username: "+ mUsername);
             mQualificationTask = new QualificationTask(mUsername, mCommentString, mProviderId, mMainMenuDescription, mGarnishDescription, mRatingValue);
             mQualificationTask.confirm();
         }
@@ -345,6 +347,21 @@ public class QualificationActivity extends AppCompatActivity {
             Utils.builToast(this, "Error al guardar nota de calificacion");
             finish();
         }
+    }
+
+    @Override
+    public void onAlertDialogPositiveClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onCancelableAlertDialogPositiveClick(DialogFragment dialog) {
+        mQualificationTask.execute();
+    }
+
+    @Override
+    public void onCancelableAlertDialogNegativeClick(DialogFragment dialog) {
+        finish();
     }
 
     private class QualificationTask extends MyRequest {
@@ -394,7 +411,7 @@ public class QualificationActivity extends AppCompatActivity {
             progressDialog = ProgressDialogFragment.newInstance(getApplicationContext());
             progressDialog.show(getFragmentManager(), ProgressDialogFragment.TAG_CLASS);
 
-            if (momoJsonObjectRequest != null)
+            if (jsonObjectRequest != null)
                 mQueue.cancelAll(REQUEST_TAG);
 
             Gson mGsonObject = new Gson();
@@ -430,7 +447,7 @@ public class QualificationActivity extends AppCompatActivity {
             }
 
 
-            momoJsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                     URLS.QUALIFICATION_URL,
                     mQualificationRequest.getParams(),
                     new Response.Listener<JSONObject>() {
@@ -438,7 +455,7 @@ public class QualificationActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             progressDialog.dismiss();
                             handleResponse(response);
-                            momoJsonObjectRequest.cancel();
+                            jsonObjectRequest.cancel();
                         }
                     },
                     new Response.ErrorListener() {
@@ -447,7 +464,7 @@ public class QualificationActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             String message = NetworkQueue.handleError(error, getApplicationContext());
                             updateQualificationTransaction(mQualification, Constants.TRANSACTION_NO_SEND);
-                            momoJsonObjectRequest.cancel();
+                            jsonObjectRequest.cancel();
                             CancelableAlertDialogFragment errorDialog = CancelableAlertDialogFragment.newInstance(getString(R.string.dialog_error_title),
                                     message,
                                     getString(R.string.label_retry),
@@ -456,11 +473,11 @@ public class QualificationActivity extends AppCompatActivity {
                             errorDialog.show(getFragmentManager(), CancelableAlertDialogFragment.TAG);
                         }
                     });
-            momoJsonObjectRequest.setRetryPolicy(NetworkQueue.getDefaultRetryPolicy());
-            momoJsonObjectRequest.setTag(QualificationTask.REQUEST_TAG);
+            jsonObjectRequest.setRetryPolicy(NetworkQueue.getDefaultRetryPolicy());
+            jsonObjectRequest.setTag(QualificationTask.REQUEST_TAG);
             Log.v(REQUEST_TAG, "Queueing: " + mGsonObject.toJson(mQualificationRequest.getParams()));
             mQueue = Volley.newRequestQueue(QualificationActivity.this);
-            mQueue.add(momoJsonObjectRequest);
+            mQueue.add(jsonObjectRequest);
             mQueue.start();
 
         }

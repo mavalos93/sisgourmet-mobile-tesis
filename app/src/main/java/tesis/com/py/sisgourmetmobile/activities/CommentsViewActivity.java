@@ -32,7 +32,7 @@ public class CommentsViewActivity extends AppCompatActivity {
     //View
     private TextView mRatingNoteVienesa;
     private AppCompatRatingBar mVienesaRatingBar;
-    private AppCompatTextView mTotalUserCommentVienesa;
+    private TextView mTotalUserCommentVienesa;
 
 
     private TextView mRatingNoteNhaEustaquia;
@@ -62,7 +62,7 @@ public class CommentsViewActivity extends AppCompatActivity {
         mVienesaProgressBar = (ProgressBar) findViewById(R.id.rating_note_la_vienesa_progressBar);
         mRatingNoteVienesa = (TextView) findViewById(R.id.rating_note_la_vienesa_textView);
         mVienesaRatingBar = (AppCompatRatingBar) findViewById(R.id.comments_vienesa_rating_bar);
-        mTotalUserCommentVienesa = (AppCompatTextView) findViewById(R.id.total_la_vienesa_comments_textView);
+        mTotalUserCommentVienesa = (TextView) findViewById(R.id.total_la_vienesa_comments_textView);
 
         mNhaEustaquiaProgressBar = (ProgressBar) findViewById(R.id.rating_note_nha_eustaquea_progressBar);
         mRatingNoteNhaEustaquia = (TextView) findViewById(R.id.rating_note_la_nha_eustaquea_textView);

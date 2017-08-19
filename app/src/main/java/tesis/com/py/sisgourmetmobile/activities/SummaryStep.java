@@ -59,7 +59,7 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
  * Created by Manu0 on 22/5/2017.
  */
 
-public class SummaryStep extends AbstractStep {
+public class SummaryStep extends AbstractStep{
 
     private int i = 3;
     private final static String CLICK = "click";
@@ -140,7 +140,7 @@ public class SummaryStep extends AbstractStep {
 
         int priceDrink = 0;
 
-        Drinks mQueryDrink = DrinksRepository.getDrinkById(Long.valueOf(mDrinkId));
+        Drinks mQueryDrink = DrinksRepository.getDrinkById((long) mDrinkId);
         if (mQueryDrink != null) {
             priceDrink = mQueryDrink.getPriceUnit();
             selectedDrinkList.add(mQueryDrink);
@@ -187,7 +187,7 @@ public class SummaryStep extends AbstractStep {
                 return;
             }
 
-            if(lunchObject.getProviderId() == null || lunchObject.getProviderId() == 0){
+            if (lunchObject.getProviderId() == null || lunchObject.getProviderId() == 0) {
                 Utils.builToast(getContext(), "Error, no se pudo obtener el identificador del proveedor");
                 getActivity().finish();
                 return;
@@ -199,8 +199,15 @@ public class SummaryStep extends AbstractStep {
                 return;
             }
 
-            mOrderTask = new OrderTask(mUserName,lunchObject.getProviderId(),lunchObject.getId(),
-                    mGarnishSelectedId,mDrinkId,mTotalAmount);
+            if (mTotalAmount.isEmpty()) {
+                Utils.builToast(getContext(), "Error, no se pudo realizar el cálculo del pedido");
+                getActivity().finish();
+                return;
+            }
+
+            mOrderTask = new OrderTask(mUserName, lunchObject.getProviderId(), lunchObject.getId(),
+                    mGarnishSelectedId, mDrinkId, mTotalAmount);
+            mOrderTask.confirm();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -267,6 +274,7 @@ public class SummaryStep extends AbstractStep {
     }
 
 
+
     private class OrderTask extends MyRequest {
         static final String REQUEST_TAG = "OrderTask";
         private String mUserName;
@@ -314,7 +322,7 @@ public class SummaryStep extends AbstractStep {
             progressDialog = ProgressDialogFragment.newInstance(getContext());
             progressDialog.show(getActivity().getFragmentManager(), ProgressDialogFragment.TAG_CLASS);
 
-            if (momoJsonObjectRequest != null)
+            if (jsonObjectRequest != null)
                 mQueue.cancelAll(REQUEST_TAG);
 
             Gson mGsonObject = new Gson();
@@ -350,7 +358,7 @@ public class SummaryStep extends AbstractStep {
             }
 
 
-            momoJsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                     URLS.ORDER_URL,
                     mOrderRequest.getParams(),
                     new Response.Listener<JSONObject>() {
@@ -358,7 +366,7 @@ public class SummaryStep extends AbstractStep {
                         public void onResponse(JSONObject response) {
                             progressDialog.dismiss();
                             handleResponse(response);
-                            momoJsonObjectRequest.cancel();
+                            jsonObjectRequest.cancel();
                         }
                     },
                     new Response.ErrorListener() {
@@ -367,20 +375,35 @@ public class SummaryStep extends AbstractStep {
                             progressDialog.dismiss();
                             String message = NetworkQueue.handleError(error, getContext());
                             updateOrderTransaction(mOrder, Constants.TRANSACTION_NO_SEND);
-                            momoJsonObjectRequest.cancel();
-                            CancelableAlertDialogFragment errorDialog = CancelableAlertDialogFragment.newInstance(getString(R.string.dialog_error_title),
-                                    message,
-                                    getString(R.string.label_retry),
-                                    getString(R.string.label_send_queue),
-                                    R.mipmap.ic_error_black_36dp);
-                            errorDialog.show(getActivity().getFragmentManager(), CancelableAlertDialogFragment.TAG);
+                            jsonObjectRequest.cancel();
+                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+                            builder.setIcon(R.mipmap.ic_info_black_36dp);
+                            builder.setTitle(R.string.dialog_error_title);
+                            builder.setMessage(message);
+                            builder.setPositiveButton(R.string.label_retry, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    execute();
+                                }
+                            });
+                            builder.setNegativeButton(R.string.label_send_queue, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mOrderTask = null;
+                                    Utils.builToast(getContext(),"Pedido marcado como pendiente");
+                                    getActivity().finish();
+                                }
+                            });
+                            android.app.AlertDialog confirmDialog = builder.create();
+                            confirmDialog.setCanceledOnTouchOutside(false);
+                            confirmDialog.show();
                         }
                     });
-            momoJsonObjectRequest.setRetryPolicy(NetworkQueue.getDefaultRetryPolicy());
-            momoJsonObjectRequest.setTag(REQUEST_TAG);
+            jsonObjectRequest.setRetryPolicy(NetworkQueue.getDefaultRetryPolicy());
+            jsonObjectRequest.setTag(REQUEST_TAG);
             Log.v(REQUEST_TAG, "Queueing: " + mGsonObject.toJson(mOrderRequest.getParams()));
             mQueue = Volley.newRequestQueue(getContext());
-            mQueue.add(momoJsonObjectRequest);
+            mQueue.add(jsonObjectRequest);
             mQueue.start();
 
         }
@@ -450,6 +473,8 @@ public class SummaryStep extends AbstractStep {
             @Override
             public JSONObject getParams() {
                 JSONObject params = new JSONObject();
+
+                //TODO CONTROLAR EL PARSE DE STRING A DOUBLE
                 try {
                     params.put("username", mUsername);
                     params.put("identify_card", mIndifyCard);
@@ -457,7 +482,7 @@ public class SummaryStep extends AbstractStep {
                     params.put("main_menu_id", mLunchId);
                     params.put("garnish_id", mGarnishId);
                     params.put("drink_id", mDrinkId);
-                    params.put("total_amount", mTotalAmount);
+                    params.put("total_amount", Double.parseDouble(mTotalAmount));
                     params.put("send_app_at", Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT));
                 } catch (JSONException jEX) {
                     Log.w(TAG_CLASS, "Error while create JSONObject " + jEX.getMessage());

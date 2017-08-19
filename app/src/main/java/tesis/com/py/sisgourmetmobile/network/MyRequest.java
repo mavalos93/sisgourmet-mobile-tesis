@@ -12,7 +12,7 @@ import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 public abstract class MyRequest {
 
     protected ProgressDialogFragment progressDialog;
-    protected JsonObjectRequest momoJsonObjectRequest;
+    protected JsonObjectRequest jsonObjectRequest;
 
 
     protected abstract void handleResponse(JSONObject response);
@@ -25,8 +25,8 @@ public abstract class MyRequest {
         public abstract JSONObject getParams();
     }
 
-    public JsonObjectRequest getMomoJsonObjectRequest() {
-        return momoJsonObjectRequest;
+    public JsonObjectRequest getJsonObjectRequest() {
+        return jsonObjectRequest;
     }
 
 }

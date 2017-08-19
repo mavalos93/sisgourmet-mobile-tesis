@@ -39,6 +39,7 @@ public class CancelableAlertDialogFragment extends DialogFragment {
         args.putString(ARG_NEGATIVE_BUTTON, negativeButton);
         args.putInt(ARG_ICON_RESOURCES, iconResource);
         frag.setArguments(args);
+        frag.setCancelable(false);
         return frag;
     }
 

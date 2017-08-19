@@ -51,6 +51,7 @@
     <string name="label_send">Enviar</string>
     <string name="label_back">Atrás</string>
     <string name="label_view">VER</string>
+    <string name="label_close">Cerrar</string>
     <string name="label_retry">Reintentar</string>
     <string name="label_close_session">Cerrar sesion</string>
     <string name="confirm_logout_session_title">Cerrar Sesion</string>
