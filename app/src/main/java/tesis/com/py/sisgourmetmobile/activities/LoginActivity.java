@@ -10,13 +10,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +33,7 @@ import tesis.com.py.sisgourmetmobile.network.MyRequest;
 import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
 import tesis.com.py.sisgourmetmobile.repositories.UsersRepository;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
+import tesis.com.py.sisgourmetmobile.utils.DataSyncTest;
 import tesis.com.py.sisgourmetmobile.utils.DialogClass;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 import tesis.com.py.sisgourmetmobile.utils.URLS;
@@ -39,9 +44,6 @@ public class LoginActivity extends AppCompatActivity {
     private AppCompatEditText userNameInputText;
     private AppCompatEditText passwordInputText;
     private AppCompatButton loginButton;
-    private Users controlUser;
-    private AlertDialog.Builder alertDialog;
-    private FloatingActionButton inputUserButton;
     private CoordinatorLayout mCoordinatorLayout;
     private LoginTask mLoginTask;
 
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         boolean isLogged = AppPreferences.getAppPreferences(this).getBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, false);
         if (isLogged) {
             startActivity(new Intent(this, MainActivity.class));
@@ -59,6 +62,13 @@ public class LoginActivity extends AppCompatActivity {
             setupView();
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.action_done_menu, menu);
+        return true;
     }
 
     private void setupView() {
@@ -99,13 +109,8 @@ public class LoginActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            /*mLoginTask = new LoginTask(userNameString, userPasswordString);
+            mLoginTask = new LoginTask(userNameString, userPasswordString);
             mLoginTask.execute();
-            */
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            AppPreferences.getAppPreferences(this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN,true).apply();
-            AppPreferences.getAppPreferences(this).edit().putString(AppPreferences.KEY_PREFERENCE_USER, "mavalos").apply();
-            finish();
         }
     }
 
@@ -131,9 +136,7 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog = ProgressDialogFragment.newInstance(getApplicationContext());
             progressDialog.show(getFragmentManager(), ProgressDialogFragment.TAG_CLASS);
 
-
             LoginRequest mLoginRequest = new LoginRequest(mUsername, mPassword);
-
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                     URLS.LOGIN_URL,
                     mLoginRequest.getParams(),
@@ -159,6 +162,11 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("TAG", "PARAMS: " + mLoginRequest.getParams());
             jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
             jsonObjectRequest.setTag(LoginActivity.LoginTask.REQUEST_TAG);
+            try {
+                Log.d("TAG", "HEADER: " + jsonObjectRequest.getHeaders().toString());
+            } catch (AuthFailureError authFailureError) {
+                authFailureError.printStackTrace();
+            }
             NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest, getApplicationContext());
         }
 
@@ -173,7 +181,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-
             try {
                 if (response.has("status")) status = response.getInt("status");
                 if (response.has("message")) message = response.getString("message");
@@ -181,6 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                     Utils.getSnackBar(mCoordinatorLayout, message);
                 } else {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
                     finish();
                 }
 
@@ -213,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
             public JSONObject getParams() {
                 JSONObject params = new JSONObject();
                 try {
-                    params.put("username", mUserName);
+                    params.put("usuario", mUserName);
                     params.put("password", mPassword);
 
                 } catch (JSONException jEX) {

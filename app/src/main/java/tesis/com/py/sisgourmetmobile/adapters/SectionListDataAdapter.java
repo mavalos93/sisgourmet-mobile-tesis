@@ -80,7 +80,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
             switch (mProviderObject.getProviderName()) {
                 case "La Vienesa":
-                    holder.itemImage.setImageResource(R.mipmap.la_vienesa);
+                    holder.itemImage.setImageResource(R.mipmap.login);
                     break;
                 case "Ña Eustaquia":
                     holder.itemImage.setImageResource(R.mipmap.nha_esutaquia);

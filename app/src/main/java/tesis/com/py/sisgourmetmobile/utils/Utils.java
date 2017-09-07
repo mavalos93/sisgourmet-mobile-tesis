@@ -290,11 +290,10 @@ public class Utils {
     }
 
 
-
     public static class ProgressBarAnimation extends Animation {
         private ProgressBar progressBar;
         private double from;
-        private double  to;
+        private double to;
 
         public ProgressBarAnimation(ProgressBar progressBar, double from, double to) {
             super();
@@ -317,6 +316,7 @@ public class Utils {
         NetworkResponse response = error.networkResponse;
         String message = "No message";
         if (response == null) {
+            Log.d("TAG", "ERROR: " + error.getMessage());
             if (error instanceof NetworkError) {
                 //message = (error.getMessage() == null) ? context.getResources().getString(R.string.volley_network_error) : error.getMessage();
                 message = context.getResources().getString(R.string.volley_network_error);
@@ -340,6 +340,7 @@ public class Utils {
         } else {
             try {
                 message = new String(response.data);
+                Log.d("TAG","RESPOSNSE_MESSAGE: "+message);
                 JSONObject jsonObject = new JSONObject(new String(response.data));
                 if (response.statusCode == Constants.AUTH_ERROR_CODE) {
                     message = context.getString(R.string.error_invalid_credentials);
@@ -375,8 +376,6 @@ public class Utils {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // 0 Max retries
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     }
-
-
 
 
 }

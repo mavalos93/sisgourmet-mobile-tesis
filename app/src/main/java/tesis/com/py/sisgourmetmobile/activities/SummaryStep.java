@@ -335,7 +335,7 @@ public class SummaryStep extends AbstractStep{
                 mOrder.setDrinkId(mDrinkId);
                 mOrder.setGarnishId(mGarnishId);
                 mOrder.setCreatedAt(Utils.getToday().getTime());
-                mOrder.setSendAppAt(Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT));
+                mOrder.setSendAppAt(Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT_POSTGRES));
                 mOrder.setProviderId(mProviderId);
                 mOrder.setOrderAmount(mTotalAmount);
                 mOrder.setRatingLunch(0L);
@@ -483,7 +483,7 @@ public class SummaryStep extends AbstractStep{
                     params.put("garnish_id", mGarnishId);
                     params.put("drink_id", mDrinkId);
                     params.put("total_amount", Double.parseDouble(mTotalAmount));
-                    params.put("send_app_at", Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT));
+                    params.put("send_app_at", Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT_POSTGRES));
                 } catch (JSONException jEX) {
                     Log.w(TAG_CLASS, "Error while create JSONObject " + jEX.getMessage());
                 }

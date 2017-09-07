@@ -427,7 +427,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 mQualification.setMainMenu(mMainMenu);
                 mQualification.setGarnish(mGarnish);
                 mQualification.setQualificationValue(mRatingValue);
-                mQualification.setSendAppAt(Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT));
+                mQualification.setSendAppAt(Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT_POSTGRES));
                 mQualification.setHttpDetail(String.valueOf(mQualificationRequest.getParams()));
                 mQualificationId = QualificationRepository.store(mQualification);
 
@@ -555,7 +555,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                     params.put("main_menu", mMainMenu);
                     params.put("garnish", mGarnish);
                     params.put("qualification_value", String.valueOf(mRatingValue));
-                    params.put("send_app_at", Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT));
+                    params.put("send_app_at", Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT_POSTGRES));
                 } catch (JSONException jEX) {
                     Log.w(TAG_CLASS, "Error while create JSONObject " + jEX.getMessage());
                 }

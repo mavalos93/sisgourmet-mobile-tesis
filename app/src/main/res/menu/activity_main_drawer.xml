@@ -5,7 +5,12 @@
         <item
             android:id="@+id/nav_prividers"
             android:icon="@mipmap/ic_local_shipping_black_36dp"
-            android:title="Proveedores" />
+            android:title="@string/provider_list_menu" />
+
+        <item
+            android:id="@+id/nav_my_account"
+            android:icon="@mipmap/ic_settings_black_36dp"
+            android:title="@string/tag_my_acount" />
     </group>
 
     <item android:title="@string/label_comment">

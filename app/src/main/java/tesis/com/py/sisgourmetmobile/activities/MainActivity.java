@@ -164,6 +164,8 @@ public class MainActivity extends AppCompatActivity
             logoutMethod();
         } else if (id == R.id.comment_id) {
             startActivity(new Intent(MainActivity.this, CommentsViewActivity.class));
+        } else if (id == R.id.nav_my_account) {
+            startActivity(new Intent(MainActivity.this, CheckAmountActivity.class));
         }
 
 

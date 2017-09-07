@@ -13,7 +13,7 @@
     <string name="launch_label">Mi Almuerzo</string>
 
     <!-- Provider labels-->
-    <string name="provider_vienesa">La Vienesa</string>
+    <string name="provider_vienesa">La Vienesa</string>volley_network_error
     <string name="provider_nha_eustaquia">Ña Eustaquia</string>
     <string name="provider_bolsi">Bolsi</string>
     <string name="provider_rating_example">4,5</string>
@@ -36,8 +36,8 @@
     <!--Login Activity strings-->
     <string name="login_title">Inicio de Sesion</string>
     <string name="content_description">descripcion</string>
-    <string name="hint_login_username">Ingrese usuario</string>
-    <string name="hint_login_password">Ingrese contraseña</string>
+    <string name="hint_login_username">usuario</string>
+    <string name="hint_login_password">contraseña</string>
     <string name="login_button">Login</string>
     <string name="title_activity_form">FormActivity</string>
     <string name="register_user_title">Registrar Usuario</string>
@@ -205,8 +205,6 @@
     <string name="title_activity_sync">Sync</string>
 
 
-
-
     <!--Volley Network Error -->
     <string name="volley_no_connection_error">No posee conexion a internet, favor verifiquela.</string>
     <string name="volley_network_error">Intento de conexion con el servidor fallida, favor intente de nuevo.</string>
@@ -219,5 +217,16 @@
     <string name="dialog_error_unexpected">Error inesperado</string>
     <string name="volley_time_out_error">Tiempo de espera de conexio agotado.</string>
     <string name="volley_default_error">Error inesperado, favor intente de vuelta.</string>
+    <string name="title_activity_check_amount">Mi Cuenta</string>
+
+    <!-- Check Acount Activity-->
+    <string name="tag_my_acount">Mi Cuenta</string>
+    <string name="tag_user_name">Usuario</string>
+    <string name="tag_amount_value">200.000</string>
+    <string name="tag_coint_value">Gs.</string>
+    <string name="tag_my_amount_available">Monto Disponible</string>
+    <string name="tag_name">Nombre</string>
+    <string name="tag_last_name">Apellido</string>
+    <string name="tag_ci">Cédula</string>
 
 </resources>
