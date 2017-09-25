@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/activity_horizontal_margin"
-    android:orientation="horizontal"
     app:cardCornerRadius="@dimen/default_padding"
+    android:orientation="horizontal"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_padding"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/default_padding"
+            android:layout_margin="@dimen/default_padding"
             android:contentDescription="@string/description_image"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:src="@mipmap/ic_restaurant_black_48dp" />
 
         <LinearLayout
@@ -34,11 +32,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/default_padding"
                 android:layout_marginLeft="@dimen/default_padding"
                 android:layout_marginStart="@dimen/default_padding"
-                android:layout_marginTop="@dimen/default_padding"
                 android:orientation="vertical">
 
 
@@ -46,26 +42,26 @@
                     android:id="@+id/qualification_menu_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
                     android:text="@string/qualification_menu_privider_value"
-                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/default_padding"
                     android:textColor="@color/secondary_text"
-                    android:textSize="15sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/star_imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/default_padding"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/description_image"
-                    android:src="@mipmap/ic_star_black_24dp" />
+                    android:src="@mipmap/ic_star_black_18dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/default_padding"
                 android:layout_marginLeft="@dimen/default_padding"
                 android:layout_marginStart="@dimen/default_padding"
@@ -76,25 +72,23 @@
                     android:id="@+id/main_menu_desciption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:text="@string/lunch_selected"
                     android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/garnish_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_padding"
                     android:gravity="center"
                     android:text="@string/label_garnish_selected"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
-
-
         </LinearLayout>
-
-
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

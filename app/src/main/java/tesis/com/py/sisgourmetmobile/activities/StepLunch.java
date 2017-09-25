@@ -85,7 +85,7 @@ public class StepLunch extends AbstractStep {
 
     private void setupDataView() {
 
-        mGarnishList = GarnishRepository.getGarnishByLunchId(luncObject.getId());
+        mGarnishList = GarnishRepository.getGarnishByLunchId(luncObject.getPrincipalMenuCode());
         int listSize = mGarnishList.size();
 
         switch (listSize) {
@@ -97,7 +97,7 @@ public class StepLunch extends AbstractStep {
                 typeLunchCase = 1;
                 for (Garnish gr : mGarnishList) {
                     mSelectedGarnishTextView.setText(gr.getDescription());
-                    radioGarnishId = gr.getId().intValue();
+                    radioGarnishId = gr.getGarnishId();
                 }
                 setupDoneIcon = true;
                 TabStepper.isDone = true;
@@ -119,7 +119,7 @@ public class StepLunch extends AbstractStep {
         for (Garnish garnish : garnishList) {
             RadioButton radioButton = new RadioButton(getContext());
             radioButton.setText(garnish.getDescription() + "\n" + "Precio: " + garnish.getUnitPrice() + " Gs.");
-            radioButton.setId(garnish.getId().intValue());
+            radioButton.setId(garnish.getGarnishId());
             radioButton.setPadding(0, 20, 0, 20);
             radioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_restaurant_menu_black_36dp, 0, 0, 0);
             mRadioGroupGarnish.addView(radioButton);

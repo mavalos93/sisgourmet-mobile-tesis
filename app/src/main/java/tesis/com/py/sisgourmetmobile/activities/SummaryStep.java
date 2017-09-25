@@ -156,7 +156,7 @@ public class SummaryStep extends AbstractStep{
         switch (mTypeLunch) {
 
             case 1:
-                List<Garnish> mGarnihsList = GarnishRepository.getGarnishByLunchId(lunchObject.getId());
+                List<Garnish> mGarnihsList = GarnishRepository.getGarnishByLunchId(lunchObject.getPrincipalMenuCode());
                 if (mGarnihsList.size() != 0) {
                     for (Garnish gr : mGarnihsList) {
                         mGarnishPrice = gr.getUnitPrice();
@@ -181,7 +181,7 @@ public class SummaryStep extends AbstractStep{
         try {
 
             String mUserName = AppPreferences.getAppPreferences(getContext()).getString(AppPreferences.KEY_PREFERENCE_USER, null);
-            if (lunchObject.getId() == null || lunchObject.getId() == 0) {
+            if (lunchObject.getPrincipalMenuCode() == null || lunchObject.getPrincipalMenuCode() == 0) {
                 Utils.builToast(getContext(), "Error, no se pudo obtener el identificador del menú principal");
                 getActivity().finish();
                 return;
@@ -205,7 +205,7 @@ public class SummaryStep extends AbstractStep{
                 return;
             }
 
-            mOrderTask = new OrderTask(mUserName, lunchObject.getProviderId(), lunchObject.getId(),
+            mOrderTask = new OrderTask(mUserName, lunchObject.getProviderId(), lunchObject.getPrincipalMenuCode(),
                     mGarnishSelectedId, mDrinkId, mTotalAmount);
             mOrderTask.confirm();
         } catch (Exception ex) {

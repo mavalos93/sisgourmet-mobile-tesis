@@ -80,8 +80,6 @@ public class AllCommentsAdapter extends RecyclerView.Adapter<AllCommentsAdapter.
         holder.mCommentTextView.setText(mCommentObject.getCommentDescription());
         holder.mMyLunchTextView.setText(mCommentObject.getLunchPackageDescription());
         holder.mDateQualificationTextView.setText(mCommentObject.getDateComment());
-
-
         ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
         int color = generator.getColor(commentsItem.get(position));
         TextDrawable drawable = TextDrawable.builder()

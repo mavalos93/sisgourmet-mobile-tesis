@@ -58,7 +58,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         float mRatingValue;
         Provider mProviderObject;
 
-        List<Garnish> garnisList = GarnishRepository.getGarnishByLunchId(lunchItem.getId());
+        List<Garnish> garnisList = GarnishRepository.getGarnishByLunchId(lunchItem.getPrincipalMenuCode());
 
         listSize = garnisList.size();
         if (listSize != 0) {
@@ -94,7 +94,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         holder.mainMenuDescription.setText(lunchItem.getMainMenuDescription());
         holder.garnishDescription.setText(mGarnishText);
-        holder.mQualificationMenuValue.setText(String.valueOf(mRatingValue));
+        holder.mQualificationMenuValue.setText(String.valueOf(mRatingValue).replace(".",","));
 
         holder.mQualificationButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -109,8 +109,13 @@ public class LoginActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            mLoginTask = new LoginTask(userNameString, userPasswordString);
-            mLoginTask.execute();
+           /* mLoginTask = new LoginTask(userNameString, userPasswordString);
+            mLoginTask.execute();*/
+
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
+            AppPreferences.getAppPreferences(LoginActivity.this).edit().putString(AppPreferences.KEY_PREFERENCE_USER, "mavalos").apply();
+            finish();
         }
     }
 
@@ -174,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void handleResponse(JSONObject response) {
             String message = null;
             JSONObject result = null;
+            String mUsername = "";
             int status = -1;
 
             if (response == null) {
@@ -187,8 +193,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (status != 1) {
                     Utils.getSnackBar(mCoordinatorLayout, message);
                 } else {
+                    if (response.has("usuario")) {
+                        mUsername = response.getString("usuario");
+                    }
+                    Log.d("TAG", "USERNAME: " + mUsername);
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
+                    AppPreferences.getAppPreferences(LoginActivity.this).edit().putString(AppPreferences.KEY_PREFERENCE_USER, mUsername).apply();
                     finish();
                 }
 

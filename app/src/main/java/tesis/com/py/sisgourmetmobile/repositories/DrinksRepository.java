@@ -29,7 +29,7 @@ public class DrinksRepository {
         return getDao().queryBuilder().count();
     }
 
-    private static DrinksDao getDao() {
+    public static DrinksDao getDao() {
         return MainSession.getDaoSession().
                 getDrinksDao();
     }

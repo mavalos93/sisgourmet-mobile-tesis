@@ -7,7 +7,9 @@ package tesis.com.py.sisgourmetmobile.entities;
 public class Provider {
 
     private Long id;
+    private Integer providerId;
     private String providerName;
+    private byte[] providerImage;
 
     public Provider() {
     }
@@ -16,9 +18,11 @@ public class Provider {
         this.id = id;
     }
 
-    public Provider(Long id, String providerName) {
+    public Provider(Long id, Integer providerId, String providerName, byte[] providerImage) {
         this.id = id;
+        this.providerId = providerId;
         this.providerName = providerName;
+        this.providerImage = providerImage;
     }
 
     public Long getId() {
@@ -29,12 +33,28 @@ public class Provider {
         this.id = id;
     }
 
+    public Integer getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(Integer providerId) {
+        this.providerId = providerId;
+    }
+
     public String getProviderName() {
         return providerName;
     }
 
     public void setProviderName(String providerName) {
         this.providerName = providerName;
+    }
+
+    public byte[] getProviderImage() {
+        return providerImage;
+    }
+
+    public void setProviderImage(byte[] providerImage) {
+        this.providerImage = providerImage;
     }
 
 }

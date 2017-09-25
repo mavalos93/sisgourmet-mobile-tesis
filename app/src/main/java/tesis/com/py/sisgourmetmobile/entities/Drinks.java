@@ -7,7 +7,9 @@ package tesis.com.py.sisgourmetmobile.entities;
 public class Drinks {
 
     private Long id;
+    private Integer drinkId;
     private String description;
+    private Integer currentStock;
     private Integer priceUnit;
     private String provider;
 
@@ -18,9 +20,11 @@ public class Drinks {
         this.id = id;
     }
 
-    public Drinks(Long id, String description, Integer priceUnit, String provider) {
+    public Drinks(Long id, Integer drinkId, String description, Integer currentStock, Integer priceUnit, String provider) {
         this.id = id;
+        this.drinkId = drinkId;
         this.description = description;
+        this.currentStock = currentStock;
         this.priceUnit = priceUnit;
         this.provider = provider;
     }
@@ -33,12 +37,28 @@ public class Drinks {
         this.id = id;
     }
 
+    public Integer getDrinkId() {
+        return drinkId;
+    }
+
+    public void setDrinkId(Integer drinkId) {
+        this.drinkId = drinkId;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(Integer currentStock) {
+        this.currentStock = currentStock;
     }
 
     public Integer getPriceUnit() {

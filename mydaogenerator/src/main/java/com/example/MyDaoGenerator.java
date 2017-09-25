@@ -47,18 +47,22 @@ public class MyDaoGenerator {
 
         Entity drinks = schema.addEntity("Drinks");
         drinks.addIdProperty();
+        drinks.addIntProperty("drinkId");
         drinks.addStringProperty("description");
+        drinks.addIntProperty("currentStock");
         drinks.addIntProperty("priceUnit");
         drinks.addStringProperty("provider");
 
 
         Entity lunch = schema.addEntity("Lunch");
         lunch.addIdProperty();
+        lunch.addIntProperty("principalMenuCode");
         lunch.addIntProperty("priceUnit");
         lunch.addStringProperty("mainMenuDescription");
-        lunch.addLongProperty("providerId");
-        lunch.addDateProperty("menuDate");
-        lunch.addLongProperty("ratingMenu");
+        lunch.addIntProperty("providerId");
+        lunch.addStringProperty("menuDate");
+        lunch.addIntProperty("ratingMenu");
+        lunch.addByteArrayProperty("imageMenu");
 
 
         Entity order = schema.addEntity("Order");
@@ -78,12 +82,15 @@ public class MyDaoGenerator {
 
         Entity providers = schema.addEntity("Provider");
         providers.addIdProperty();
+        providers.addIntProperty("providerId");
         providers.addStringProperty("providerName");
+        providers.addByteArrayProperty("providerImage");
 
 
         Entity garnish = schema.addEntity("Garnish");
         garnish.addIdProperty();
-        garnish.addLongProperty("lunchId");
+        garnish.addIntProperty("garnishId");
+        garnish.addIntProperty("lunchId");
         garnish.addStringProperty("description");
         garnish.addIntProperty("unitPrice");
 
@@ -93,7 +100,6 @@ public class MyDaoGenerator {
         comments.addIntProperty("providerId");
         comments.addStringProperty("userName");
         comments.addStringProperty("lunchPackageDescription");
-        comments.addStringProperty("drinkDescription");
         comments.addIntProperty("ratingValue");
         comments.addStringProperty("dateComment");
         comments.addStringProperty("commentDescription");

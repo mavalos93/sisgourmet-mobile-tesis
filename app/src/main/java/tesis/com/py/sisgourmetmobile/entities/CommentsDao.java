@@ -27,10 +27,9 @@ public class CommentsDao extends AbstractDao<Comments, Long> {
         public final static Property ProviderId = new Property(1, Integer.class, "providerId", false, "PROVIDER_ID");
         public final static Property UserName = new Property(2, String.class, "userName", false, "USER_NAME");
         public final static Property LunchPackageDescription = new Property(3, String.class, "lunchPackageDescription", false, "LUNCH_PACKAGE_DESCRIPTION");
-        public final static Property DrinkDescription = new Property(4, String.class, "drinkDescription", false, "DRINK_DESCRIPTION");
-        public final static Property RatingValue = new Property(5, Integer.class, "ratingValue", false, "RATING_VALUE");
-        public final static Property DateComment = new Property(6, String.class, "dateComment", false, "DATE_COMMENT");
-        public final static Property CommentDescription = new Property(7, String.class, "commentDescription", false, "COMMENT_DESCRIPTION");
+        public final static Property RatingValue = new Property(4, Integer.class, "ratingValue", false, "RATING_VALUE");
+        public final static Property DateComment = new Property(5, String.class, "dateComment", false, "DATE_COMMENT");
+        public final static Property CommentDescription = new Property(6, String.class, "commentDescription", false, "COMMENT_DESCRIPTION");
     };
 
 
@@ -50,10 +49,9 @@ public class CommentsDao extends AbstractDao<Comments, Long> {
                 "\"PROVIDER_ID\" INTEGER," + // 1: providerId
                 "\"USER_NAME\" TEXT," + // 2: userName
                 "\"LUNCH_PACKAGE_DESCRIPTION\" TEXT," + // 3: lunchPackageDescription
-                "\"DRINK_DESCRIPTION\" TEXT," + // 4: drinkDescription
-                "\"RATING_VALUE\" INTEGER," + // 5: ratingValue
-                "\"DATE_COMMENT\" TEXT," + // 6: dateComment
-                "\"COMMENT_DESCRIPTION\" TEXT);"); // 7: commentDescription
+                "\"RATING_VALUE\" INTEGER," + // 4: ratingValue
+                "\"DATE_COMMENT\" TEXT," + // 5: dateComment
+                "\"COMMENT_DESCRIPTION\" TEXT);"); // 6: commentDescription
     }
 
     /** Drops the underlying database table. */
@@ -87,24 +85,19 @@ public class CommentsDao extends AbstractDao<Comments, Long> {
             stmt.bindString(4, lunchPackageDescription);
         }
  
-        String drinkDescription = entity.getDrinkDescription();
-        if (drinkDescription != null) {
-            stmt.bindString(5, drinkDescription);
-        }
- 
         Integer ratingValue = entity.getRatingValue();
         if (ratingValue != null) {
-            stmt.bindLong(6, ratingValue);
+            stmt.bindLong(5, ratingValue);
         }
  
         String dateComment = entity.getDateComment();
         if (dateComment != null) {
-            stmt.bindString(7, dateComment);
+            stmt.bindString(6, dateComment);
         }
  
         String commentDescription = entity.getCommentDescription();
         if (commentDescription != null) {
-            stmt.bindString(8, commentDescription);
+            stmt.bindString(7, commentDescription);
         }
     }
 
@@ -122,10 +115,9 @@ public class CommentsDao extends AbstractDao<Comments, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // providerId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // userName
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // lunchPackageDescription
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // drinkDescription
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // ratingValue
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // dateComment
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // commentDescription
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // ratingValue
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // dateComment
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // commentDescription
         );
         return entity;
     }
@@ -137,10 +129,9 @@ public class CommentsDao extends AbstractDao<Comments, Long> {
         entity.setProviderId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
         entity.setUserName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setLunchPackageDescription(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setDrinkDescription(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setRatingValue(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
-        entity.setDateComment(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setCommentDescription(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setRatingValue(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
+        entity.setDateComment(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setCommentDescription(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */

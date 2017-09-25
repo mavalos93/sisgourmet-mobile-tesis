@@ -37,7 +37,7 @@ public class ProviderRepository {
 
     }
 
-    private static ProviderDao getDao() {
+    public static ProviderDao getDao() {
         return MainSession.getDaoSession().
                 getProviderDao();
     }

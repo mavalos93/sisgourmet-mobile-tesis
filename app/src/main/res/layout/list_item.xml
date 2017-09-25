@@ -2,15 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:background="?android:selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="@dimen/default_padding">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/default_padding">
+        android:layout_margin="@dimen/default_padding"
+        android:layout_height="wrap_content">
 
 
         <TextView
@@ -22,8 +20,8 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:text="@string/description_image"
-            android:textColor="@android:color/black"
-            android:textSize="25sp"
+            android:textColor="@color/secondary_text"
+            android:textSize="20sp"
             android:textStyle="italic" />
 
 
@@ -32,6 +30,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_list"
         android:layout_width="match_parent"
+        android:layout_margin="@dimen/default_padding"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal" />

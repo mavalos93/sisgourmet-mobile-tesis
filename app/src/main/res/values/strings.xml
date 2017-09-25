@@ -11,6 +11,8 @@
     <string name="description_image">descripcion</string>
     <string name="label_choose_option">Opcion</string>
     <string name="launch_label">Mi Almuerzo</string>
+    <string name="tag_initial_data">Datos principales</string>
+    <string name="tag_initial_data_success_message">Menus sincronizados exitosamente</string>
 
     <!-- Provider labels-->
     <string name="provider_vienesa">La Vienesa</string>volley_network_error
@@ -25,6 +27,7 @@
     <string name="dialog_confirmation_title">Confirmación</string>
     <string name="dialog_confirmation_message">Desea confirmar esta operación?</string>
     <string name="dialog_success_title">Operación Exitosa</string>
+    <string name="tag_not_internet">No posees conexión a internet favor actívala</string>
 
     <!-- Order Type-->
     <string name="main_menu_order">Menu principal</string>
@@ -201,7 +204,6 @@
 
     <!-- Labels dialogs-->
     <string name="order_dialog_title">Mi Pedido</string>
-    <string name="title_activity_commets_view">CommetsViewActivity</string>
     <string name="title_activity_sync">Sync</string>
 
 
@@ -228,5 +230,12 @@
     <string name="tag_name">Nombre</string>
     <string name="tag_last_name">Apellido</string>
     <string name="tag_ci">Cédula</string>
+
+
+    <!-- Comments View Activity-->
+    <string name="title_activity_commets_view">CommetsViewActivity</string>
+    <string name="error_all_comments_null">No se encontraron registros de comentarios</string>
+    <string name="error_provider_data_null">No se encontraron datos de proveedores para mostrar</string>
+    <string name="error_in_buil_adapter_view">Error al construir vista del adaptador</string>
 
 </resources>

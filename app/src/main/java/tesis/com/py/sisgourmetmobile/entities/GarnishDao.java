@@ -24,9 +24,10 @@ public class GarnishDao extends AbstractDao<Garnish, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property LunchId = new Property(1, Long.class, "lunchId", false, "LUNCH_ID");
-        public final static Property Description = new Property(2, String.class, "description", false, "DESCRIPTION");
-        public final static Property UnitPrice = new Property(3, Integer.class, "unitPrice", false, "UNIT_PRICE");
+        public final static Property GarnishId = new Property(1, Integer.class, "garnishId", false, "GARNISH_ID");
+        public final static Property LunchId = new Property(2, Integer.class, "lunchId", false, "LUNCH_ID");
+        public final static Property Description = new Property(3, String.class, "description", false, "DESCRIPTION");
+        public final static Property UnitPrice = new Property(4, Integer.class, "unitPrice", false, "UNIT_PRICE");
     };
 
 
@@ -43,9 +44,10 @@ public class GarnishDao extends AbstractDao<Garnish, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"GARNISH\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"LUNCH_ID\" INTEGER," + // 1: lunchId
-                "\"DESCRIPTION\" TEXT," + // 2: description
-                "\"UNIT_PRICE\" INTEGER);"); // 3: unitPrice
+                "\"GARNISH_ID\" INTEGER," + // 1: garnishId
+                "\"LUNCH_ID\" INTEGER," + // 2: lunchId
+                "\"DESCRIPTION\" TEXT," + // 3: description
+                "\"UNIT_PRICE\" INTEGER);"); // 4: unitPrice
     }
 
     /** Drops the underlying database table. */
@@ -64,19 +66,24 @@ public class GarnishDao extends AbstractDao<Garnish, Long> {
             stmt.bindLong(1, id);
         }
  
-        Long lunchId = entity.getLunchId();
+        Integer garnishId = entity.getGarnishId();
+        if (garnishId != null) {
+            stmt.bindLong(2, garnishId);
+        }
+ 
+        Integer lunchId = entity.getLunchId();
         if (lunchId != null) {
-            stmt.bindLong(2, lunchId);
+            stmt.bindLong(3, lunchId);
         }
  
         String description = entity.getDescription();
         if (description != null) {
-            stmt.bindString(3, description);
+            stmt.bindString(4, description);
         }
  
         Integer unitPrice = entity.getUnitPrice();
         if (unitPrice != null) {
-            stmt.bindLong(4, unitPrice);
+            stmt.bindLong(5, unitPrice);
         }
     }
 
@@ -91,9 +98,10 @@ public class GarnishDao extends AbstractDao<Garnish, Long> {
     public Garnish readEntity(Cursor cursor, int offset) {
         Garnish entity = new Garnish( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // lunchId
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // description
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3) // unitPrice
+            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // garnishId
+            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // lunchId
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // description
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4) // unitPrice
         );
         return entity;
     }
@@ -102,9 +110,10 @@ public class GarnishDao extends AbstractDao<Garnish, Long> {
     @Override
     public void readEntity(Cursor cursor, Garnish entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setLunchId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
-        entity.setDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setUnitPrice(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
+        entity.setGarnishId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
+        entity.setLunchId(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
+        entity.setDescription(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setUnitPrice(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
      }
     
     /** @inheritdoc */

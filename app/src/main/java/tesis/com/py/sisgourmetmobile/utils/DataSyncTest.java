@@ -304,7 +304,6 @@ public class DataSyncTest {
         Comments comments1 = new Comments();
         comments1.setId(1L);
         comments1.setDateComment("12/05/2017");
-        comments1.setDrinkDescription("Puro sol de 500 ml.");
         comments1.setLunchPackageDescription("Marinera de Carne - Arroz a la crema");
         comments1.setProviderId(1);
         comments1.setUserName("mavalos");
@@ -314,7 +313,6 @@ public class DataSyncTest {
         Comments comments2 = new Comments();
         comments2.setId(2L);
         comments2.setDateComment("09/07/2017");
-        comments2.setDrinkDescription("Guaraná de 500 ml.");
         comments2.setLunchPackageDescription("Bife a la plancha - Puré de papas");
         comments2.setProviderId(2);
         comments2.setUserName("pgonzalez");
@@ -324,7 +322,6 @@ public class DataSyncTest {
         Comments comments3 = new Comments();
         comments3.setId(3L);
         comments3.setDateComment("05/04/2017");
-        comments3.setDrinkDescription("Coca cola de 250 ml.");
         comments3.setLunchPackageDescription("Ensalada Pescador - Papas Fritas");
         comments3.setProviderId(3);
         comments3.setUserName("dalvarez");
@@ -334,7 +331,6 @@ public class DataSyncTest {
         Comments comments4 = new Comments();
         comments4.setId(4L);
         comments4.setDateComment("10/04/2017");
-        comments4.setDrinkDescription("Ades de 500 ml.");
         comments4.setLunchPackageDescription("Lasagna de Carne - Ensalada Bolsi");
         comments4.setProviderId(3);
         comments4.setUserName("dmaldonado");
@@ -344,7 +340,6 @@ public class DataSyncTest {
         Comments comments5 = new Comments();
         comments5.setId(5L);
         comments5.setDateComment("07/04/2017");
-        comments5.setDrinkDescription("Purifrú de 500 ml.");
         comments5.setLunchPackageDescription("Bife a la plancha - Ensalada Mixta");
         comments5.setProviderId(1);
         comments5.setUserName("dmaldonado");

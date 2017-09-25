@@ -24,7 +24,9 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property ProviderName = new Property(1, String.class, "providerName", false, "PROVIDER_NAME");
+        public final static Property ProviderId = new Property(1, Integer.class, "providerId", false, "PROVIDER_ID");
+        public final static Property ProviderName = new Property(2, String.class, "providerName", false, "PROVIDER_NAME");
+        public final static Property ProviderImage = new Property(3, byte[].class, "providerImage", false, "PROVIDER_IMAGE");
     };
 
 
@@ -41,7 +43,9 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PROVIDER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"PROVIDER_NAME\" TEXT);"); // 1: providerName
+                "\"PROVIDER_ID\" INTEGER," + // 1: providerId
+                "\"PROVIDER_NAME\" TEXT," + // 2: providerName
+                "\"PROVIDER_IMAGE\" BLOB);"); // 3: providerImage
     }
 
     /** Drops the underlying database table. */
@@ -60,9 +64,19 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
             stmt.bindLong(1, id);
         }
  
+        Integer providerId = entity.getProviderId();
+        if (providerId != null) {
+            stmt.bindLong(2, providerId);
+        }
+ 
         String providerName = entity.getProviderName();
         if (providerName != null) {
-            stmt.bindString(2, providerName);
+            stmt.bindString(3, providerName);
+        }
+ 
+        byte[] providerImage = entity.getProviderImage();
+        if (providerImage != null) {
+            stmt.bindBlob(4, providerImage);
         }
     }
 
@@ -77,7 +91,9 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
     public Provider readEntity(Cursor cursor, int offset) {
         Provider entity = new Provider( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // providerName
+            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // providerId
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // providerName
+            cursor.isNull(offset + 3) ? null : cursor.getBlob(offset + 3) // providerImage
         );
         return entity;
     }
@@ -86,7 +102,9 @@ public class ProviderDao extends AbstractDao<Provider, Long> {
     @Override
     public void readEntity(Cursor cursor, Provider entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setProviderName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setProviderId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
+        entity.setProviderName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setProviderImage(cursor.isNull(offset + 3) ? null : cursor.getBlob(offset + 3));
      }
     
     /** @inheritdoc */

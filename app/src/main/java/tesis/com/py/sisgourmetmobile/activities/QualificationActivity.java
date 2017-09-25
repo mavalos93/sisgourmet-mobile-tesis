@@ -161,7 +161,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                     case Constants.ACTION_QUALIFICATION_MENU:
                         mLunchObject = (Lunch) bundle.get(Constants.ACTION_QUALIFICATION_MENU);
                         if (mLunchObject != null) {
-                            mLunchId = mLunchObject.getId();
+                            mLunchId = mLunchObject.getPrincipalMenuCode();
                             mMainMenuDescription = mLunchObject.getMainMenuDescription();
                             mProviderId = mLunchObject.getProviderId();
                             mPrice = String.valueOf(mLunchObject.getPriceUnit());
@@ -413,8 +413,6 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
 
             if (jsonObjectRequest != null)
                 mQueue.cancelAll(REQUEST_TAG);
-
-            Gson mGsonObject = new Gson();
             QualificationRequest mQualificationRequest = new QualificationRequest(mUserName, mComment, mProviderId, mMainMenu, mGarnish, mRatingValue);
             if (mQualification == null) {
                 mQualification = new Qualification();
@@ -473,12 +471,10 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                             errorDialog.show(getFragmentManager(), CancelableAlertDialogFragment.TAG);
                         }
                     });
-            jsonObjectRequest.setRetryPolicy(NetworkQueue.getDefaultRetryPolicy());
-            jsonObjectRequest.setTag(QualificationTask.REQUEST_TAG);
-            Log.v(REQUEST_TAG, "Queueing: " + mGsonObject.toJson(mQualificationRequest.getParams()));
-            mQueue = Volley.newRequestQueue(QualificationActivity.this);
-            mQueue.add(jsonObjectRequest);
-            mQueue.start();
+            jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
+            jsonObjectRequest.setTag(REQUEST_TAG);
+            NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest, getApplicationContext());
+
 
         }
 

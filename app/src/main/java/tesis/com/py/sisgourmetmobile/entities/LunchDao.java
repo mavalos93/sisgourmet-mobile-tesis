@@ -24,11 +24,13 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property PriceUnit = new Property(1, Integer.class, "priceUnit", false, "PRICE_UNIT");
-        public final static Property MainMenuDescription = new Property(2, String.class, "mainMenuDescription", false, "MAIN_MENU_DESCRIPTION");
-        public final static Property ProviderId = new Property(3, Long.class, "providerId", false, "PROVIDER_ID");
-        public final static Property MenuDate = new Property(4, java.util.Date.class, "menuDate", false, "MENU_DATE");
-        public final static Property RatingMenu = new Property(5, Long.class, "ratingMenu", false, "RATING_MENU");
+        public final static Property PrincipalMenuCode = new Property(1, Integer.class, "principalMenuCode", false, "PRINCIPAL_MENU_CODE");
+        public final static Property PriceUnit = new Property(2, Integer.class, "priceUnit", false, "PRICE_UNIT");
+        public final static Property MainMenuDescription = new Property(3, String.class, "mainMenuDescription", false, "MAIN_MENU_DESCRIPTION");
+        public final static Property ProviderId = new Property(4, Integer.class, "providerId", false, "PROVIDER_ID");
+        public final static Property MenuDate = new Property(5, String.class, "menuDate", false, "MENU_DATE");
+        public final static Property RatingMenu = new Property(6, Integer.class, "ratingMenu", false, "RATING_MENU");
+        public final static Property ImageMenu = new Property(7, byte[].class, "imageMenu", false, "IMAGE_MENU");
     };
 
 
@@ -45,11 +47,13 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"LUNCH\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"PRICE_UNIT\" INTEGER," + // 1: priceUnit
-                "\"MAIN_MENU_DESCRIPTION\" TEXT," + // 2: mainMenuDescription
-                "\"PROVIDER_ID\" INTEGER," + // 3: providerId
-                "\"MENU_DATE\" INTEGER," + // 4: menuDate
-                "\"RATING_MENU\" INTEGER);"); // 5: ratingMenu
+                "\"PRINCIPAL_MENU_CODE\" INTEGER," + // 1: principalMenuCode
+                "\"PRICE_UNIT\" INTEGER," + // 2: priceUnit
+                "\"MAIN_MENU_DESCRIPTION\" TEXT," + // 3: mainMenuDescription
+                "\"PROVIDER_ID\" INTEGER," + // 4: providerId
+                "\"MENU_DATE\" TEXT," + // 5: menuDate
+                "\"RATING_MENU\" INTEGER," + // 6: ratingMenu
+                "\"IMAGE_MENU\" BLOB);"); // 7: imageMenu
     }
 
     /** Drops the underlying database table. */
@@ -68,29 +72,39 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
             stmt.bindLong(1, id);
         }
  
+        Integer principalMenuCode = entity.getPrincipalMenuCode();
+        if (principalMenuCode != null) {
+            stmt.bindLong(2, principalMenuCode);
+        }
+ 
         Integer priceUnit = entity.getPriceUnit();
         if (priceUnit != null) {
-            stmt.bindLong(2, priceUnit);
+            stmt.bindLong(3, priceUnit);
         }
  
         String mainMenuDescription = entity.getMainMenuDescription();
         if (mainMenuDescription != null) {
-            stmt.bindString(3, mainMenuDescription);
+            stmt.bindString(4, mainMenuDescription);
         }
  
-        Long providerId = entity.getProviderId();
+        Integer providerId = entity.getProviderId();
         if (providerId != null) {
-            stmt.bindLong(4, providerId);
+            stmt.bindLong(5, providerId);
         }
  
-        java.util.Date menuDate = entity.getMenuDate();
+        String menuDate = entity.getMenuDate();
         if (menuDate != null) {
-            stmt.bindLong(5, menuDate.getTime());
+            stmt.bindString(6, menuDate);
         }
  
-        Long ratingMenu = entity.getRatingMenu();
+        Integer ratingMenu = entity.getRatingMenu();
         if (ratingMenu != null) {
-            stmt.bindLong(6, ratingMenu);
+            stmt.bindLong(7, ratingMenu);
+        }
+ 
+        byte[] imageMenu = entity.getImageMenu();
+        if (imageMenu != null) {
+            stmt.bindBlob(8, imageMenu);
         }
     }
 
@@ -105,11 +119,13 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
     public Lunch readEntity(Cursor cursor, int offset) {
         Lunch entity = new Lunch( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // priceUnit
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // mainMenuDescription
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // providerId
-            cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // menuDate
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5) // ratingMenu
+            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // principalMenuCode
+            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // priceUnit
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // mainMenuDescription
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // providerId
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // menuDate
+            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // ratingMenu
+            cursor.isNull(offset + 7) ? null : cursor.getBlob(offset + 7) // imageMenu
         );
         return entity;
     }
@@ -118,11 +134,13 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
     @Override
     public void readEntity(Cursor cursor, Lunch entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setPriceUnit(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setMainMenuDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setProviderId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
-        entity.setMenuDate(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
-        entity.setRatingMenu(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setPrincipalMenuCode(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
+        entity.setPriceUnit(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
+        entity.setMainMenuDescription(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setProviderId(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
+        entity.setMenuDate(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setRatingMenu(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
+        entity.setImageMenu(cursor.isNull(offset + 7) ? null : cursor.getBlob(offset + 7));
      }
     
     /** @inheritdoc */

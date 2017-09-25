@@ -10,7 +10,6 @@ public class Comments {
     private Integer providerId;
     private String userName;
     private String lunchPackageDescription;
-    private String drinkDescription;
     private Integer ratingValue;
     private String dateComment;
     private String commentDescription;
@@ -22,12 +21,11 @@ public class Comments {
         this.id = id;
     }
 
-    public Comments(Long id, Integer providerId, String userName, String lunchPackageDescription, String drinkDescription, Integer ratingValue, String dateComment, String commentDescription) {
+    public Comments(Long id, Integer providerId, String userName, String lunchPackageDescription, Integer ratingValue, String dateComment, String commentDescription) {
         this.id = id;
         this.providerId = providerId;
         this.userName = userName;
         this.lunchPackageDescription = lunchPackageDescription;
-        this.drinkDescription = drinkDescription;
         this.ratingValue = ratingValue;
         this.dateComment = dateComment;
         this.commentDescription = commentDescription;
@@ -63,14 +61,6 @@ public class Comments {
 
     public void setLunchPackageDescription(String lunchPackageDescription) {
         this.lunchPackageDescription = lunchPackageDescription;
-    }
-
-    public String getDrinkDescription() {
-        return drinkDescription;
-    }
-
-    public void setDrinkDescription(String drinkDescription) {
-        this.drinkDescription = drinkDescription;
     }
 
     public Integer getRatingValue() {

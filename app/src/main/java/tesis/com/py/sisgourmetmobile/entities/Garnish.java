@@ -7,7 +7,8 @@ package tesis.com.py.sisgourmetmobile.entities;
 public class Garnish {
 
     private Long id;
-    private Long lunchId;
+    private Integer garnishId;
+    private Integer lunchId;
     private String description;
     private Integer unitPrice;
 
@@ -18,8 +19,9 @@ public class Garnish {
         this.id = id;
     }
 
-    public Garnish(Long id, Long lunchId, String description, Integer unitPrice) {
+    public Garnish(Long id, Integer garnishId, Integer lunchId, String description, Integer unitPrice) {
         this.id = id;
+        this.garnishId = garnishId;
         this.lunchId = lunchId;
         this.description = description;
         this.unitPrice = unitPrice;
@@ -33,11 +35,19 @@ public class Garnish {
         this.id = id;
     }
 
-    public Long getLunchId() {
+    public Integer getGarnishId() {
+        return garnishId;
+    }
+
+    public void setGarnishId(Integer garnishId) {
+        this.garnishId = garnishId;
+    }
+
+    public Integer getLunchId() {
         return lunchId;
     }
 
-    public void setLunchId(Long lunchId) {
+    public void setLunchId(Integer lunchId) {
         this.lunchId = lunchId;
     }
 
