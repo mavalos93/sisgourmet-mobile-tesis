@@ -13,8 +13,8 @@ import tesis.com.py.sisgourmetmobile.utils.MainSession;
 public class LunchRepository {
 
 
-    public static void store(Lunch lunch) {
-        getDao().insertOrReplace(lunch);
+    public static long store(Lunch lunch) {
+        return getDao().insertOrReplace(lunch);
     }
 
     public static List<Lunch> getAllLunch() {

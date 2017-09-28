@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.models.SectionDataModel;
@@ -21,11 +22,11 @@ import tesis.com.py.sisgourmetmobile.models.SectionDataModel;
 
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.ItemRowHolder> {
 
-    private ArrayList<SectionDataModel> dataList;
+    private List<SectionDataModel> itemDataList = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewDataAdapter(Context context, ArrayList<SectionDataModel> dataList) {
-        this.dataList = dataList;
+    public RecyclerViewDataAdapter(Context context, List<SectionDataModel> dataList) {
+        this.itemDataList = dataList;
         this.mContext = context;
     }
 
@@ -39,9 +40,9 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
 
-        final String sectionName = dataList.get(i).getHeaderTitle();
+        final String sectionName = itemDataList.get(i).getHeaderTitle();
 
-        ArrayList singleSectionItems = dataList.get(i).getAllItemsInSection();
+        List singleSectionItems = itemDataList.get(i).getAllItemsInSection();
 
         itemRowHolder.itemTitle.setText(sectionName);
         SectionListDataAdapter itemListDataAdapter = new SectionListDataAdapter(mContext, singleSectionItems);
@@ -50,15 +51,17 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         itemRowHolder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         itemRowHolder.recycler_view_list.setAdapter(itemListDataAdapter);
 
+    }
 
-
-
-
+    public void setData(List<SectionDataModel> data) {
+        itemDataList = new ArrayList<>();
+        itemDataList.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return (null != dataList ? dataList.size() : 0);
+        return (null != itemDataList ? itemDataList.size() : 0);
     }
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
@@ -66,8 +69,6 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         protected TextView itemTitle;
 
         protected RecyclerView recycler_view_list;
-
-
 
         public ItemRowHolder(View view) {
             super(view);

@@ -471,6 +471,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                             errorDialog.show(getFragmentManager(), CancelableAlertDialogFragment.TAG);
                         }
                     });
+            Log.d(TAG_CLASS,"PARAMS: "+mQualificationRequest.getParams());
             jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
             jsonObjectRequest.setTag(REQUEST_TAG);
             NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest, getApplicationContext());
@@ -500,7 +501,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 if (status != Constants.RESPONSE_OK) {
                     updateQualificationTransaction(mQualification, Constants.TRANSACTION_NO_SEND);
                     Utils.builToast(QualificationActivity.this, getString(R.string.volley_default_error));
-                    return;
+                    finish();
                 }
 
                 updateQualificationTransaction(mQualification, Constants.TRANSACTION_SEND);

@@ -37,11 +37,14 @@ public class AllMenuData {
                 lunchObject.setProviderId(data.getInt("codigoProveedor"));
             }
 
-            if(data.has("fechaMenu")){
+            if (data.has("fechaMenu")) {
                 lunchObject.setMenuDate(data.getString("fechaMenu"));
             }
+            if (data.has("ratingMenu")) {
+                lunchObject.setRatingMenu(data.getInt("ratingMenu"));
+            }
 
-            if(data.has("imageMenu")){
+            if (data.has("imageMenu")) {
                 String menuImage = data.getString("imageMenu");
                 byte[] decodedString = Base64.decode(menuImage, Base64.DEFAULT);
                 lunchObject.setImageMenu(decodedString);
@@ -65,7 +68,7 @@ public class AllMenuData {
                 providerObject.setProviderName(data.getString("description"));
             }
 
-            if(data.has("provider_image")){
+            if (data.has("provider_image")) {
                 String menuImage = data.getString("provider_image");
                 byte[] decodedString = Base64.decode(menuImage, Base64.DEFAULT);
                 providerObject.setProviderImage(decodedString);
@@ -134,7 +137,6 @@ public class AllMenuData {
         }
         return drinkObject;
     }
-
 
 
 }

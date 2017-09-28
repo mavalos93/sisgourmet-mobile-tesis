@@ -27,6 +27,7 @@ public class ProgressDialogFragment extends DialogFragment {
         args.putString(ARG_MESSAGE, message);
         args.putInt(ARG_ICON_RESOURCES, iconResource);
         frag.setArguments(args);
+        frag.setCancelable(false);
         return frag;
     }
 
@@ -37,6 +38,7 @@ public class ProgressDialogFragment extends DialogFragment {
         args.putString(ARG_MESSAGE, context.getString(R.string.dialog_progess_message));
         args.putInt(ARG_ICON_RESOURCES, R.mipmap.ic_hourglass_empty_black_36dp);
         frag.setArguments(args);
+        frag.setCancelable(false);
         return frag;
     }
 

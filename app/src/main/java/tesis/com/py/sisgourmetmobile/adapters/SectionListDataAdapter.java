@@ -2,6 +2,8 @@ package tesis.com.py.sisgourmetmobile.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -34,11 +36,11 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
 
-    private ArrayList<Lunch> itemsList;
+    private List<Lunch> itemsList;
     private Context mContext;
     private Lunch mLunchObject = new Lunch();
 
-    public SectionListDataAdapter(Context context, ArrayList<Lunch> itemsList) {
+    public SectionListDataAdapter(Context context, List<Lunch> itemsList) {
         this.itemsList = itemsList;
         this.mContext = context;
     }
@@ -73,28 +75,12 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         }
 
         mRatingValue = Float.parseFloat(String.valueOf(lunchItem.getRatingMenu()));
-
-        mProviderObject = ProviderRepository.getProviderById(lunchItem.getProviderId());
-
-        if (mProviderObject != null) {
-
-            switch (mProviderObject.getProviderName()) {
-                case "La Vienesa":
-                    holder.itemImage.setImageResource(R.mipmap.login);
-                    break;
-                case "Ña Eustaquia":
-                    holder.itemImage.setImageResource(R.mipmap.nha_esutaquia);
-                    break;
-                case "Bolsi":
-                    holder.itemImage.setImageResource(R.mipmap.bolsi);
-                    break;
-
-            }
-        }
+        Bitmap bmp = BitmapFactory.decodeByteArray(lunchItem.getImageMenu(), 0, lunchItem.getImageMenu().length);
+        holder.itemImage.setImageBitmap(bmp);
 
         holder.mainMenuDescription.setText(lunchItem.getMainMenuDescription());
         holder.garnishDescription.setText(mGarnishText);
-        holder.mQualificationMenuValue.setText(String.valueOf(mRatingValue).replace(".",","));
+        holder.mQualificationMenuValue.setText(String.valueOf(mRatingValue).replace(".", ","));
 
         holder.mQualificationButton.setOnClickListener(new View.OnClickListener() {
             @Override

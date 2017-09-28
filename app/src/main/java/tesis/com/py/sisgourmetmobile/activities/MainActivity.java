@@ -1,6 +1,5 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
-import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,14 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -29,7 +26,6 @@ import tesis.com.py.sisgourmetmobile.fragments.MenuFragment;
 import tesis.com.py.sisgourmetmobile.fragments.MyCommentsFragment;
 import tesis.com.py.sisgourmetmobile.fragments.OrdersFragment;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
-import tesis.com.py.sisgourmetmobile.utils.DataSyncTest;
 import tesis.com.py.sisgourmetmobile.utils.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
@@ -84,9 +80,6 @@ public class MainActivity extends AppCompatActivity
         toolbar.setSubtitle(getString(R.string.tab_menu));
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        if (AppPreferences.getAppPreferences(this).getBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, false)) {
-            localSync();
-        }
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -181,13 +174,7 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
     }
 
-    private void localSync() {
-        DataSyncTest.setProviderData();
-        DataSyncTest.setMenuData();
-        DataSyncTest.setDrinks();
-        DataSyncTest.setGarnish();
-        DataSyncTest.setAllComments();
-    }
+
 
     private void logoutMethod() {
 

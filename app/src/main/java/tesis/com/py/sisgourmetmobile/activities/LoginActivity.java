@@ -1,16 +1,11 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -20,21 +15,15 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import py.com.library.AbstractStep;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.dialogs.ProgressDialogFragment;
-import tesis.com.py.sisgourmetmobile.entities.Users;
 import tesis.com.py.sisgourmetmobile.network.MyRequest;
 import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
-import tesis.com.py.sisgourmetmobile.repositories.UsersRepository;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
-import tesis.com.py.sisgourmetmobile.utils.DataSyncTest;
-import tesis.com.py.sisgourmetmobile.utils.DialogClass;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 import tesis.com.py.sisgourmetmobile.utils.URLS;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
@@ -109,13 +98,10 @@ public class LoginActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-           /* mLoginTask = new LoginTask(userNameString, userPasswordString);
-            mLoginTask.execute();*/
+            mLoginTask = new LoginTask(userNameString, userPasswordString);
+            mLoginTask.execute();
 
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
-            AppPreferences.getAppPreferences(LoginActivity.this).edit().putString(AppPreferences.KEY_PREFERENCE_USER, "mavalos").apply();
-            finish();
+
         }
     }
 
@@ -178,8 +164,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void handleResponse(JSONObject response) {
             String message = null;
-            JSONObject result = null;
             String mUsername = "";
+            String mIdentifyCard = "";
             int status = -1;
 
             if (response == null) {
@@ -196,10 +182,15 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.has("usuario")) {
                         mUsername = response.getString("usuario");
                     }
+                    if (response.has("identifyCard")) {
+                        mIdentifyCard = response.getString("identifyCard");
+                    }
+
                     Log.d("TAG", "USERNAME: " + mUsername);
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
                     AppPreferences.getAppPreferences(LoginActivity.this).edit().putString(AppPreferences.KEY_PREFERENCE_USER, mUsername).apply();
+                    AppPreferences.getAppPreferences(LoginActivity.this).edit().putString(AppPreferences.KEY_IDENTIYFY_CARD, mIdentifyCard).apply();
                     finish();
                 }
 
