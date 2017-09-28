@@ -1,5 +1,7 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -153,44 +155,32 @@ public class StepLunch extends AbstractStep {
         String stringRaiting = String.valueOf(luncObject.getRatingMenu());
         float mRaitingValue = Float.parseFloat(stringRaiting);
 
+        Log.d("tag", "rating: " + mRaitingValue);
         switch (stringRaiting) {
-            case "1":
+            case "1.0":
                 mRatingMenu.setRating(mRaitingValue);
                 mSelectedQualificationTextView.setText("Muy Malo");
                 break;
-            case "2":
+            case "2.0":
                 mRatingMenu.setRating(mRaitingValue);
                 mSelectedQualificationTextView.setText("Malo");
                 break;
-            case "3":
+            case "3.0":
                 mRatingMenu.setRating(mRaitingValue);
                 mSelectedQualificationTextView.setText("Bién");
                 break;
-            case "4":
+            case "4.0":
                 mRatingMenu.setRating(mRaitingValue);
                 mSelectedQualificationTextView.setText("Muy Bién");
                 break;
-            case "5":
+            case "5.0":
                 mRatingMenu.setRating(mRaitingValue);
                 mSelectedQualificationTextView.setText("Excelente");
                 break;
         }
 
-        mProviderObject = ProviderRepository.getProviderById(luncObject.getProviderId());
-
-        if (mProviderObject != null) {
-            switch (mProviderObject.getProviderName()) {
-                case "La Vienesa":
-                    mProviderImageView.setImageResource(R.mipmap.la_vienesa);
-                    break;
-                case "Ña Eustaquia":
-                    mProviderImageView.setImageResource(R.mipmap.nha_esutaquia);
-                    break;
-                case "Bolsi":
-                    mProviderImageView.setImageResource(R.mipmap.bolsi);
-                    break;
-            }
-        }
+        Bitmap bmp = BitmapFactory.decodeByteArray(luncObject.getImageMenu(), 0, luncObject.getImageMenu().length);
+        mProviderImageView.setImageBitmap(bmp);
     }
 
     @Override

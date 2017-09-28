@@ -75,8 +75,7 @@ public class ProviderQualificationAdapter extends RecyclerView.Adapter<ProviderQ
             animVienesa.setDuration(1000);
             holder.mProviderProgressBar.startAnimation(animVienesa);
             Bitmap bmp = BitmapFactory.decodeByteArray(pqm.getFileArrayImage(), 0, pqm.getFileArrayImage().length);
-            holder.mProviderImageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, holder.mProviderImageView.getWidth(),
-                    holder.mProviderImageView.getHeight(), false));
+            holder.mProviderImageView.setImageBitmap(bmp);
             holder.mProviderRatingBar.setRating(Float.parseFloat(pqm.getProviderRating()));
         } catch (Exception ex) {
             Utils.builToast(mContext,mContext.getString(R.string.error_in_buil_adapter_view));

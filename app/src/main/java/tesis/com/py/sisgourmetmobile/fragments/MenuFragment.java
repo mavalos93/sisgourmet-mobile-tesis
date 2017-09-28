@@ -271,13 +271,10 @@ public class MenuFragment extends Fragment {
                     }
                 }
                 if (mLunchList.size() > 0 && mGarnishList.size() > 0 && mProviderList.size() > 0 && mDrinkList.size() > 0) {
-                    Log.d("TAG","ENTRO ACA");
                     SaveDataAsyncTask saveDataAsyncTask = new SaveDataAsyncTask(getContext(), new SaveDataAsyncTask.AsyncResponse() {
                         @Override
                         public void processFinish(Boolean status) {
-                            Log.d("TAG","status"+ status);
                             if (status) {
-                                Log.d("TAG","status"+ status);
                                 mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
                                 mNotificationBuild = BuildNotification(getContext(),
                                         R.mipmap.ic_done_black_36dp,

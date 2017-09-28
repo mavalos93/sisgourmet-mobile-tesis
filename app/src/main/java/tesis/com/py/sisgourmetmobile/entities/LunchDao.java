@@ -29,7 +29,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
         public final static Property MainMenuDescription = new Property(3, String.class, "mainMenuDescription", false, "MAIN_MENU_DESCRIPTION");
         public final static Property ProviderId = new Property(4, Integer.class, "providerId", false, "PROVIDER_ID");
         public final static Property MenuDate = new Property(5, String.class, "menuDate", false, "MENU_DATE");
-        public final static Property RatingMenu = new Property(6, Integer.class, "ratingMenu", false, "RATING_MENU");
+        public final static Property RatingMenu = new Property(6, Double.class, "ratingMenu", false, "RATING_MENU");
         public final static Property ImageMenu = new Property(7, byte[].class, "imageMenu", false, "IMAGE_MENU");
     };
 
@@ -52,7 +52,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
                 "\"MAIN_MENU_DESCRIPTION\" TEXT," + // 3: mainMenuDescription
                 "\"PROVIDER_ID\" INTEGER," + // 4: providerId
                 "\"MENU_DATE\" TEXT," + // 5: menuDate
-                "\"RATING_MENU\" INTEGER," + // 6: ratingMenu
+                "\"RATING_MENU\" REAL," + // 6: ratingMenu
                 "\"IMAGE_MENU\" BLOB);"); // 7: imageMenu
     }
 
@@ -97,9 +97,9 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
             stmt.bindString(6, menuDate);
         }
  
-        Integer ratingMenu = entity.getRatingMenu();
+        Double ratingMenu = entity.getRatingMenu();
         if (ratingMenu != null) {
-            stmt.bindLong(7, ratingMenu);
+            stmt.bindDouble(7, ratingMenu);
         }
  
         byte[] imageMenu = entity.getImageMenu();
@@ -124,7 +124,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // mainMenuDescription
             cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // providerId
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // menuDate
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // ratingMenu
+            cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6), // ratingMenu
             cursor.isNull(offset + 7) ? null : cursor.getBlob(offset + 7) // imageMenu
         );
         return entity;
@@ -139,7 +139,7 @@ public class LunchDao extends AbstractDao<Lunch, Long> {
         entity.setMainMenuDescription(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setProviderId(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
         entity.setMenuDate(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setRatingMenu(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
+        entity.setRatingMenu(cursor.isNull(offset + 6) ? null : cursor.getDouble(offset + 6));
         entity.setImageMenu(cursor.isNull(offset + 7) ? null : cursor.getBlob(offset + 7));
      }
     

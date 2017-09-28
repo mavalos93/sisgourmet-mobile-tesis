@@ -113,6 +113,7 @@ public class CommentsViewActivity extends AppCompatActivity {
 
             }
         }));
+        Log.d(TAG_CLASS, "PROVIDER_LIST: " + providerDataList.size());
         mProviderDataAdapter.setData(providerDataList);
 
 
@@ -141,23 +142,6 @@ public class CommentsViewActivity extends AppCompatActivity {
 
 
     }
-
-
-   /* private void setupProviderData(int mVienesaMaxValue, int mBolsiMaxValue, int mNhaEustaquiaMaxValue, List<Comments> commentsList) {
-        // Charge all comment data
-        // setup view this provider (Vienesa)
-        Utils.ProgressBarAnimation animVienesa = new Utils.ProgressBarAnimation(mVienesaProgressBar, 0, mVienesaMaxValue);
-        animVienesa.setDuration(1000);
-        mVienesaProgressBar.startAnimation(animVienesa);
-        Utils.ProgressBarAnimation animBolsi = new Utils.ProgressBarAnimation(mBolsiProgressBar, 0, mBolsiMaxValue);
-        animBolsi.setDuration(1000);
-        mBolsiProgressBar.startAnimation(animBolsi);
-        Utils.ProgressBarAnimation animNhaEustaquia = new Utils.ProgressBarAnimation(mNhaEustaquiaProgressBar, 0, mNhaEustaquiaMaxValue);
-        animNhaEustaquia.setDuration(1000);
-        mNhaEustaquiaProgressBar.startAnimation(animNhaEustaquia);
-
-    }*/
-
 
     private void sendRequest() {
         boolean mIsConnected;

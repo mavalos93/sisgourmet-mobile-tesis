@@ -41,7 +41,7 @@ public class AllMenuData {
                 lunchObject.setMenuDate(data.getString("fechaMenu"));
             }
             if (data.has("ratingMenu")) {
-                lunchObject.setRatingMenu(data.getInt("ratingMenu"));
+                lunchObject.setRatingMenu(data.getDouble("ratingMenu"));
             }
 
             if (data.has("imageMenu")) {

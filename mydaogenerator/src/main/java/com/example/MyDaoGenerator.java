@@ -61,7 +61,7 @@ public class MyDaoGenerator {
         lunch.addStringProperty("mainMenuDescription");
         lunch.addIntProperty("providerId");
         lunch.addStringProperty("menuDate");
-        lunch.addIntProperty("ratingMenu");
+        lunch.addDoubleProperty("ratingMenu");
         lunch.addByteArrayProperty("imageMenu");
 
 

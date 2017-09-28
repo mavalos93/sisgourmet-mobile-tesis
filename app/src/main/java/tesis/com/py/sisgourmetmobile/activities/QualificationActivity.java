@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -120,7 +122,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         mRatingMenu = (AppCompatRatingBar) findViewById(R.id.qualification_menu_rating);
         mCommentEditText = (AppCompatEditText) findViewById(R.id.qualification_comment_edtitText);
 
-        setupDataView(mProviderId, mLunchId);
+        setupDataView( mLunchId);
         setupRatingListener();
 
     }
@@ -192,22 +194,20 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         }
     }
 
-    private void setupDataView(long providerId, long mLunchId) {
-
-
+    private void setupDataView(long mLunchId) {
         List<Garnish> mGarnishList = GarnishRepository.getGarnishByLunchId(mLunchId);
-
-        Lunch lunchQuery = LunchRepository.getLunchById(mLunchId);
-        if (lunchQuery != null) {
+        Lunch lunchObject = LunchRepository.getLunchById(mLunchId);
+        if (lunchObject != null) {
             mainMenuTextView.setVisibility(View.VISIBLE);
-            mainMenuTextView.setText(lunchQuery.getMainMenuDescription());
+            mainMenuTextView.setText(lunchObject.getMainMenuDescription());
+            Bitmap bmp = BitmapFactory.decodeByteArray(lunchObject.getImageMenu(), 0, lunchObject.getImageMenu().length);
+            menuIamgeView.setImageBitmap(bmp);
         } else {
             mainMenuTextView.setVisibility(View.GONE);
 
         }
 
         if (mGarnishList.size() != 0) {
-
             switch (mGarnishList.size()) {
                 case 0:
                     Utils.builToast(this, "No se encontro guarnicion");
@@ -234,22 +234,6 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         }
 
         priceLunchTextView.setText(mPrice + " Gs.");
-
-        Provider mProviderObject = ProviderRepository.getProviderById(providerId);
-        if (mProviderObject != null) {
-            switch (mProviderObject.getProviderName()) {
-                case "La Vienesa":
-                    menuIamgeView.setImageResource(R.mipmap.la_vienesa);
-                    break;
-                case "Ña Eustaquia":
-                    menuIamgeView.setImageResource(R.mipmap.nha_esutaquia);
-                    break;
-                case "Bolsi":
-                    menuIamgeView.setImageResource(R.mipmap.bolsi);
-                    break;
-            }
-        }
-
     }
 
     private void setupRatingListener() {
@@ -308,7 +292,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 OrderRepository.store(mOrderObject);
             }
             String mUsername = AppPreferences.getAppPreferences(this).getString(AppPreferences.KEY_PREFERENCE_USER, null);
-            Log.d(TAG_CLASS, "username: "+ mUsername);
+            Log.d(TAG_CLASS, "username: " + mUsername);
             mQualificationTask = new QualificationTask(mUsername, mCommentString, mProviderId, mMainMenuDescription, mGarnishDescription, mRatingValue);
             mQualificationTask.confirm();
         }
@@ -471,7 +455,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                             errorDialog.show(getFragmentManager(), CancelableAlertDialogFragment.TAG);
                         }
                     });
-            Log.d(TAG_CLASS,"PARAMS: "+mQualificationRequest.getParams());
+            Log.d(TAG_CLASS, "PARAMS: " + mQualificationRequest.getParams());
             jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
             jsonObjectRequest.setTag(REQUEST_TAG);
             NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest, getApplicationContext());

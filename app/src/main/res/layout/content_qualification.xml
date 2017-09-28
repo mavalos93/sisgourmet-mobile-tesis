@@ -5,132 +5,146 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-    <LinearLayout
-        android:id="@+id/container_all_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:baselineAligned="false"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/qualification_menu_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:contentDescription="@string/description_image"
-                android:src="@mipmap/bolsi" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/qualification_main_menu_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/item_main_menu"
-                    android:textColor="@color/primary_text"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/qualification_garnish_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/item_garnish"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/qualification_price_unit_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/item_price_unit"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
+        android:layout_height="match_parent">
 
 
         <LinearLayout
+            android:id="@+id/container_all_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:baselineAligned="false"
             android:orientation="vertical">
 
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/default_vertical_margin"
-                android:layout_marginTop="@dimen/default_vertical_margin"
-                android:gravity="center"
-                android:orientation="vertical">
+                app:cardCornerRadius="@dimen/default_padding">
 
-                <android.support.v7.widget.AppCompatRatingBar
-                    android:id="@+id/qualification_menu_rating"
-                    style="?android:attr/rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:stepSize="1.0" />
-
-                <TextView
-                    android:id="@+id/qualificaition_rating_description_textView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/item_qualification"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/qualification_menu_image"
+                        android:layout_width="match_parent"
+                        android:layout_margin="@dimen/default_padding"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/description_image"
+                        android:src="@mipmap/bolsi" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/default_vertical_margin"
-                android:layout_marginTop="@dimen/big_margin_layout"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/comment_image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/content_description"
-                    app:srcCompat="@mipmap/ic_border_color_black_36dp" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_comment">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/qualification_comment_edtitText"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:maxLines="1" />
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                </android.support.design.widget.TextInputLayout>
+                        <TextView
+                            android:id="@+id/qualification_main_menu_textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/item_main_menu"
+                            android:textColor="@color/primary_text"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/qualification_garnish_textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/item_garnish"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/qualification_price_unit_textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/item_price_unit"
+                            android:textSize="17sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/default_vertical_margin"
+                    android:layout_marginTop="@dimen/default_vertical_margin"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/qualification_menu_rating"
+                        style="?android:attr/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:stepSize="1.0"
+                        android:theme="@style/RatingBar" />
+
+                    <TextView
+                        android:id="@+id/qualificaition_rating_description_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/item_qualification"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/default_vertical_margin"
+                    android:layout_marginTop="@dimen/big_margin_layout"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/comment_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/content_description"
+                        app:srcCompat="@mipmap/ic_border_color_black_36dp" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_comment">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/qualification_comment_edtitText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:maxLines="1" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
-
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

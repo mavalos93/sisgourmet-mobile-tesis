@@ -10,8 +10,8 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/colorIcons</item>
-        <item name="colorControlActivated">@color/colorIcons</item>
+        <item name="colorControlNormal">@color/accent</item>
+        <item name="colorControlActivated">@color/icons</item>
     </style>
 
     <style name="AppTheme.DarkActionBar">
@@ -30,6 +30,8 @@
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorIcons</item>
     </style>
+
+
 
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/accent</item>
