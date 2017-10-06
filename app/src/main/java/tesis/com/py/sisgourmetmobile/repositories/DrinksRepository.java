@@ -22,7 +22,7 @@ public class DrinksRepository {
     }
 
     public static Drinks getDrinkById(long drinkId) {
-        return getDao().queryBuilder().where(DrinksDao.Properties.Id.eq(drinkId)).unique();
+        return getDao().queryBuilder().where(DrinksDao.Properties.DrinkId.eq(drinkId)).unique();
     }
 
     public static long count() {

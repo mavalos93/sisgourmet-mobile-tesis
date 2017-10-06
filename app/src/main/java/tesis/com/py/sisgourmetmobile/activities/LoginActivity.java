@@ -150,14 +150,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-            Log.d("TAG", "PARAMS: " + mLoginRequest.getParams());
             jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
             jsonObjectRequest.setTag(LoginActivity.LoginTask.REQUEST_TAG);
-            try {
-                Log.d("TAG", "HEADER: " + jsonObjectRequest.getHeaders().toString());
-            } catch (AuthFailureError authFailureError) {
-                authFailureError.printStackTrace();
-            }
             NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest, getApplicationContext());
         }
 

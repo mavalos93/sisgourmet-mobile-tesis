@@ -98,6 +98,7 @@ public class StepDrinks extends AbstractStep {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    mDrinkId = 0;
                     setupDrinkView(mDrinkList, false);
                 } else {
                     setupDrinkView(mDrinkList, true);
@@ -113,7 +114,7 @@ public class StepDrinks extends AbstractStep {
             for (Drinks drinks : mDrinkList) {
                 final RadioButton mDrinkRadioButton = new RadioButton(getContext());
                 mDrinkRadioButton.setText(drinks.getDescription() + "\n" + "Precio: " + drinks.getPriceUnit() + " Gs.");
-                mDrinkRadioButton.setId(drinks.getId().intValue());
+                mDrinkRadioButton.setId(drinks.getDrinkId());
                 mDrinkRadioButton.setPadding(0, 20, 0, 20);
                 mDrinkRadioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.drink_icon, 0, 0, 0);
                 mDrinkRadioButton.setEnabled(isEnable);

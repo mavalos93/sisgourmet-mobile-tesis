@@ -3,6 +3,8 @@ package tesis.com.py.sisgourmetmobile.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -132,22 +134,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 break;
 
         }
+        Lunch mLunchObject = LunchRepository.getLunchById(mOrder.getLunchId());
 
 
-        Provider mProviderObject = ProviderRepository.getProviderById(mOrder.getProviderId());
-
-        if (mProviderObject != null) {
-            switch (mProviderObject.getProviderName()) {
-                case "La Vienesa":
-                    iconOrder = R.mipmap.la_vienesa;
-                    break;
-                case "Ña Eustaquia":
-                    iconOrder = R.mipmap.nha_esutaquia;
-                    break;
-                case "Bolsi":
-                    iconOrder = R.mipmap.bolsi;
-                    break;
-            }
+        if(mLunchObject != null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(mLunchObject.getImageMenu(), 0, mLunchObject.getImageMenu().length);
+            holder.orderTypeImageView.setImageBitmap(bmp);
         }
 
         if (mOrder.getRatingLunch() == null || mOrder.getRatingLunch() == 0) {

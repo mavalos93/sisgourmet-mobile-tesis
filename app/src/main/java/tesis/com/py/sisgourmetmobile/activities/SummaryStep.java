@@ -429,18 +429,27 @@ public class SummaryStep extends AbstractStep{
 
                 if (status != Constants.RESPONSE_OK) {
                     updateOrderTransaction(mOrder, Constants.TRANSACTION_NO_SEND);
-                    Utils.builToast(getContext(), getString(R.string.volley_default_error));
+                    Utils.builToast(getContext(), message);
                     return;
                 }
 
                 updateOrderTransaction(mOrder, Constants.TRANSACTION_SEND);
                 mOrder = null;
 
-                AlertDialogFragment alertDialogFragment = AlertDialogFragment.newInstance(getString(R.string.dialog_success_title),
-                        message,
-                        getString(R.string.label_accept),
-                        R.mipmap.ic_done_black_36dp);
-                alertDialogFragment.show(getActivity().getFragmentManager(), AlertDialogFragment.TAG_CLASS);
+                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+                builder.setIcon(R.mipmap.ic_done_black_36dp);
+                builder.setTitle(R.string.dialog_success_title);
+                builder.setMessage(message);
+                builder.setPositiveButton(R.string.label_accept, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().finish();
+                    }
+                });
+
+                android.app.AlertDialog doneDialog = builder.create();
+                doneDialog.setCanceledOnTouchOutside(false);
+                doneDialog.show();
 
             } catch (JSONException e) {
                 e.printStackTrace();

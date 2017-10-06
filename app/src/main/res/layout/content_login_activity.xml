@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e94b4b">
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/login_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/big_margin_layout"
         android:contentDescription="@string/description_image"
-        android:src="@mipmap/menu_login" />
+        android:src="@mipmap/ic_restaurant_menu_white_48dp" />
 
 
     <LinearLayout
@@ -74,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/colorIcons"
+                app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/icons">
 
 
@@ -95,12 +96,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/big_margin_layout"
-            android:background="@color/dot_dark_screen1"
-            android:drawableLeft="@mipmap/ic_done_white_48dp"
-            android:drawableStart="@mipmap/ic_done_white_48dp"
+            android:background="@drawable/round_corners_button"
             android:padding="@dimen/default_padding"
             android:text="@string/login_button"
-            android:textColor="@color/icons"
+            android:textColor="@color/accent"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>

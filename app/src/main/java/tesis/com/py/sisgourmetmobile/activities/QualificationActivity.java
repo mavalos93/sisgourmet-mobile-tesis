@@ -122,7 +122,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         mRatingMenu = (AppCompatRatingBar) findViewById(R.id.qualification_menu_rating);
         mCommentEditText = (AppCompatEditText) findViewById(R.id.qualification_comment_edtitText);
 
-        setupDataView( mLunchId);
+        setupDataView(mLunchId);
         setupRatingListener();
 
     }
@@ -335,7 +335,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
 
     @Override
     public void onAlertDialogPositiveClick(DialogFragment dialog) {
-
+        finish();
     }
 
     @Override
