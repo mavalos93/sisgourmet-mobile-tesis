@@ -6,9 +6,11 @@ package tesis.com.py.sisgourmetmobile.utils;
 
 public class URLS {
 
-    public static final String QUALIFICATION_URL = "http://192.168.43.126:8090/WebAppSisgourmetService/webresources/entities.calificacioncomentario/qualification";
-    public static final String ORDER_URL = "http://192.168.43.126:8090/WebAppSisgourmetService/webresources/entities.pedidosalmuerzo/order";
-    public static final String LOGIN_URL = "http://192.168.43.126:8090/WebAppSisgourmetService/webresources/entities.gesusuario/login";
-    public static final String ALL_COMMENTS_URL = "http://192.168.43.126:8090/WebAppSisgourmetService/webresources/entities.calificacioncomentario/providerdata";
-    public static final String ALL_MENU_DATA_URL = "http://192.168.43.126:8090/WebAppSisgourmetService/webresources/entities.gesmenusprincipal/syncAllMenus";
+    private static final String MAIN_URL = "http://192.168.0.17:8090/WebAppSisgourmetService/webresources";
+
+    public static final String QUALIFICATION_URL = MAIN_URL + "/entities.calificacioncomentario/qualification";
+    public static final String ORDER_URL = MAIN_URL + "/entities.pedidosalmuerzo/order";
+    public static final String LOGIN_URL = MAIN_URL + "/entities.gesusuario/login";
+    public static final String ALL_COMMENTS_URL = MAIN_URL + "/entities.calificacioncomentario/providerdata";
+    public static final String ALL_MENU_DATA_URL = MAIN_URL+ "/entities.gesmenusprincipal/syncAllMenus";
 }

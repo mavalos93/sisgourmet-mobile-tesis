@@ -29,5 +29,5 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_form"></include>
+    <include layout="@layout/content_form"/>
 </android.support.design.widget.CoordinatorLayout>

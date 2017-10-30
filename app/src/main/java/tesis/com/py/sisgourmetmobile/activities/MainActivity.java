@@ -5,12 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,18 +20,14 @@ import tesis.com.py.sisgourmetmobile.fragments.MenuFragment;
 import tesis.com.py.sisgourmetmobile.fragments.MyCommentsFragment;
 import tesis.com.py.sisgourmetmobile.fragments.OrdersFragment;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
-import tesis.com.py.sisgourmetmobile.utils.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+        implements
         MenuFragment.OnItemMenuListener, MyCommentsFragment.OnItemMyCommentsListenerSelected,
         OrdersFragment.OnItemOrderListenerSelected,
         CancelableAlertDialogFragment.CancelableAlertDialogFragmentListener {
-    private CoordinatorLayout mCoordinatorLayoutView;
-    private ViewPager mViewPager;
     private Toolbar toolbar;
     private final String TAG_CLASS = MainActivity.class.getName();
-    private BottomNavigationView bottomNavigationView;
     private MenuItem prevMenuItem;
 
 
@@ -47,63 +37,40 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mCoordinatorLayoutView = (CoordinatorLayout) findViewById(R.id.main_coordinator_view);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupFragment(MenuFragment.newInstance());
+
         //Initializing the bottomNavigationView
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_selected_menu:
-                                mViewPager.setCurrentItem(0);
-                                break;
-                            case R.id.action_my_orders:
-                                mViewPager.setCurrentItem(1);
-                                break;
-                            case R.id.action_my_comments:
-                                mViewPager.setCurrentItem(2);
-                                break;
-                        }
-                        return false;
-                    }
-                });
-        setupViewPager(mViewPager);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        toolbar.setSubtitle(getString(R.string.tab_menu));
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                } else {
-                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_selected_menu:
+                        setupFragment(MenuFragment.newInstance());
+                        break;
+                    case R.id.action_my_orders:
+                        setupFragment(OrdersFragment.newInstance());
+                        break;
+                    case R.id.action_my_favorites:
+                        setupFragment(MyCommentsFragment.newInstance());
+                        break;
                 }
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
 
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+                return true;
             }
         });
+
+    }
+
+
+    private void setupFragment(android.support.v4.app.Fragment fragment) {
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().
+                beginTransaction();
+        transaction.replace(R.id.rootLayout, fragment);
+        transaction.commit();
     }
 
     @Override
@@ -114,19 +81,10 @@ public class MainActivity extends AppCompatActivity
         StepLunch.radioGarnishId = 0;
         StepLunch.typeLunchCase = 0;
         StepDrinks.mDrinkId = 0;
-
     }
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,33 +104,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_sesion) {
-            logoutMethod();
-        } else if (id == R.id.comment_id) {
-            startActivity(new Intent(MainActivity.this, CommentsViewActivity.class));
-        } else if (id == R.id.nav_my_account) {
-            startActivity(new Intent(MainActivity.this, CheckAmountActivity.class));
-        }
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(MenuFragment.newInstance());
-        adapter.addFrag(OrdersFragment.newInstance());
-        adapter.addFrag(MyCommentsFragment.newInstance());
-        viewPager.setAdapter(adapter);
-    }
 
 
 

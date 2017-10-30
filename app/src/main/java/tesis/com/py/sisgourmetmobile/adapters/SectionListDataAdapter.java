@@ -58,7 +58,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         String mGarnishText = "";
         int listSize = 0;
         float mRatingValue;
-        Provider mProviderObject;
 
         List<Garnish> garnisList = GarnishRepository.getGarnishByLunchId(lunchItem.getPrincipalMenuCode());
 
@@ -78,7 +77,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         Bitmap bmp = BitmapFactory.decodeByteArray(lunchItem.getImageMenu(), 0, lunchItem.getImageMenu().length);
         holder.itemImage.setImageBitmap(bmp);
 
-        holder.mainMenuDescription.setText(lunchItem.getMainMenuDescription());
+        holder.mainMenuDescription.setText(lunchItem.getMainMenuDescription().toLowerCase().trim());
         holder.garnishDescription.setText(mGarnishText);
         holder.mQualificationMenuValue.setText(String.valueOf(mRatingValue).replace(".", ","));
 

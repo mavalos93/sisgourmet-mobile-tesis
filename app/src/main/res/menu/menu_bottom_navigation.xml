@@ -14,9 +14,21 @@
         android:title="@string/tab_orders"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_my_comments"
+        android:id="@+id/action_my_favorites"
         android:checked="false"
-        android:icon="@mipmap/ic_comment_black_48dp"
-        android:title="@string/tab_my_comments"
+        android:icon="@mipmap/ic_stars_black_36dp"
+        android:title="@string/tab_my_favorites"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_comments"
+        android:checked="false"
+        android:icon="@mipmap/ic_comment_black_36dp"
+        android:title="@string/tab_comments"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_my_account"
+        android:checked="false"
+        android:icon="@mipmap/ic_account_circle_black_36dp"
+        android:title="@string/tab_my_account"
         app:showAsAction="ifRoom" />
 </menu>

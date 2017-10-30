@@ -2,6 +2,7 @@
 
     <!-- App default labels menu-->
     <string name="app_name">SISGOURMET MOBILE</string>
+    <string name="app_toolbar_name">Sisgourmet</string>
     <string name="app_action_description">Seleccion de Almuerzos</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -90,7 +91,9 @@
     <string name="qualification_menu_decription">Calificacion del Servicio</string>
     <string name="tab_menu">Menú</string>
     <string name="tab_orders">Pedidos</string>
-    <string name="tab_my_comments">Mis Comentarios</string>
+    <string name="tab_my_favorites">Favoritos</string>
+    <string name="tab_comments">Comentarios</string>
+    <string name="tab_my_account">Mi Cuenta</string>
     <string name="title_activity_provider">Proveedores</string>
     <string name="title_activity_qualification">Calificación</string>
     <string name="title_activity_reset_pass">Cambio de Contraseña</string>
@@ -219,7 +222,6 @@
     <string name="dialog_error_unexpected">Error inesperado</string>
     <string name="volley_time_out_error">Tiempo de espera de conexio agotado.</string>
     <string name="volley_default_error">Error inesperado, favor intente de vuelta.</string>
-    <string name="title_activity_check_amount">Mi Cuenta</string>
 
     <!-- Check Acount Activity-->
     <string name="tag_my_acount">Mi Cuenta</string>
@@ -227,9 +229,9 @@
     <string name="tag_amount_value">200.000</string>
     <string name="tag_coint_value">Gs.</string>
     <string name="tag_my_amount_available">Monto Disponible</string>
-    <string name="tag_name">Nombre</string>
-    <string name="tag_last_name">Apellido</string>
-    <string name="tag_ci">Cédula</string>
+    <string name="tag_name">Nombre: </string>
+    <string name="tag_last_name">Apellido: </string>
+    <string name="tag_ci">Cédula: </string>
 
 
     <!-- Comments View Activity-->
@@ -237,5 +239,10 @@
     <string name="error_all_comments_null">No se encontraron registros de comentarios</string>
     <string name="error_provider_data_null">No se encontraron datos de proveedores para mostrar</string>
     <string name="error_in_buil_adapter_view">Error al construir vista del adaptador</string>
+    <string name="title_activity_check_amount">Mi Cuenta</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

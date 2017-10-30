@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -359,12 +362,30 @@ public class Utils {
         return message;
     }
 
+    private static  Drawable resizeImage(Context context,int resId, int w, int h)
+    {
+        // load the origial Bitmap
+        Bitmap BitmapOrg = BitmapFactory.decodeResource(context.getResources(), resId);
+        int width = BitmapOrg.getWidth();
+        int height = BitmapOrg.getHeight();
+        int newWidth = w;
+        int newHeight = h;
+        // calculate the scale
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0,width, height, matrix, true);
+        return new BitmapDrawable(resizedBitmap);
+    }
+
 
     public static void expireSession(Context context) {
         // Clear login data
         AppPreferences.getAppPreferences(context).edit().clear().apply();
         Toast.makeText(context, context.getString(R.string.error_expired_session), Toast.LENGTH_LONG).show();
-        context.startActivity(new Intent(context, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK));
+        context.startActivity(new Intent(context, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     public static DefaultRetryPolicy getRetryPolicy() {
