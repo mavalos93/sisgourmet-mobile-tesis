@@ -21,8 +21,10 @@ import org.json.JSONObject;
 
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.dialogs.ProgressDialogFragment;
+import tesis.com.py.sisgourmetmobile.entities.User;
 import tesis.com.py.sisgourmetmobile.network.MyRequest;
 import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
+import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 import tesis.com.py.sisgourmetmobile.utils.URLS;
@@ -160,6 +162,9 @@ public class LoginActivity extends AppCompatActivity {
             String message = null;
             String mUsername = "";
             String mIdentifyCard = "";
+            String mName = "";
+            String mUserLastName = "";
+            String mCurrentAmount = "";
             int status = -1;
 
             if (response == null) {
@@ -167,25 +172,32 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
+            Log.d("TAG", "LOGIN_RESPONSE: " + response.toString());
             try {
                 if (response.has("status")) status = response.getInt("status");
                 if (response.has("message")) message = response.getString("message");
                 if (status != 1) {
                     Utils.getSnackBar(mCoordinatorLayout, message);
                 } else {
-                    if (response.has("usuario")) {
-                        mUsername = response.getString("usuario");
-                    }
-                    if (response.has("identifyCard")) {
+                    if (response.has("usuario")) mUsername = response.getString("usuario");
+                    if (response.has("identifyCard"))
                         mIdentifyCard = response.getString("identifyCard");
+                    if (response.has("name")) mName = response.getString("name");
+                    if (response.has("lastName")) mUserLastName = response.getString("lastName");
+                    if (response.has("currentAmount"))
+                        mCurrentAmount = response.getString("currentAmount");
+
+                    long userId = saveUserData(mName, mUserLastName, mCurrentAmount, mUsername, mIdentifyCard);
+                    if (userId > 0) {
+                        AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
+                        AppPreferences.getAppPreferences(LoginActivity.this).edit().putLong(AppPreferences.KEY_USER_ID, userId).apply();
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        Utils.builToast(LoginActivity.this, getString(R.string.error_save_user_data));
+                        return;
                     }
 
-                    Log.d("TAG", "USERNAME: " + mUsername);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
-                    AppPreferences.getAppPreferences(LoginActivity.this).edit().putString(AppPreferences.KEY_PREFERENCE_USER, mUsername).apply();
-                    AppPreferences.getAppPreferences(LoginActivity.this).edit().putString(AppPreferences.KEY_IDENTIYFY_CARD, mIdentifyCard).apply();
-                    finish();
                 }
 
             } catch (JSONException e) {
@@ -198,6 +210,15 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
+        private long saveUserData(String name, String lastName, String currentAmount, String mUsername, String identifyCard) {
+            User user = new User();
+            user.setName(name);
+            user.setIdentifyCard(identifyCard);
+            user.setLastName(lastName);
+            user.setCurrentAmount(currentAmount);
+            user.setUserName(mUsername);
+            return UserRepository.store(user);
+        }
 
         class LoginRequest extends RequestObject {
 

@@ -1,14 +1,20 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.lang.reflect.Field;
 
 import py.com.library.style.TabStepper;
 import py.com.library.util.LinearityChecker;
@@ -63,6 +69,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+
+
     }
 
 
@@ -99,6 +108,9 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if(id == R.id.action_my_account){
+            startActivity(new Intent(MainActivity.this,CheckAmountActivity.class));
+        }
 
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);
@@ -107,15 +119,31 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    private void logoutMethod() {
 
-        CancelableAlertDialogFragment cancelableAlertDialogFragment = CancelableAlertDialogFragment.newInstance(
-                getString(R.string.confirm_logout_session_title),
-                getString(R.string.confirm_logout_message),
-                getString(R.string.label_accept),
-                getString(R.string.label_cancel),
-                R.mipmap.ic_power_settings_new_black_36dp);
-        cancelableAlertDialogFragment.show((this).getFragmentManager(), TAG_CLASS);
+    public static class BottomNavigationViewHelper {
+        @SuppressLint("RestrictedApi")
+        static void disableShiftMode(BottomNavigationView view) {
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+            try {
+                Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+                shiftingMode.setAccessible(true);
+                shiftingMode.setBoolean(menuView, false);
+                shiftingMode.setAccessible(false);
+                for (int i = 0; i < menuView.getChildCount(); i++) {
+                    BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                    //noinspection RestrictedApi
+                    item.setShiftingMode(false);
+                    item.showsIcon();
+                    // set once again checked value, so view will be updated
+                    //noinspection RestrictedApi
+                    item.setChecked(item.getItemData().isChecked());
+                }
+            } catch (NoSuchFieldException e) {
+                Log.e("BNVHelper", "Unable to get shift mode field", e);
+            } catch (IllegalAccessException e) {
+                Log.e("BNVHelper", "Unable to change value of shift mode", e);
+            }
+        }
     }
 
     @Override

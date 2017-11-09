@@ -141,6 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/default_padding"
                     android:layout_marginRight="@dimen/default_padding"
+                    android:layout_gravity="center"
                     android:contentDescription="@string/description_image"
                     android:src="@mipmap/ic_monetization_on" />
 

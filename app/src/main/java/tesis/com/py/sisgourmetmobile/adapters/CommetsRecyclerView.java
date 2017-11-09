@@ -2,16 +2,11 @@ package tesis.com.py.sisgourmetmobile.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
-import android.os.MessageQueue;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,10 +21,8 @@ import java.util.List;
 import tesis.com.py.sisgourmetmobile.R;
 
 import tesis.com.py.sisgourmetmobile.entities.Qualification;
-import tesis.com.py.sisgourmetmobile.entities.Users;
 import tesis.com.py.sisgourmetmobile.recivers.MyCommentsObserver;
 import tesis.com.py.sisgourmetmobile.repositories.QualificationRepository;
-import tesis.com.py.sisgourmetmobile.repositories.UsersRepository;
 
 /**
  * Created by Manu0 on 31/5/2017.

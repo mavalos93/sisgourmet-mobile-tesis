@@ -1,14 +1,9 @@
 package tesis.com.py.sisgourmetmobile.repositories;
 
-import android.content.Context;
-
 import java.util.List;
 
-import de.greenrobot.dao.query.QueryBuilder;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.entities.ProviderDao;
-import tesis.com.py.sisgourmetmobile.entities.Users;
-import tesis.com.py.sisgourmetmobile.entities.UsersDao;
 import tesis.com.py.sisgourmetmobile.utils.MainSession;
 
 /**

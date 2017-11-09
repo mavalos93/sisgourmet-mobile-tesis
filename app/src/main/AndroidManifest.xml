@@ -38,20 +38,6 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.FormActivity"
-            android:label="@string/title_activity_form"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activities.ResetPassActivity"
-            android:label="@string/title_activity_reset_pass"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".activities.MainStepper"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.DarkActionBar"
@@ -78,7 +64,10 @@
         <activity
             android:name=".activities.CheckAmountActivity"
             android:label="@string/title_activity_check_amount"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

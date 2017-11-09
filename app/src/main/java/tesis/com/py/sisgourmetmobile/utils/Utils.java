@@ -28,6 +28,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,8 +46,12 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.lang.reflect.Array;
+import java.nio.ByteBuffer;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -343,7 +348,7 @@ public class Utils {
         } else {
             try {
                 message = new String(response.data);
-                Log.d("TAG","RESPOSNSE_MESSAGE: "+message);
+                Log.d("TAG", "RESPOSNSE_MESSAGE: " + message);
                 JSONObject jsonObject = new JSONObject(new String(response.data));
                 if (response.statusCode == Constants.AUTH_ERROR_CODE) {
                     message = context.getString(R.string.error_invalid_credentials);
@@ -362,8 +367,7 @@ public class Utils {
         return message;
     }
 
-    private static  Drawable resizeImage(Context context,int resId, int w, int h)
-    {
+    private static Drawable resizeImage(Context context, int resId, int w, int h) {
         // load the origial Bitmap
         Bitmap BitmapOrg = BitmapFactory.decodeResource(context.getResources(), resId);
         int width = BitmapOrg.getWidth();
@@ -376,7 +380,7 @@ public class Utils {
         // create a matrix for the manipulation
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0,width, height, matrix, true);
+        Bitmap resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0, width, height, matrix, true);
         return new BitmapDrawable(resizedBitmap);
     }
 
@@ -396,6 +400,27 @@ public class Utils {
                 TIME_OUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // 0 Max retries
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
+
+    public static String formatNumber(String number, String appendCurrency) {
+        double data = 0;
+        Log.d("TAG", "NUMBER: " + number);
+        try {
+            data = Double.parseDouble(number);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        DecimalFormat df = (DecimalFormat) nf;
+        df.applyPattern("###,###.###");
+        String output = df.format(data).replaceAll(",", ".");
+        return output + appendCurrency;
+    }
+
+    public static byte[] bitmapToByteArray(Bitmap imageBitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
     }
 
 

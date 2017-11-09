@@ -47,6 +47,7 @@ import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.OrderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.QualificationRepository;
+import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.DividerItemDecoration;
@@ -59,7 +60,7 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
  * Created by Manu0 on 22/5/2017.
  */
 
-public class SummaryStep extends AbstractStep{
+public class SummaryStep extends AbstractStep {
 
     private int i = 3;
     private final static String CLICK = "click";
@@ -180,7 +181,7 @@ public class SummaryStep extends AbstractStep{
     private void validateOrder(Lunch lunchObject, int mGarnishSelectedId, int mDrinkId) {
         try {
 
-            String mUserName = AppPreferences.getAppPreferences(getContext()).getString(AppPreferences.KEY_PREFERENCE_USER, null);
+            String mUserName = UserRepository.getUser(getContext()).getUserName();
             if (lunchObject.getPrincipalMenuCode() == null || lunchObject.getPrincipalMenuCode() == 0) {
                 Utils.builToast(getContext(), "Error, no se pudo obtener el identificador del menú principal");
                 getActivity().finish();
@@ -272,7 +273,6 @@ public class SummaryStep extends AbstractStep{
     public String error() {
         return "Error en la operación";
     }
-
 
 
     private class OrderTask extends MyRequest {
@@ -390,7 +390,7 @@ public class SummaryStep extends AbstractStep{
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     mOrderTask = null;
-                                    Utils.builToast(getContext(),"Pedido marcado como pendiente");
+                                    Utils.builToast(getContext(), "Pedido marcado como pendiente");
                                     getActivity().finish();
                                 }
                             });
@@ -470,7 +470,7 @@ public class SummaryStep extends AbstractStep{
 
             OrderRequest(String username, long providerId, long lunchId, int garnishId, int drinkId, String totalAmount) {
                 mUsername = username;
-                mIndifyCard = AppPreferences.getAppPreferences(getContext()).getString(AppPreferences.KEY_IDENTIYFY_CARD, null);
+                mIndifyCard = UserRepository.getUser(getContext()).getIdentifyCard();
                 mProviderId = providerId;
                 mLunchId = lunchId;
                 mGarnishId = garnishId;

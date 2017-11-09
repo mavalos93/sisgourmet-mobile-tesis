@@ -37,14 +37,6 @@ public class MyDaoGenerator {
         qualification.addStringProperty("httpDetail");
 
 
-        Entity users = schema.addEntity("Users");
-        users.addIdProperty();
-        users.addStringProperty("userName");
-        users.addStringProperty("password");
-        users.addBooleanProperty("userStatus");
-        users.addStringProperty("identifyCardNumber");
-
-
         Entity drinks = schema.addEntity("Drinks");
         drinks.addIdProperty();
         drinks.addIntProperty("drinkId");
@@ -103,6 +95,15 @@ public class MyDaoGenerator {
         comments.addIntProperty("ratingValue");
         comments.addStringProperty("dateComment");
         comments.addStringProperty("commentDescription");
+
+        Entity user = schema.addEntity("User");
+        user.addIdProperty();
+        user.addStringProperty("name");
+        user.addStringProperty("lastName");
+        user.addStringProperty("identifyCard");
+        user.addStringProperty("currentAmount");
+        user.addStringProperty("userName");
+        user.addByteArrayProperty("imageProfile");
 
         new DaoGenerator().generateAll(schema, "../app/src/main/java");
 

@@ -1,7 +1,9 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
+import android.content.Context;
 import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -35,10 +37,12 @@ import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.adapters.AllCommentsAdapter;
 import tesis.com.py.sisgourmetmobile.adapters.ProviderQualificationAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Comments;
+import tesis.com.py.sisgourmetmobile.entities.User;
 import tesis.com.py.sisgourmetmobile.models.ProviderQualificationModel;
 import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
 import tesis.com.py.sisgourmetmobile.onlinemaps.CommentsDataMapping;
 import tesis.com.py.sisgourmetmobile.onlinemaps.ProviderDataMapping;
+import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.DividerItemDecoration;
@@ -255,12 +259,14 @@ public class CommentsViewActivity extends AppCompatActivity {
     private JSONObject getParams() {
         JSONObject params = new JSONObject();
         try {
-            params.put("username", AppPreferences.getAppPreferences(this).getString(AppPreferences.KEY_PREFERENCE_USER, null));
+            params.put("username", UserRepository.getUser(this).getUserName());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return params;
     }
+
+
 
 
 }

@@ -46,6 +46,7 @@
     <string name="title_activity_form">FormActivity</string>
     <string name="register_user_title">Registrar Usuario</string>
     <string name="error_user_not_exist">Verifique, no existe usuario con los datos ingresados</string>
+    <string name="error_save_user_data">Error al guardar los datos del usuario</string>
 
 
     <!--Default labels-->
@@ -67,6 +68,7 @@
     <string name="dialog_error_title">Error en la operación</string>
     <string name="label_send_queue">Enviar luego</string>
     <string name="error_parsing_json">Error al interpretar la respuesta</string>
+    <string name="error_processing_image">Error al procesar imagen</string>
 
 
     <!--LoginFormActivity labels-->
@@ -244,5 +246,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <!-- Check Amount Activity-->
+    <string name="tag_change_user_image">Cambiar imagen</string>
+    <string name="tag_change_data">Cambiar Datos</string>
+    <string name="tag_settings_profile">Configura tu perfil</string>
+    <string name="error_get_data_user">Error al consultar datos del usuario</string>
 
 </resources>

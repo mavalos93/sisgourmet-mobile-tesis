@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -18,10 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -29,17 +24,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import py.com.library.style.TabStepper;
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.dialogs.AlertDialogFragment;
 import tesis.com.py.sisgourmetmobile.dialogs.CancelableAlertDialogFragment;
@@ -47,9 +38,7 @@ import tesis.com.py.sisgourmetmobile.dialogs.ProgressDialogFragment;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Order;
-import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.entities.Qualification;
-import tesis.com.py.sisgourmetmobile.entities.Users;
 import tesis.com.py.sisgourmetmobile.network.MyRequest;
 import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
 import tesis.com.py.sisgourmetmobile.recivers.MyCommentsObserver;
@@ -57,9 +46,8 @@ import tesis.com.py.sisgourmetmobile.recivers.OrdersObserver;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.OrderRepository;
-import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.QualificationRepository;
-import tesis.com.py.sisgourmetmobile.repositories.UsersRepository;
+import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
@@ -291,7 +279,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 mOrderObject.setRatingLunch(mRatingValue);
                 OrderRepository.store(mOrderObject);
             }
-            String mUsername = AppPreferences.getAppPreferences(this).getString(AppPreferences.KEY_PREFERENCE_USER, null);
+            String mUsername = UserRepository.getUser(this).getUserName();
             Log.d(TAG_CLASS, "username: " + mUsername);
             mQualificationTask = new QualificationTask(mUsername, mCommentString, mProviderId, mMainMenuDescription, mGarnishDescription, mRatingValue);
             mQualificationTask.confirm();
@@ -521,7 +509,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 mMainMenu = mainMenu;
                 mGarnish = garnish;
                 mRatingValue = ratingValue;
-                mIndifyCard = AppPreferences.getAppPreferences(QualificationActivity.this).getString(AppPreferences.KEY_IDENTIYFY_CARD, null);
+                mIndifyCard = UserRepository.getUser(getApplicationContext()).getIdentifyCard();
 
             }
 

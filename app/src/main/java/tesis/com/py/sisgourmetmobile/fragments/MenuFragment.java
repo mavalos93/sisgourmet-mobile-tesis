@@ -40,6 +40,7 @@ import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
 import tesis.com.py.sisgourmetmobile.onlinemaps.AllMenuData;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
+import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 import tesis.com.py.sisgourmetmobile.utils.SaveDataAsyncTask;
@@ -303,7 +304,7 @@ public class MenuFragment extends Fragment {
     private JSONObject buildParams() {
         JSONObject params = new JSONObject();
         try {
-            params.put("username", AppPreferences.getAppPreferences(getContext()).getString(AppPreferences.KEY_PREFERENCE_USER, null));
+            params.put("username", UserRepository.getUser(getContext()).getUserName());
         } catch (JSONException e) {
             e.printStackTrace();
         }
