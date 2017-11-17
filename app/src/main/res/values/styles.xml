@@ -39,4 +39,12 @@
     </style>
 
 
+
+    <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/splash_font</item>
+    </style>
+
+
+
+
 </resources>
