@@ -74,6 +74,7 @@ public class MenuFragment extends Fragment {
     private RequestQueue mRequestQueue = null;
     private NotificationCompat.Builder mNotificationBuild;
     private NotificationManager mNotificationManager;
+    private  JsonObjectRequest jsonObjectRequest;
 
 
     public MenuFragment() {
@@ -137,13 +138,27 @@ public class MenuFragment extends Fragment {
     }
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(jsonObjectRequest != null){
+            jsonObjectRequest.cancel();
+        }
+        if (mSwipeRefreshLayout!=null) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.destroyDrawingCache();
+            mSwipeRefreshLayout.clearAnimation();
+        }
+    }
+
+
     public interface OnItemMenuListener {
         // TODO: Update argument type and name
         void onItemMenuSelectedListener(Menu menu);
     }
 
 
-    private void clearData(){
+    private void clearData() {
         allSampleData.clear();
         mLunchList.clear();
         mProviderList.clear();
@@ -151,6 +166,7 @@ public class MenuFragment extends Fragment {
         mGarnishList.clear();
 
     }
+
     private void sendRequest() {
 
         String REQUEST_TAG = "SEND_REQUEST_ALL_DATA";
@@ -160,13 +176,14 @@ public class MenuFragment extends Fragment {
         mIsConnected = Utils.checkNetworkConnection(getContext());
         if (!mIsConnected) {
             Utils.builToast(getContext(), getString(R.string.tag_not_internet));
+            mSwipeRefreshLayout.setRefreshing(false);
             return;
         }
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(REQUEST_TAG);
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 URLS.ALL_MENU_DATA_URL,
                 buildParams(),
                 new Response.Listener<JSONObject>() {
@@ -184,6 +201,7 @@ public class MenuFragment extends Fragment {
                         Utils.builToast(getContext(), message);
                     }
                 });
+
         jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
         jsonObjectRequest.setTag(REQUEST_TAG);
         NetworkQueue.getInstance(getContext()).addToRequestQueue(jsonObjectRequest, getContext());

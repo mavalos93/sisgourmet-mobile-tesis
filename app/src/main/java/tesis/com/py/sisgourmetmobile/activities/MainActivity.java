@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setupFragment(MenuFragment.newInstance());
 
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });
-
         BottomNavigationViewHelper.disableShiftMode(navigation);
 
 
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity
         StepLunch.typeLunchCase = 0;
         StepDrinks.mDrinkId = 0;
     }
-
 
 
 

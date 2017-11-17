@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/menu_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
+        android:paddingBottom="@dimen/navigation_padding_overlap"
+        android:descendantFocusability="afterDescendants"
         android:layout_height="wrap_content" />
 
 

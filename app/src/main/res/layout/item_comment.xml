@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_padding"
     android:background="?android:attr/selectableItemBackground"
-    android:clickable="true">
+    app:cardCornerRadius="@dimen/default_padding">
 
 
     <LinearLayout
@@ -66,15 +67,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:theme="@style/RatingBar"
                         android:layout_marginEnd="@dimen/default_padding"
-                        android:layout_marginRight="@dimen/default_padding" />
+                        android:layout_marginRight="@dimen/default_padding"/>
 
                     <TextView
                         android:id="@+id/date_qualfication_textView"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:textStyle="italic"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/primary_text"
+                        android:textStyle="italic" />
                 </LinearLayout>
 
                 <TextView
@@ -84,14 +87,14 @@
                     android:text="@string/item_selected_menu"
                     android:textAppearance="@android:style/TextAppearance.Medium"
                     android:textColor="@color/secondary_text"
-                    android:textSize="17sp"
+                    android:textSize="14sp"
                     android:textStyle="italic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
 
                     <LinearLayout
@@ -132,4 +135,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</android.support.v7.widget.CardView>

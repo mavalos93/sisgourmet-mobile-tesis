@@ -252,5 +252,6 @@
     <string name="tag_change_data">Cambiar Datos</string>
     <string name="tag_settings_profile">Configura tu perfil</string>
     <string name="error_get_data_user">Error al consultar datos del usuario</string>
+    <string name="title_activity_qualification_step">QualificationStepActivity</string>
 
 </resources>
