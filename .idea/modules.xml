@@ -4,12 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SisgourmetMobile.iml" filepath="$PROJECT_DIR$/SisgourmetMobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/mydaogenerator/mydaogenerator.iml" filepath="$PROJECT_DIR$/mydaogenerator/mydaogenerator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mydaogenerator/mydaogenerator.iml" filepath="$PROJECT_DIR$/mydaogenerator/mydaogenerator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sisgourmet-mobile-tesis.iml" filepath="$PROJECT_DIR$/sisgourmet-mobile-tesis.iml" />
+      <module fileurl="file://C:\Users\Manu0\AndroidStudioProjects\SisgourmetMobile\sisgourmet-mobile-tesis.iml" filepath="C:\Users\Manu0\AndroidStudioProjects\SisgourmetMobile\sisgourmet-mobile-tesis.iml" />
     </modules>
   </component>
 </project>

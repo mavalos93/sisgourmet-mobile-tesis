@@ -16,6 +16,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,7 +46,9 @@ import tesis.com.py.sisgourmetmobile.onlinemaps.AllMenuData;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
+import tesis.com.py.sisgourmetmobile.request.HomeDataRequest;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
+import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 import tesis.com.py.sisgourmetmobile.utils.SaveDataAsyncTask;
 import tesis.com.py.sisgourmetmobile.utils.URLS;
@@ -59,6 +66,12 @@ public class MenuFragment extends Fragment {
     private View rootView;
     private RecyclerView myRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ProgressBar mProgressBar;
+    private ImageView mNotificationImageView;
+    private TextView mMessageTextView;
+    private LinearLayout mNotificationContainer;
+    private RelativeLayout mContainerData;
+
 
     // ADAPTERS AND LISTENERS
 
@@ -67,14 +80,6 @@ public class MenuFragment extends Fragment {
 
     // UTILITARIAN VARIABLE
     private List<SectionDataModel> allSampleData = new ArrayList<>();
-    private List<Provider> mProviderList = new ArrayList<>();
-    private List<Lunch> mLunchList = new ArrayList<>();
-    private List<Garnish> mGarnishList = new ArrayList<>();
-    private List<Drinks> mDrinkList = new ArrayList<>();
-    private RequestQueue mRequestQueue = null;
-    private NotificationCompat.Builder mNotificationBuild;
-    private NotificationManager mNotificationManager;
-    private  JsonObjectRequest jsonObjectRequest;
 
 
     public MenuFragment() {
@@ -82,8 +87,7 @@ public class MenuFragment extends Fragment {
     }
 
     public static MenuFragment newInstance() {
-        MenuFragment fragment = new MenuFragment();
-        return fragment;
+        return new MenuFragment();
     }
 
     @Override
@@ -98,6 +102,13 @@ public class MenuFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_menu, container, false);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.menu_refresh_layout);
 
+        mContainerData = (RelativeLayout) rootView.findViewById(R.id.container_home_data);
+        mProgressBar = (ProgressBar) rootView.findViewById(R.id.load_data_progress);
+        mNotificationImageView = (ImageView) rootView.findViewById(R.id.notification_image);
+        mMessageTextView = (TextView) rootView.findViewById(R.id.description_notification);
+        mNotificationContainer = (LinearLayout) rootView.findViewById(R.id.notification_container);
+
+
         myRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         myRecyclerView.setHasFixedSize(true);
         mAdapter = new RecyclerViewDataAdapter(getContext(), new ArrayList<SectionDataModel>());
@@ -109,7 +120,7 @@ public class MenuFragment extends Fragment {
                 sendRequest();
             }
         });
-        setupData();
+        actions();
         return rootView;
     }
 
@@ -141,14 +152,7 @@ public class MenuFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(jsonObjectRequest != null){
-            jsonObjectRequest.cancel();
-        }
-        if (mSwipeRefreshLayout!=null) {
-            mSwipeRefreshLayout.setRefreshing(false);
-            mSwipeRefreshLayout.destroyDrawingCache();
-            mSwipeRefreshLayout.clearAnimation();
-        }
+        clearSwipeRefreshLayout();
     }
 
 
@@ -160,175 +164,67 @@ public class MenuFragment extends Fragment {
 
     private void clearData() {
         allSampleData.clear();
-        mLunchList.clear();
-        mProviderList.clear();
-        mDrinkList.clear();
-        mGarnishList.clear();
+    }
 
+    private void clearSwipeRefreshLayout() {
+        if (mSwipeRefreshLayout != null) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.destroyDrawingCache();
+            mSwipeRefreshLayout.clearAnimation();
+        }
+    }
+
+
+    private void actions() {
+        boolean statusData = AppPreferences.getAppPreferences(getContext()).getBoolean(AppPreferences.KEY_SYNC_DATA, false);
+        if (statusData) {
+            mProgressBar.setVisibility(View.GONE);
+            mNotificationContainer.setVisibility(View.GONE);
+            mContainerData.setVisibility(View.VISIBLE);
+            setupData();
+        } else {
+            sendRequest();
+        }
     }
 
     private void sendRequest() {
-
-        String REQUEST_TAG = "SEND_REQUEST_ALL_DATA";
-        boolean mIsConnected;
-
-
-        mIsConnected = Utils.checkNetworkConnection(getContext());
-        if (!mIsConnected) {
-            Utils.builToast(getContext(), getString(R.string.tag_not_internet));
-            mSwipeRefreshLayout.setRefreshing(false);
-            return;
-        }
-        if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(REQUEST_TAG);
-        }
-
-         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                URLS.ALL_MENU_DATA_URL,
-                buildParams(),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                        responseHandler(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                        String message = NetworkQueue.handleError(error, getContext());
-                        Utils.builToast(getContext(), message);
-                    }
-                });
-
-        jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
-        jsonObjectRequest.setTag(REQUEST_TAG);
-        NetworkQueue.getInstance(getContext()).addToRequestQueue(jsonObjectRequest, getContext());
-
-    }
-
-    private void responseHandler(JSONObject response) {
-
-        JSONArray mMainMenuArray;
-        JSONArray mGarnishArray;
-        JSONArray mProviderArray;
-        JSONArray mDrinkArray;
-        int status = 0;
-        String message = "";
-
-        if (response == null) {
-            Utils.builToast(getContext(), getString(R.string.volley_parse_error));
-            return;
-        }
-
-        try {
-            if (response.has("status")) status = response.getInt("status");
-
-            if (response.has("message")) message = response.getString("message");
-
-            if (status != 1) {
-                Utils.builToast(getContext(), message);
-                return;
-            } else {
-                if (response.has("menu_principal_list")) {
-                    mMainMenuArray = response.getJSONArray("menu_principal_list");
-                    if (mMainMenuArray.length() > 0) {
-                        for (int i = 0; i < mMainMenuArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = (JSONObject) mMainMenuArray.get(i);
-                                Lunch lunchObject = AllMenuData.getMainMenuData(jsonObject);
-                                mLunchList.add(lunchObject);
-                            } catch (JSONException jsx) {
-                                jsx.printStackTrace();
-                            }
-                        }
-                    }
-                }
-                if (response.has("guarnicion_list")) {
-                    mGarnishArray = response.getJSONArray("guarnicion_list");
-                    if (mGarnishArray.length() > 0) {
-                        for (int i = 0; i < mGarnishArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = (JSONObject) mGarnishArray.get(i);
-                                Garnish garnishObject = AllMenuData.getGarnishData(jsonObject);
-                                mGarnishList.add(garnishObject);
-                            } catch (JSONException jsx) {
-                                jsx.printStackTrace();
-                            }
-                        }
-                    }
-                }
-
-                if (response.has("provider_list")) {
-                    mProviderArray = response.getJSONArray("provider_list");
-                    if (mProviderArray.length() > 0) {
-                        for (int i = 0; i < mProviderArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = (JSONObject) mProviderArray.get(i);
-                                Provider providerObject = AllMenuData.getProviderData(jsonObject);
-                                mProviderList.add(providerObject);
-                            } catch (JSONException jsx) {
-                                jsx.printStackTrace();
-                            }
-                        }
-                    }
-                }
-
-                if (response.has("drink_list")) {
-                    mDrinkArray = response.getJSONArray("drink_list");
-                    if (mDrinkArray.length() > 0) {
-                        for (int i = 0; i < mDrinkArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = (JSONObject) mDrinkArray.get(i);
-                                Drinks drinksObject = AllMenuData.getDrinkData(jsonObject);
-                                mDrinkList.add(drinksObject);
-                            } catch (JSONException jsx) {
-                                jsx.printStackTrace();
-                            }
-                        }
-                    }
-                }
-                if (mLunchList.size() > 0 && mGarnishList.size() > 0 && mProviderList.size() > 0 && mDrinkList.size() > 0) {
-                    SaveDataAsyncTask saveDataAsyncTask = new SaveDataAsyncTask(getContext(), new SaveDataAsyncTask.AsyncResponse() {
-                        @Override
-                        public void processFinish(Boolean status) {
-                            if (status) {
-                                mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                                mNotificationBuild = BuildNotification(getContext(),
-                                        R.mipmap.ic_done_black_36dp,
-                                        getString(R.string.tag_initial_data),
-                                        getString(R.string.tag_initial_data_success_message));
-                                mNotificationManager.notify(10, mNotificationBuild.build());
-                                setupData();
-                            }
-                        }
-                    }, mProviderList, mLunchList, mGarnishList, mDrinkList);
-                    saveDataAsyncTask.execute();
-                } else {
-                    Utils.builToast(getContext(), getString(R.string.dialog_error_unexpected));
-                    return;
-                }
+        Log.d("TAG", "ENTRO ACA");
+        mContainerData.setVisibility(View.GONE);
+        mNotificationContainer.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
+        new HomeDataRequest(new HomeDataRequest.ResponseInterface() {
+            @Override
+            public void processFinish(String action, String message) {
+                executingAction(action, message);
             }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-
+        }, getContext());
     }
 
 
-    private JSONObject buildParams() {
-        JSONObject params = new JSONObject();
-        try {
-            params.put("username", UserRepository.getUser(getContext()).getUserName());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private void executingAction(String action, String message) {
 
-        return params;
+        switch (action) {
+            case Constants.NO_CONECTION_ERROR:
+                mProgressBar.setVisibility(View.GONE);
+                mNotificationContainer.setVisibility(View.VISIBLE);
+                mNotificationImageView.setBackgroundResource(R.mipmap.ic_perm_scan_wifi);
+                mMessageTextView.setText(message);
+                break;
+            case Constants.SERVER_ERROR:
+                mProgressBar.setVisibility(View.GONE);
+                mNotificationContainer.setVisibility(View.VISIBLE);
+                mNotificationImageView.setBackgroundResource(R.mipmap.ic_error);
+                mMessageTextView.setText(message);
+                break;
+            case Constants.ACTION_VIEW_DATA:
+                clearSwipeRefreshLayout();
+                mProgressBar.setVisibility(View.GONE);
+                mContainerData.setVisibility(View.VISIBLE);
+                setupData();
+                break;
+        }
     }
+
 
     public void setupData() {
         clearData();

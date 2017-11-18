@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/menu_refresh_layout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
-
 
 
     <LinearLayout
@@ -57,15 +56,32 @@
 
     </LinearLayout>
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
+    <RelativeLayout
+        android:id="@+id/container_home_data"
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/navigation_padding_overlap"
         android:visibility="gone"
-        android:descendantFocusability="afterDescendants"
-        android:layout_height="wrap_content" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/menu_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="afterDescendants"
+                android:paddingBottom="@dimen/navigation_padding_overlap"
+                android:visibility="visible" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
 
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>
+
+
+
 

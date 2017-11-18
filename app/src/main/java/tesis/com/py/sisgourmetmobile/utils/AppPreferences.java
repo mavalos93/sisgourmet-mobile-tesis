@@ -13,7 +13,7 @@ public class AppPreferences {
     private static final String SHARED_PREFERENCE_APP = "SHARED_PREFERENCE_APP";
     public static final String KEY_PREFERENCE_LOGGED_IN = "KEY_LOGGED_IN";
     public static final String KEY_USER_ID = "KEY_USER_ID";
-
+    public static final String KEY_SYNC_DATA = "KEY_SYNC_DATA";
 
 
     public static SharedPreferences getAppPreferences(Context context) {

@@ -57,8 +57,7 @@ public class SaveDataAsyncTask extends AsyncTask<Void, Void, Boolean> {
         int lunchCount = 0;
         int garnishCount = 0;
         int drinksCount = 0;
-        boolean status = false;
-        Log.d("TAG","LUNCH_LIST: "+mLunchList.toString());
+        boolean status;
 
         for (Provider provider : mProviderList) {
             providerCount++;
@@ -76,16 +75,8 @@ public class SaveDataAsyncTask extends AsyncTask<Void, Void, Boolean> {
             drinksCount++;
             DrinksRepository.store(drinks);
         }
-        Log.d("tag","provider_count: "+providerCount+"   "+"list_provider: "+mProviderList.size());
-        Log.d("tag","lunch_count: "+lunchCount+"   "+"list_lunch: "+mLunchList.size());
-        Log.d("tag","garnish_count: "+garnishCount+"   "+"list_garnihs: "+mGarnishList.size());
-        Log.d("tag","drinks_count: "+drinksCount+"   "+"list_drinks: "+mDrinkList.size());
 
-        if (providerCount == mProviderList.size() && lunchCount == mLunchList.size() && garnishCount == mGarnishList.size() && drinksCount == mDrinkList.size()) {
-            status = true;
-        } else {
-            status = false;
-        }
+        status = providerCount == mProviderList.size() && lunchCount == mLunchList.size() && garnishCount == mGarnishList.size() && drinksCount == mDrinkList.size();
 
         return status;
     }

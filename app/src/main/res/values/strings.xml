@@ -14,6 +14,8 @@
     <string name="launch_label">Mi Almuerzo</string>
     <string name="tag_initial_data">Datos principales</string>
     <string name="tag_initial_data_success_message">Menus sincronizados exitosamente</string>
+    <string name="tag_error_home_data">Error al obtener datos del menú principal</string>
+    <string name="internal_processing_error_data">Error al procesar datos internos</string>
 
     <!-- Provider labels-->
     <string name="provider_vienesa">La Vienesa</string>volley_network_error
@@ -29,6 +31,7 @@
     <string name="dialog_confirmation_message">Desea confirmar esta operación?</string>
     <string name="dialog_success_title">Operación Exitosa</string>
     <string name="tag_not_internet">No posees conexión a internet favor actívala</string>
+    <string name="tag_error_main_data">Error al obtener datos, favor inténtalo de nuevo</string>
 
     <!-- Order Type-->
     <string name="main_menu_order">Menu principal</string>

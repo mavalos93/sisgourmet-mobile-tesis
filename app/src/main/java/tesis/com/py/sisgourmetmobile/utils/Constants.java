@@ -27,6 +27,12 @@ public class Constants {
     public static final int AUTH_ERROR_CODE = 401;
     public static final int TOKEN_EXPIRED_CODE = 409;
 
+    // ACTIONS & ERRORS
+    public static final String NO_CONECTION_ERROR = "NO_CONECTION_ERROR";
+    public static final String SERVER_ERROR = "SERVER_ERROR";
+    public static final String ACTION_VIEW_DATA = "ACTION_VIEW_DATA";
+
+
     // ACTIONS APP
     public static final String GET_PROVIDER_ACTION = "GET_PROVIDER_ACTION";
     public static final String ACTION_SELECTED_MENU = "ACTION_SELECTED_MENU";
