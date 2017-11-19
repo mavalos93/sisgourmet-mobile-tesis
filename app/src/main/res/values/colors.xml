@@ -3,7 +3,7 @@
     <color name="colorPrimary">#ef1831</color>
     <color name="colorPrimaryDark">#c70e1e</color>
     <color name="colorPrimaryLigth">#FFCDD2</color>
-    <color name="accent">#FFC107</color>
+    <color name="accent">#595858</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
@@ -13,7 +13,7 @@
     <color name="colorRed">#D32F2F</color>
     <color name="colorBlue">#3131ff</color>
     <color name="colorGreen">#388E3C</color>
-    <color name="colorGraphite">#FF424242</color>
+    <color name="colorGraphite">#595959</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>

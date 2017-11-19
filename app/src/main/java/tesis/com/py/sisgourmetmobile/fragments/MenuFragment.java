@@ -1,17 +1,13 @@
 package tesis.com.py.sisgourmetmobile.fragments;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -22,39 +18,19 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.adapters.RecyclerViewDataAdapter;
-import tesis.com.py.sisgourmetmobile.entities.Drinks;
-import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.models.SectionDataModel;
-import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
-import tesis.com.py.sisgourmetmobile.onlinemaps.AllMenuData;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
-import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.request.HomeDataRequest;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
-import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
-import tesis.com.py.sisgourmetmobile.utils.SaveDataAsyncTask;
-import tesis.com.py.sisgourmetmobile.utils.URLS;
-import tesis.com.py.sisgourmetmobile.utils.Utils;
-
-import static tesis.com.py.sisgourmetmobile.notifications.BuildNotification.BuildNotification;
 
 /**
  * Created by Manu0 on 23/1/2017.
@@ -71,6 +47,7 @@ public class MenuFragment extends Fragment {
     private TextView mMessageTextView;
     private LinearLayout mNotificationContainer;
     private RelativeLayout mContainerData;
+    private AppCompatButton mActionButton;
 
 
     // ADAPTERS AND LISTENERS
@@ -100,16 +77,17 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_menu, container, false);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.menu_refresh_layout);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.menu_refresh_layout);
 
-        mContainerData = (RelativeLayout) rootView.findViewById(R.id.container_home_data);
-        mProgressBar = (ProgressBar) rootView.findViewById(R.id.load_data_progress);
-        mNotificationImageView = (ImageView) rootView.findViewById(R.id.notification_image);
-        mMessageTextView = (TextView) rootView.findViewById(R.id.description_notification);
-        mNotificationContainer = (LinearLayout) rootView.findViewById(R.id.notification_container);
+        mContainerData = rootView.findViewById(R.id.container_home_data);
+        mProgressBar = rootView.findViewById(R.id.load_data_progress);
+        mNotificationImageView = rootView.findViewById(R.id.notification_image);
+        mMessageTextView = rootView.findViewById(R.id.description_notification);
+        mNotificationContainer = rootView.findViewById(R.id.notification_container);
+        mActionButton = rootView.findViewById(R.id.action_button);
 
 
-        myRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        myRecyclerView = rootView.findViewById(R.id.my_recycler_view);
         myRecyclerView.setHasFixedSize(true);
         mAdapter = new RecyclerViewDataAdapter(getContext(), new ArrayList<SectionDataModel>());
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -177,18 +155,20 @@ public class MenuFragment extends Fragment {
 
     private void actions() {
         boolean statusData = AppPreferences.getAppPreferences(getContext()).getBoolean(AppPreferences.KEY_SYNC_DATA, false);
-        if (statusData) {
-            mProgressBar.setVisibility(View.GONE);
-            mNotificationContainer.setVisibility(View.GONE);
-            mContainerData.setVisibility(View.VISIBLE);
-            setupData();
-        } else {
-            sendRequest();
-        }
+            if (statusData) {
+                mProgressBar.setVisibility(View.GONE);
+                mNotificationContainer.setVisibility(View.GONE);
+                mContainerData.setVisibility(View.VISIBLE);
+                setupData();
+            } else {
+                sendRequest();
+            }
+
+
     }
 
+
     private void sendRequest() {
-        Log.d("TAG", "ENTRO ACA");
         mContainerData.setVisibility(View.GONE);
         mNotificationContainer.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);

@@ -45,7 +45,7 @@
     <string name="content_description">descripcion</string>
     <string name="hint_login_username">usuario</string>
     <string name="hint_login_password">contraseña</string>
-    <string name="login_button">Login</string>
+    <string name="login_button">Ingresar</string>
     <string name="title_activity_form">FormActivity</string>
     <string name="register_user_title">Registrar Usuario</string>
     <string name="error_user_not_exist">Verifique, no existe usuario con los datos ingresados</string>
@@ -65,6 +65,7 @@
     <string name="confirm_logout_session_title">Cerrar Sesion</string>
     <string name="confirm_logout_message">¿ Desea cerrar la sesion actual ?.</string>
     <string name="label_next">Siguiente</string>
+    <string name="tag_view_password">Ver Contraseña</string>
     <string name="label_summary">Resúmen</string>
     <string name="comments_label">Comentarios</string>
     <string name="error_save_transaction">Error a guardar la operación</string>

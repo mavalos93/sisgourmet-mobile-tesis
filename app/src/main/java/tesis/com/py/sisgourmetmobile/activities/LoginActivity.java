@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -34,7 +38,6 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
 public class LoginActivity extends AppCompatActivity {
     private AppCompatEditText userNameInputText;
     private AppCompatEditText passwordInputText;
-    private AppCompatButton loginButton;
     private CoordinatorLayout mCoordinatorLayout;
     private LoginTask mLoginTask;
 
@@ -63,10 +66,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupView() {
-        userNameInputText = (AppCompatEditText) findViewById(R.id.loginActivity_username_input_text);
-        passwordInputText = (AppCompatEditText) findViewById(R.id.loginActivity_password_input_text);
-        loginButton = (AppCompatButton) findViewById(R.id.id_login_button);
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout_login);
+        userNameInputText = findViewById(R.id.username_input_text);
+        passwordInputText = findViewById(R.id.password_input_text);
+        AppCompatButton loginButton = findViewById(R.id.id_login_button);
+        final AppCompatCheckBox mViewPasswordCheckBox = findViewById(R.id.view_password_check_box);
+        mCoordinatorLayout = findViewById(R.id.coordinator_layout_login);
+        mViewPasswordCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (!isChecked) {
+                    // show password
+                    passwordInputText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {
+                    // hide password
+                    passwordInputText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     long userId = saveUserData(mName, mUserLastName, mCurrentAmount, mUsername, mIdentifyCard);
                     if (userId > 0) {
-                        AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
+                        AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, false).apply();
                         AppPreferences.getAppPreferences(LoginActivity.this).edit().putLong(AppPreferences.KEY_USER_ID, userId).apply();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();

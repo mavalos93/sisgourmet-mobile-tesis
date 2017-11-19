@@ -26,24 +26,25 @@
     </android.support.design.widget.AppBarLayout>
 
 
-        <FrameLayout
-            android:id="@+id/rootLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <FrameLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:behavior_overlapTop="64dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:fitsSystemWindows="true"
-            android:background="@color/material_stepper_top_bar"
-            app:itemIconTint="@drawable/bottom_navigation_color_selector"
-            app:itemTextColor="@drawable/bottom_navigation_color_selector"
-            app:menu="@menu/menu_bottom_navigation" />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/material_stepper_top_bar"
+        android:fitsSystemWindows="true"
+        app:itemIconTint="@drawable/bottom_navigation_color_selector"
+        app:itemTextColor="@drawable/bottom_navigation_color_selector"
+        app:menu="@menu/menu_bottom_navigation" />
 
 
 </android.support.design.widget.CoordinatorLayout>
