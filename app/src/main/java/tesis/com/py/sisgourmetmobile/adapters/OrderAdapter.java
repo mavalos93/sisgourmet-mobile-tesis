@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.activities.MainStepper;
 import tesis.com.py.sisgourmetmobile.activities.QualificationActivity;
 import tesis.com.py.sisgourmetmobile.entities.Drinks;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Order;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
-import tesis.com.py.sisgourmetmobile.entities.Qualification;
 import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
@@ -48,26 +45,26 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
 
-    public class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView orderTypeTextView;
+    class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView orderAmountTextView;
         TextView orderStatusTextView;
         TextView ratingValueTextView;
+        TextView mSendAppAtTextView;
         ImageView orderStatusIcon;
         ImageView orderTypeImageView;
         ImageButton starCommetButton;
         ImageButton detailsButton;
 
-        public OrderViewHolder(View view) {
+        OrderViewHolder(View view) {
             super(view);
-            orderTypeTextView = (TextView) view.findViewById(R.id.item_order_type);
-            orderAmountTextView = (TextView) view.findViewById(R.id.item_order_amount);
-            orderStatusTextView = (TextView) view.findViewById(R.id.id_order_status);
-            orderStatusIcon = (ImageView) view.findViewById(R.id.status_image_icon);
-            orderTypeImageView = (ImageView) view.findViewById(R.id.order_type_imageView);
-            ratingValueTextView = (TextView) view.findViewById(R.id.item_rating_value_textView);
-            starCommetButton = (ImageButton) view.findViewById(R.id.star_comment_button);
-            detailsButton = (ImageButton) view.findViewById(R.id.details_button);
+            orderAmountTextView = view.findViewById(R.id.item_order_amount);
+            orderStatusTextView = view.findViewById(R.id.id_order_status);
+            orderStatusIcon = view.findViewById(R.id.status_image_icon);
+            orderTypeImageView = view.findViewById(R.id.order_imageView);
+            ratingValueTextView = view.findViewById(R.id.item_rating_value_textView);
+            starCommetButton = view.findViewById(R.id.star_comment_button);
+            mSendAppAtTextView = view.findViewById(R.id.date_order_textView);
+            detailsButton = view.findViewById(R.id.details_button);
             starCommetButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -102,42 +99,24 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         int iconResource;
         int iconOrder = 0;
         String mStatusOrder = "";
-        String transactionType = "N/A";
-        holder.orderTypeTextView.setText("Tipo: " + mOrder.getOrderType());
-        holder.orderAmountTextView.setText("Total: " + mOrder.getOrderAmount() + "Gs.");
+        holder.orderAmountTextView.setText(Utils.formatNumber(mOrder.getOrderAmount()," Gs."));
+        holder.mSendAppAtTextView.setText(mOrder.getSendAppAt());
 
 
         if (mOrder.getStatusOrder() == Constants.TRANSACTION_NO_SEND) {
-            iconResource = R.mipmap.ic_error_black_36dp;
+            iconResource = R.mipmap.ic_replay_black_24dp;
             holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
-            mStatusOrder = "PENDIENTE";
+            mStatusOrder = "pendiente";
         } else {
-            iconResource = R.mipmap.ic_done_black_36dp;
-            holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.accent));
-            mStatusOrder = "ENVIADO";
+            iconResource = R.mipmap.ic_done_black_24dp;
+            holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorOk));
+            mStatusOrder = "enviado";
         }
         holder.orderStatusIcon.setBackgroundResource(iconResource);
-
-        switch (mOrder.getOrderType()) {
-
-            case Constants.MAIN_MENU_ORDER:
-                transactionType = mContext.getString(R.string.main_menu_order);
-                break;
-            case Constants.GARNISH_ORDER:
-                transactionType = mContext.getString(R.string.garnish_order);
-                break;
-            case Constants.DRINK_ORDER:
-                transactionType = mContext.getString(R.string.drink_order);
-                break;
-            case Constants.LUNCH_PACKAGE_ORDER:
-                transactionType = mContext.getString(R.string.launch_package_order);
-                break;
-
-        }
         Lunch mLunchObject = LunchRepository.getLunchById(mOrder.getLunchId());
 
 
-        if(mLunchObject != null){
+        if (mLunchObject != null) {
             Bitmap bmp = BitmapFactory.decodeByteArray(mLunchObject.getImageMenu(), 0, mLunchObject.getImageMenu().length);
             holder.orderTypeImageView.setImageBitmap(bmp);
         }
@@ -170,7 +149,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
         }
         holder.orderStatusTextView.setText(mStatusOrder);
-        holder.orderTypeTextView.setText(transactionType);
         holder.orderTypeImageView.setBackgroundResource(iconOrder);
     }
 

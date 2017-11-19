@@ -51,19 +51,18 @@
                 <ImageButton
                     android:id="@+id/star_imageButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/default_padding"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/description_image"
-                    android:src="@mipmap/ic_star_black_24dp" />
+                    android:src="@mipmap/ic_star_black_18dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/default_padding"
-                android:layout_marginLeft="@dimen/default_padding"
                 android:layout_marginStart="@dimen/default_padding"
                 android:layout_marginTop="@dimen/default_padding"
                 android:orientation="vertical">

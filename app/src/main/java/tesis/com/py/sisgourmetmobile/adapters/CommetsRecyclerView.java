@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 
@@ -45,21 +47,25 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
         TextView mCommentTextView;
         TextView mMyLunchTextView;
         ImageView mFirstNameImageView;
+        TextView mQualificationValue;
         AppCompatRatingBar mRatingBar;
         TextView mDateQualificationTextView;
         ImageButton mFavoriteButton;
+        ImageButton mMoreDetailsButton;
 
 
         CommetViewHolder(View view) {
             super(view);
             mContext = view.getContext();
-            mUserTextView = (TextView) view.findViewById(R.id.item_comment_user_name);
-            mCommentTextView = (TextView) view.findViewById(R.id.item_comment_description);
-            mMyLunchTextView = (TextView) view.findViewById(R.id.item_comment_user_selected_menu);
-            mFirstNameImageView = (ImageView) view.findViewById(R.id.image_view_first_name);
-            mRatingBar = (AppCompatRatingBar) view.findViewById(R.id.qualification_rating_bar);
-            mDateQualificationTextView = (TextView) view.findViewById(R.id.date_qualfication_textView);
-            mFavoriteButton = (ImageButton) view.findViewById(R.id.favorite_button);
+            mUserTextView = view.findViewById(R.id.item_comment_user_name);
+            mCommentTextView = view.findViewById(R.id.item_comment_description);
+            mMyLunchTextView = view.findViewById(R.id.item_comment_user_selected_menu);
+            mFirstNameImageView = view.findViewById(R.id.image_view_first_name);
+            mRatingBar = view.findViewById(R.id.qualification_rating_bar);
+            mQualificationValue = view.findViewById(R.id.qualification_value);
+            mDateQualificationTextView = view.findViewById(R.id.date_qualfication_textView);
+            mMoreDetailsButton = view.findViewById(R.id.more_details_button);
+            mFavoriteButton = view.findViewById(R.id.favorite_button);
 
             mFavoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,6 +82,8 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
                 }
             });
 
+
+
         }
     }
 
@@ -86,18 +94,19 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(CommetsRecyclerView.CommetViewHolder holder, final int position) {
+    public void onBindViewHolder(final CommetsRecyclerView.CommetViewHolder holder, final int position) {
         Qualification mQualificationObject = qualificationItem.get(position);
         String firstLetter = "";
 
+        holder.mUserTextView.setText(mQualificationObject.getUser());
         if (mQualificationObject.getGarnish().equals("")) {
-            holder.mMyLunchTextView.setText(mQualificationObject.getMainMenu());
+            holder.mMyLunchTextView.setText(mQualificationObject.getMainMenu().toLowerCase());
         } else {
-            holder.mMyLunchTextView.setText(mQualificationObject.getMainMenu() + " " + "y" + " " + mQualificationObject.getGarnish());
+            holder.mMyLunchTextView.setText(mQualificationObject.getMainMenu().toLowerCase() + " " + "y" + " " + mQualificationObject.getGarnish());
 
         }
         firstLetter = String.valueOf(mQualificationObject.getUser().charAt(0)).toUpperCase();
-
+        holder.mQualificationValue.setText(String.valueOf(mQualificationObject.getQualificationValue())+",0");
 
         holder.mDateQualificationTextView.setText(mQualificationObject.getSendAppAt());
         holder.mCommentTextView.setText(mQualificationObject.getCommentary().toLowerCase());
@@ -111,6 +120,12 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
 
         }
 
+        holder.mMoreDetailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopup(mContext,holder);
+            }
+        });
 
         ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
         int color = generator.getColor(qualificationItem.get(position));
@@ -121,15 +136,28 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
 
     }
 
-    public void onMove(RecyclerView recyclerView, int firstPos, int secondPos) {
-        /*Do your stuff what you want
-          Notify your adapter about change in positions using notifyItemMoved method
-          Shift element e.g. insertion sort*/
-    }
-
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        /*Do your stuff what you want
-          Swap element e.g. bubbleSort*/
+    private void showPopup(Context context,CommetsRecyclerView.CommetViewHolder holder){
+        //creating a popup menu
+        PopupMenu popup = new PopupMenu(context, holder.mMoreDetailsButton);
+        //inflating menu from xml resource
+        popup.inflate(R.menu.menu_item_my_favorite);
+        //adding click listener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.id_action_view_details:
+                        //handle menu1 click
+                        break;
+                    case R.id.id_action_send:
+                        //handle menu2 click
+                        break;
+                }
+                return false;
+            }
+        });
+        //displaying the popup
+        popup.show();
     }
 
     @Override

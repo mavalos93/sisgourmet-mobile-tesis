@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/id_action_view_details"
+        android:orderInCategory="100"
+        android:title="@string/label_details_selected_menu"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/id_action_send"
+        android:orderInCategory="100"
+        android:title="@string/label_send"
+        app:showAsAction="never"/>
+</menu>

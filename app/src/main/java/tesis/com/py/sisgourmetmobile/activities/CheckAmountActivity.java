@@ -54,15 +54,15 @@ public class CheckAmountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_amount);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mToolbarImageView = (ImageView) findViewById(R.id.header_image);
-        mName = (TextView) findViewById(R.id.name_user_value);
-        mLastName = (TextView) findViewById(R.id.last_name_user_value);
-        mIdentifyCard = (TextView) findViewById(R.id.identify_card_user_value);
-        mAvailableAmount = (TextView) findViewById(R.id.amount_value);
-        FloatingActionButton mFABSettings = (FloatingActionButton) findViewById(R.id.fab_settings);
+        mToolbarImageView = findViewById(R.id.header_image);
+        mName = findViewById(R.id.name_user_value);
+        mLastName = findViewById(R.id.last_name_user_value);
+        mIdentifyCard = findViewById(R.id.identify_card_user_value);
+        mAvailableAmount = findViewById(R.id.amount_value);
+        FloatingActionButton mFABSettings = findViewById(R.id.fab_settings);
         mFABSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -207,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (userId > 0) {
                         AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, false).apply();
                         AppPreferences.getAppPreferences(LoginActivity.this).edit().putLong(AppPreferences.KEY_USER_ID, userId).apply();
+                        AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, true).apply();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     } else {

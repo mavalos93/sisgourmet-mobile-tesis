@@ -10,8 +10,8 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/primary_text</item>
-        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlNormal">@color/colorRatingbar</item>
+        <item name="colorControlActivated">@color/colorRatingbar</item>
 
     </style>
 
@@ -52,6 +52,11 @@
         <item name="android:padding">10dp</item>
         <item name="android:textColorHint">#9A9A9A</item>
     </style>
+
+    <color name="translucent_scrim_top">#26000000</color>
+    <color name="translucent_scrim_top_center">#0C000000</color>
+    <color name="translucent_scrim_bottom">#2A000000</color>
+    <color name="translucent_scrim_bottom_center">#0D000000</color>
 
 
 </resources>

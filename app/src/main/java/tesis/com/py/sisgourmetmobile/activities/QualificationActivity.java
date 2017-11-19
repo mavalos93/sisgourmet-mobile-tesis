@@ -1,18 +1,23 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +53,6 @@ import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.OrderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.QualificationRepository;
 import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
-import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
 import tesis.com.py.sisgourmetmobile.utils.URLS;
@@ -66,19 +70,20 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
     private long mProviderId = 0;
     private String mMainMenuDescription = "";
     private String KEY_ACTIVITY = "";
-    private long mQualificationId = 0;
     private String mGarnishDescription = "";
+    private boolean mSuccessForm = false;
+    private  Dialog dialog;
 
 
     // View atributes
 
     private TextView mainMenuTextView;
     private TextView garnishTextView;
-    private TextView ratingDescriptionTextView;
     private TextView priceLunchTextView;
     private ImageView menuIamgeView;
     private AppCompatRatingBar mRatingMenu;
-    private AppCompatEditText mCommentEditText;
+    private String mCommentString;
+    private TextView mQualificationValue;
 
     // Object & instances
     private Order mOrderObject = new Order();
@@ -97,45 +102,45 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_qualification);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_activity_qualification);
+        Toolbar toolbar = findViewById(R.id.toolbar_activity_qualification);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getValues();
-        mainMenuTextView = (TextView) findViewById(R.id.qualification_main_menu_textView);
-        garnishTextView = (TextView) findViewById(R.id.qualification_garnish_textView);
-        ratingDescriptionTextView = (TextView) findViewById(R.id.qualificaition_rating_description_textView);
-        menuIamgeView = (ImageView) findViewById(R.id.qualification_menu_image);
-        priceLunchTextView = (TextView) findViewById(R.id.qualification_price_unit_textView);
-        mRatingMenu = (AppCompatRatingBar) findViewById(R.id.qualification_menu_rating);
-        mCommentEditText = (AppCompatEditText) findViewById(R.id.qualification_comment_edtitText);
+        mainMenuTextView = findViewById(R.id.qualification_main_menu_textView);
+        garnishTextView = findViewById(R.id.qualification_garnish_textView);
+        menuIamgeView = findViewById(R.id.qualification_menu_image);
+        priceLunchTextView = findViewById(R.id.qualification_price_unit_textView);
+        mRatingMenu = findViewById(R.id.qualification_menu_rating);
+        mQualificationValue = findViewById(R.id.qualification_value_textView);
+        FloatingActionButton mQualificatioButton = findViewById(R.id.fab_qualification);
+        mQualificatioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCommentDialog();
+            }
+        });
+        AppCompatButton mSendCommentButton = findViewById(R.id.send_qualification);
+        mSendCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mSuccessForm) {
+                    if (KEY_ACTIVITY.equals(Constants.SEND_ORDER_OBJECT)) {
+                        mOrderObject.setRatingLunch(mRatingValue);
+                        OrderRepository.store(mOrderObject);
+                    }
+                    String mUsername = UserRepository.getUser(QualificationActivity.this).getUserName();
+                    Log.d(TAG_CLASS, "username: " + mUsername);
+                    mQualificationTask = new QualificationTask(mUsername, mCommentString, mProviderId, mMainMenuDescription, mGarnishDescription, mRatingValue);
+                    mQualificationTask.confirm();
+                } else {
+                    Utils.builToast(QualificationActivity.this, getString(R.string.error_form_comments_complete_required));
+                }
 
+            }
+        });
         setupDataView(mLunchId);
-        setupRatingListener();
 
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.action_done_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.id_action_done) {
-            validateData();
-        }
-
-        //noinspection SimplifiableIfStatement
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -182,62 +187,46 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         }
     }
 
-    private void setupDataView(long mLunchId) {
-        List<Garnish> mGarnishList = GarnishRepository.getGarnishByLunchId(mLunchId);
-        Lunch lunchObject = LunchRepository.getLunchById(mLunchId);
-        if (lunchObject != null) {
-            mainMenuTextView.setVisibility(View.VISIBLE);
-            mainMenuTextView.setText(lunchObject.getMainMenuDescription());
-            Bitmap bmp = BitmapFactory.decodeByteArray(lunchObject.getImageMenu(), 0, lunchObject.getImageMenu().length);
-            menuIamgeView.setImageBitmap(bmp);
-        } else {
-            mainMenuTextView.setVisibility(View.GONE);
-
-        }
-
-        if (mGarnishList.size() != 0) {
-            switch (mGarnishList.size()) {
-                case 0:
-                    Utils.builToast(this, "No se encontro guarnicion");
-                    finish();
-                    break;
-                case 1:
-                    for (Garnish gr : mGarnishList) {
-                        garnishTextView.setVisibility(View.VISIBLE);
-                        mGarnishDescription = gr.getDescription();
-                        garnishTextView.setText(gr.getDescription());
-                    }
-                    break;
-                default:
-                    garnishTextView.setVisibility(View.GONE);
-                    isCombinable = true;
-                    mGarnishDescription = "SIN GUARNICION";
-                    break;
-            }
-            isCombinable = true;
-
-        } else {
-            garnishTextView.setVisibility(View.GONE);
-
-        }
-
-        priceLunchTextView.setText(mPrice + " Gs.");
-    }
-
-    private void setupRatingListener() {
-        mRatingMenu.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+    private void showCommentDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View mDialogCommentView = layoutInflater.inflate(R.layout.qualification_dialog, null);
+        AppCompatRatingBar mRatingBar = mDialogCommentView.findViewById(R.id.qualification_rating);
+        final AppCompatEditText mCommentEditText = mDialogCommentView.findViewById(R.id.qualification_comment_edtitText);
+        AppCompatButton mAcceptButton = mDialogCommentView.findViewById(R.id.button_accept);
+        AppCompatButton mCancelButton = mDialogCommentView.findViewById(R.id.button_cancel);
+        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                float mRaitingValue = Float.parseFloat(String.valueOf(rating));
+                mRatingValue = (long) mRaitingValue;
                 setupRatingValue(String.valueOf(rating));
             }
         });
+        mAcceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateFields(dialog,mCommentEditText);
+            }
+        });
+
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setView(mDialogCommentView);
+        dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
-    private void validateData() {
-
+    private void validateFields(Dialog dialog,AppCompatEditText mCommentEditText) {
         mCommentEditText.setError(null);
-        String mCommentString = mCommentEditText.getText().toString().trim();
+        mCommentString = mCommentEditText.getText().toString().trim();
         View focusView = null;
         boolean cancel = false;
 
@@ -275,48 +264,82 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         if (cancel) {
             focusView.requestFocus();
         } else {
-            if (KEY_ACTIVITY.equals(Constants.SEND_ORDER_OBJECT)) {
-                mOrderObject.setRatingLunch(mRatingValue);
-                OrderRepository.store(mOrderObject);
-            }
-            String mUsername = UserRepository.getUser(this).getUserName();
-            Log.d(TAG_CLASS, "username: " + mUsername);
-            mQualificationTask = new QualificationTask(mUsername, mCommentString, mProviderId, mMainMenuDescription, mGarnishDescription, mRatingValue);
-            mQualificationTask.confirm();
+            dialog.dismiss();
+            mSuccessForm = true;
         }
     }
+
+    private void setupDataView(long mLunchId) {
+        List<Garnish> mGarnishList = GarnishRepository.getGarnishByLunchId(mLunchId);
+        Lunch lunchObject = LunchRepository.getLunchById(mLunchId);
+        if (lunchObject != null) {
+            mainMenuTextView.setVisibility(View.VISIBLE);
+            mainMenuTextView.setText(lunchObject.getMainMenuDescription().toLowerCase());
+            Bitmap bmp = BitmapFactory.decodeByteArray(lunchObject.getImageMenu(), 0, lunchObject.getImageMenu().length);
+            menuIamgeView.setImageBitmap(bmp);
+        } else {
+            mainMenuTextView.setVisibility(View.GONE);
+
+        }
+
+        if (mGarnishList.size() != 0) {
+            switch (mGarnishList.size()) {
+                case 0:
+                    Utils.builToast(this, "No se encontro guarnicion");
+                    finish();
+                    break;
+                case 1:
+                    for (Garnish gr : mGarnishList) {
+                        garnishTextView.setVisibility(View.VISIBLE);
+                        mGarnishDescription = gr.getDescription();
+                        garnishTextView.setText(gr.getDescription());
+                    }
+                    break;
+                default:
+                    garnishTextView.setVisibility(View.GONE);
+                    isCombinable = true;
+                    mGarnishDescription = "SIN GUARNICION";
+                    break;
+            }
+            isCombinable = true;
+
+        } else {
+            garnishTextView.setVisibility(View.GONE);
+
+        }
+
+        setupRatingValue("0.0");
+        priceLunchTextView.setText(mPrice + " Gs.");
+    }
+
 
     private void setupRatingValue(String stringRaiting) {
         try {
 
 
+            mQualificationValue.setText(stringRaiting.replace(".",","));
             float mRaitingValue = Float.parseFloat(stringRaiting);
             mRatingValue = (long) mRaitingValue;
             switch (stringRaiting) {
                 case "1.0":
                     mRatingMenu.setRating(mRaitingValue);
-                    ratingDescriptionTextView.setText("Muy Malo");
                     break;
                 case "2.0":
                     mRatingMenu.setRating(mRaitingValue);
-                    ratingDescriptionTextView.setText("Malo");
                     break;
                 case "3.0":
                     mRatingMenu.setRating(mRaitingValue);
-                    ratingDescriptionTextView.setText("Bién");
                     break;
                 case "4.0":
                     mRatingMenu.setRating(mRaitingValue);
-                    ratingDescriptionTextView.setText("Muy Bién");
                     break;
                 case "5.0":
                     mRatingMenu.setRating(mRaitingValue);
-                    ratingDescriptionTextView.setText("Excelente");
                     break;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            Utils.builToast(this, "Error al guardar nota de calificacion");
+            Utils.builToast(this, getString(R.string.error_save_qualification));
             finish();
         }
     }
@@ -399,7 +422,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 mQualification.setQualificationValue(mRatingValue);
                 mQualification.setSendAppAt(Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT_POSTGRES));
                 mQualification.setHttpDetail(String.valueOf(mQualificationRequest.getParams()));
-                mQualificationId = QualificationRepository.store(mQualification);
+                long mQualificationId = QualificationRepository.store(mQualification);
 
                 try {
                     if (mQualificationId <= 0) {

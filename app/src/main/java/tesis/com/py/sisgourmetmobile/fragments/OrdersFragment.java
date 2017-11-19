@@ -62,7 +62,7 @@ public class OrdersFragment extends Fragment implements LoaderManager.LoaderCall
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_orders, container, false);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView_orders);
+        mRecyclerView = rootView.findViewById(R.id.recyclerView_orders);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mAdapter = new OrderAdapter(new ArrayList<Order>(), getContext());

@@ -22,14 +22,9 @@
     <item
         android:id="@+id/action_comments"
         android:checked="false"
-        android:icon="@mipmap/ic_comment_black_36dp"
+        android:icon="@mipmap/ic_person_black_36dp"
         android:title="@string/tab_comments"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_account"
-        android:checked="false"
-        android:icon="@mipmap/ic_account_circle_black_36dp"
-        android:title="@string/tab_my_account"
-        app:showAsAction="ifRoom" />
+
 </menu>

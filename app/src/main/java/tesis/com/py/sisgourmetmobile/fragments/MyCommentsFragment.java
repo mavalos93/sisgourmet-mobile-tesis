@@ -63,7 +63,7 @@ public class MyCommentsFragment extends Fragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_my_comments, container, false);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_comments_recyclerView);
+        mRecyclerView = rootView.findViewById(R.id.my_comments_recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mAdapter = new CommetsRecyclerView(new ArrayList<Qualification>(), getContext());

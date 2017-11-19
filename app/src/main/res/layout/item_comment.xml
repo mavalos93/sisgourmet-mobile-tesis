@@ -27,14 +27,13 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/default_padding"
-                android:layout_marginRight="@dimen/default_padding"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/image_view_first_name"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:contentDescription="@string/content_description" />
 
 
@@ -46,37 +45,62 @@
                 android:layout_weight="0.9"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/item_comment_user_name"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/item_username_comment"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="@color/primary_text"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/item_comment_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:text="@string/item_username_comment"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/primary_text"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/more_details_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.9"
+                        android:layout_gravity="end"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/description_image"
+                        android:src="@mipmap/ic_more_vert_black_24dp" />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/qualification_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:textColor="@color/colorGraphite"
+                        android:textStyle="bold" />
+
                     <android.support.v7.widget.AppCompatRatingBar
                         android:id="@+id/qualification_rating_bar"
-                        style="?android:attr/ratingBarStyleSmall"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:theme="@style/RatingBar"
                         android:layout_marginEnd="@dimen/default_padding"
-                        android:layout_marginRight="@dimen/default_padding"/>
+                        android:theme="@style/RatingBar" />
 
                     <TextView
                         android:id="@+id/date_qualfication_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:textColor="@color/primary_text"
+                        android:textColor="@color/colorGraphite"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -111,7 +135,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/content_description"
                             android:textAppearance="@android:style/TextAppearance.Medium"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/primary_text"
                             android:textSize="15sp"
                             android:textStyle="italic" />
 
