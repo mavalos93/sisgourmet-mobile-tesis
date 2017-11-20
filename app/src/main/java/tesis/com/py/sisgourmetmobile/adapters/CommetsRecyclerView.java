@@ -1,13 +1,21 @@
 package tesis.com.py.sisgourmetmobile.adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -43,7 +51,6 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
 
     class CommetViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mUserTextView;
         TextView mCommentTextView;
         TextView mMyLunchTextView;
         ImageView mFirstNameImageView;
@@ -57,7 +64,6 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
         CommetViewHolder(View view) {
             super(view);
             mContext = view.getContext();
-            mUserTextView = view.findViewById(R.id.item_comment_user_name);
             mCommentTextView = view.findViewById(R.id.item_comment_description);
             mMyLunchTextView = view.findViewById(R.id.item_comment_user_selected_menu);
             mFirstNameImageView = view.findViewById(R.id.image_view_first_name);
@@ -98,7 +104,6 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
         Qualification mQualificationObject = qualificationItem.get(position);
         String firstLetter = "";
 
-        holder.mUserTextView.setText(mQualificationObject.getUser());
         if (mQualificationObject.getGarnish().equals("")) {
             holder.mMyLunchTextView.setText(mQualificationObject.getMainMenu().toLowerCase());
         } else {
@@ -207,6 +212,13 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
                 break;
         }
     }
+
+
+
+
+
+
+
 
 }
 

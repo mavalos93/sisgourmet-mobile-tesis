@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
@@ -99,7 +107,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         int iconResource;
         int iconOrder = 0;
         String mStatusOrder = "";
-        holder.orderAmountTextView.setText(Utils.formatNumber(mOrder.getOrderAmount()," Gs."));
+        holder.orderAmountTextView.setText(Utils.formatNumber(mOrder.getOrderAmount(), " Gs."));
         holder.mSendAppAtTextView.setText(mOrder.getSendAppAt());
 
 
@@ -223,6 +231,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         builder.show();
 
     }
+
 
     private void sendOrderObject(List<Order> orderList, int position) {
         Bundle menuBundle = new Bundle();

@@ -51,22 +51,24 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/item_comment_user_name"
-                        android:layout_width="match_parent"
+                        android:id="@+id/item_comment_user_selected_menu"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="@string/item_username_comment"
+                        android:layout_weight="0.9"
+                        android:text="@string/item_selected_menu"
                         android:textAppearance="@android:style/TextAppearance.Medium"
                         android:textColor="@color/primary_text"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textStyle="bold" />
 
                     <ImageButton
                         android:id="@+id/more_details_button"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
                         android:layout_gravity="end"
+                        android:layout_weight="0.1"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/description_image"
                         android:src="@mipmap/ic_more_vert_black_24dp" />
@@ -104,16 +106,6 @@
                         android:textStyle="italic" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/item_comment_user_selected_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/item_selected_menu"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="14sp"
-                    android:textStyle="italic" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -131,12 +123,14 @@
 
                         <TextView
                             android:id="@+id/item_comment_description"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/content_description"
                             android:textAppearance="@android:style/TextAppearance.Medium"
-                            android:textColor="@color/primary_text"
-                            android:textSize="15sp"
+                            android:textColor="@color/colorGraphite"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:textSize="14sp"
                             android:textStyle="italic" />
 
                     </LinearLayout>
@@ -149,7 +143,7 @@
 
                         <ImageButton
                             android:id="@+id/favorite_button"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:contentDescription="@string/description_image"

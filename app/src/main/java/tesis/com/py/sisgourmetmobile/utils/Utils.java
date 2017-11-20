@@ -50,8 +50,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -423,5 +425,28 @@ public class Utils {
         return baos.toByteArray();
     }
 
+    public static String getDayOfDate(String dateString) {
+        String formatStr = dateString.substring(0, 10);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        try {
+            date = dateFormat.parse(formatStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date1 = (date);
+        return sayDayName(date1);
+    }
+
+
+    private static String sayDayName(Date d) {
+        DateFormat f = new SimpleDateFormat("EEEE");
+        try {
+            return f.format(d);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
 }
