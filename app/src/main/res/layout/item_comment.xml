@@ -30,13 +30,19 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_view_first_name"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:contentDescription="@string/content_description" />
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/content_description"
+                    android:src="@mipmap/ic_user_flaticons" />
 
-
+                <ImageView
+                    android:id="@+id/item_status_comment"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/description_image" />
             </LinearLayout>
 
             <LinearLayout
@@ -51,29 +57,42 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/item_comment_user_selected_menu"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/provider_description"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:text="@string/item_selected_menu"
-                        android:textAppearance="@android:style/TextAppearance.Medium"
-                        android:textColor="@color/primary_text"
-                        android:textSize="14sp"
-                        android:maxLines="1"
+                        android:layout_marginEnd="@dimen/default_padding"
                         android:ellipsize="end"
+                        android:maxLength="25"
+                        android:textColor="@color/primary_text"
+                        android:textSize="15sp"
+                        android:layout_weight="0.1"
+                        android:text="Ña Eustaquia"
                         android:textStyle="bold" />
 
                     <ImageButton
                         android:id="@+id/more_details_button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_weight="0.1"
+                        android:layout_weight="0.9"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/description_image"
                         android:src="@mipmap/ic_more_vert_black_24dp" />
+
+
                 </LinearLayout>
 
+
+                <TextView
+                    android:id="@+id/item_comment_user_selected_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/item_selected_menu"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textColor="@color/colorGraphite"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -85,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/default_padding"
-                        android:textColor="@color/colorGraphite"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.AppCompatRatingBar
@@ -102,8 +121,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:textSize="13sp"
                         android:textColor="@color/colorGraphite"
-                        android:textStyle="italic" />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -125,11 +145,11 @@
                             android:id="@+id/item_comment_description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="@string/content_description"
                             android:textAppearance="@android:style/TextAppearance.Medium"
                             android:textColor="@color/colorGraphite"
-                            android:maxLines="1"
-                            android:ellipsize="end"
                             android:textSize="14sp"
                             android:textStyle="italic" />
 

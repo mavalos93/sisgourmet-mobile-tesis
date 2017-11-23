@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/big_margin_layout">
+
+    <TextView
+        android:id="@+id/user_name_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="@dimen/default_padding"
+        android:layout_margin="@dimen/default_padding"
+        android:text="@string/description_image"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/header_comment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_image_comment"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_user_flaticons" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_padding"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/main_menu_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_padding"
+                android:text="@string/description_image"
+                android:textColor="@color/colorGraphite"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_padding"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/user_comment_ratingbar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:theme="@style/RatingBar" />
+
+                <TextView
+                    android:id="@+id/date_user_commnet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12-09-2017"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/all_commentview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_margin="@dimen/activity_horizontal_margin" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/dismis_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/navigation_padding_overlap"
+        android:background="@android:color/transparent"
+        android:text="@string/label_accept"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+</LinearLayout>

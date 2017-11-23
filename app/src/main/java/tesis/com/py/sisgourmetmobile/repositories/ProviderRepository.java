@@ -28,7 +28,7 @@ public class ProviderRepository {
 
     public static Provider getProviderById(long providerId) {
 
-        return getDao().queryBuilder().where(ProviderDao.Properties.Id.eq(providerId)).unique();
+        return getDao().queryBuilder().where(ProviderDao.Properties.ProviderId.eq(providerId)).unique();
 
     }
 

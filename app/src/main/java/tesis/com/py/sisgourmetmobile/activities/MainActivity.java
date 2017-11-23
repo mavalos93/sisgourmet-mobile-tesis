@@ -22,6 +22,7 @@ import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.dialogs.CancelableAlertDialogFragment;
 import tesis.com.py.sisgourmetmobile.entities.Order;
 import tesis.com.py.sisgourmetmobile.entities.Qualification;
+import tesis.com.py.sisgourmetmobile.fragments.CommentsFragment;
 import tesis.com.py.sisgourmetmobile.fragments.MenuFragment;
 import tesis.com.py.sisgourmetmobile.fragments.MyCommentsFragment;
 import tesis.com.py.sisgourmetmobile.fragments.OrdersFragment;
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.action_my_favorites:
                         setupFragment(MyCommentsFragment.newInstance());
+                        break;
+                    case R.id.action_comments:
+                        setupFragment(CommentsFragment.newInstance());
                         break;
                 }
 

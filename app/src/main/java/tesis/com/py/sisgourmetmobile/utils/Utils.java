@@ -438,7 +438,10 @@ public class Utils {
         return sayDayName(date1);
     }
 
-
+    public static float setupRatingValue(long mRatingValue) {
+        String stringRaiting = String.valueOf(mRatingValue);
+        return Float.parseFloat(stringRaiting);
+    }
     private static String sayDayName(Date d) {
         DateFormat f = new SimpleDateFormat("EEEE");
         try {
