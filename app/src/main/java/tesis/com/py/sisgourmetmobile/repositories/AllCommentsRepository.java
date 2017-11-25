@@ -22,6 +22,10 @@ public class AllCommentsRepository {
     }
 
 
+    public static void clearAll() {
+        getDao().deleteAll();
+    }
+
     public static long count() {
         return getDao().queryBuilder().count();
     }

@@ -17,6 +17,8 @@
     <color name="colorRatingbar">#dec134</color>
     <color name="colorYellow2">#f9e478</color>
     <color name="colorOk">#5bc768</color>
+    <color name="colorOrange">#de5612</color>
+    <color name="progressbarColorBackground"></color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>

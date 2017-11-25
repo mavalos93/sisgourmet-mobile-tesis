@@ -15,6 +15,12 @@
 
     </style>
 
+    <style name="SecondaryRatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorGraphite</item>
+        <item name="colorControlActivated">@color/colorGraphite</item>
+
+    </style>
+
     <style name="AppTheme.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -43,8 +49,11 @@
         <item name="android:fontFamily">@font/splash_font</item>
     </style>
 
-    <style name="CustomAnimations"/>
-
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:minWidth">20dip</item>
+        <item name="android:minHeight">15dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
 
 
 

@@ -16,6 +16,7 @@
     <string name="tag_initial_data_success_message">Menus sincronizados exitosamente</string>
     <string name="tag_error_home_data">Error al obtener datos del menú principal</string>
     <string name="internal_processing_error_data">Error al procesar datos internos</string>
+    <string name="empty_required_data">No se encontraron los datos requeridos</string>
 
     <!-- Provider labels-->
     <string name="provider_vienesa">La Vienesa</string>volley_network_error

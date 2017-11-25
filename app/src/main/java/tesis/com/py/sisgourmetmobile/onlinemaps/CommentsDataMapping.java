@@ -1,12 +1,9 @@
 package tesis.com.py.sisgourmetmobile.onlinemaps;
 
-import android.util.Base64;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import tesis.com.py.sisgourmetmobile.entities.Comments;
-import tesis.com.py.sisgourmetmobile.models.ProviderQualificationModel;
 
 /**
  * Created by Manu0 on 9/10/2017.
@@ -18,6 +15,9 @@ public class CommentsDataMapping {
         Comments comments = new Comments();
         try {
 
+            if (data.has("provider_id")) {
+                comments.setProviderId(data.getInt("provider_id"));
+            }
             if (data.has("comment_id")) {
                 comments.setId(data.getLong("comment_id"));
             }

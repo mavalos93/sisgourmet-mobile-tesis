@@ -9,7 +9,6 @@ import tesis.com.py.sisgourmetmobile.entities.Drinks;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
-import tesis.com.py.sisgourmetmobile.models.ProviderQualificationModel;
 
 /**
  * Created by Manu0 on 9/24/2017.

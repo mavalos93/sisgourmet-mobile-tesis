@@ -68,7 +68,6 @@ public class HomeDataRequest {
         if (!mIsConnected) {
             mMessageProcess = mContext.getString(R.string.tag_not_internet);
             mInterface.processFinish(Constants.NO_CONECTION_ERROR, mMessageProcess);
-
             return;
         }
 

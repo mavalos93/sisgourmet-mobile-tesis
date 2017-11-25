@@ -105,6 +105,23 @@ public class MyDaoGenerator {
         user.addStringProperty("userName");
         user.addByteArrayProperty("imageProfile");
 
+        Entity providerRating = schema.addEntity("ProviderRating");
+        providerRating.addIdProperty();
+        providerRating.addStringProperty("providerName");
+        providerRating.addIntProperty("maxRating");
+        providerRating.addStringProperty("providerRating");
+        providerRating.addIntProperty("totalUserComments");
+        providerRating.addByteArrayProperty("providerImage");
+        providerRating.addIntProperty("fiveStar");
+        providerRating.addIntProperty("fourStar");
+        providerRating.addIntProperty("threeStar");
+        providerRating.addIntProperty("twoStar");
+        providerRating.addIntProperty("oneStar");
+
+
+
+
+
         new DaoGenerator().generateAll(schema, "../app/src/main/java");
 
 

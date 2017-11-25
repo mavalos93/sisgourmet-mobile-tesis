@@ -1,16 +1,11 @@
 package tesis.com.py.sisgourmetmobile.onlinemaps;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-
-import tesis.com.py.sisgourmetmobile.models.ProviderQualificationModel;
+import tesis.com.py.sisgourmetmobile.entities.ProviderRating;
 
 /**
  * Created by Manu0 on 9/10/2017.
@@ -18,8 +13,8 @@ import tesis.com.py.sisgourmetmobile.models.ProviderQualificationModel;
 
 public class ProviderDataMapping {
 
-    public static ProviderQualificationModel getProviderDataFromJson(JSONObject data) {
-        ProviderQualificationModel pdm = new ProviderQualificationModel();
+    public static ProviderRating getProviderDataFromJson(JSONObject data) {
+        ProviderRating pdm = new ProviderRating();
         try {
 
             if (data.has("name")) {
@@ -27,21 +22,40 @@ public class ProviderDataMapping {
             }
 
             if (data.has("max_value")) {
-                pdm.setProviderMaxValue(data.getInt("max_value"));
+                pdm.setMaxRating(data.getInt("max_value"));
             }
 
             if (data.has("provider_rating")) {
                 pdm.setProviderRating(data.getString("provider_rating"));
             }
 
-            if (data.has("total_users_comments")) {
-                pdm.setTotalUserComments(data.getInt("total_users_comments"));
+            if (data.has("total_user_comments")) {
+                pdm.setTotalUserComments(data.getInt("total_user_comments"));
             }
 
             if (data.has("provider_image")) {
                 String providerImage = data.getString("provider_image");
                 byte[] decodedString = Base64.decode(providerImage, Base64.DEFAULT);
-                pdm.setFileArrayImage(decodedString);
+                pdm.setProviderImage(decodedString);
+            }
+
+            if (data.has("countFiveStar")) {
+                pdm.setFiveStar(data.getInt("countFiveStar"));
+            }
+
+            if (data.has("countFourStar")) {
+                pdm.setFourStar(data.getInt("countFourStar"));
+            }
+
+            if (data.has("countTrheeStar")) {
+                pdm.setThreeStar(data.getInt("countTrheeStar"));
+            }
+
+            if (data.has("countTwoStar")) {
+                pdm.setTwoStar(data.getInt("countTwoStar"));
+            }
+            if (data.has("countOnteStar")) {
+                pdm.setOneStar(data.getInt("countOnteStar"));
             }
 
 
