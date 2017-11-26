@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="tesis.com.py.sisgourmetmobile.activities.CommentsDetailActivity"
+    tools:showIn="@layout/activity_comments_detail">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/rating_data_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/total_rating_provider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_weight="0.5"
+                    android:gravity="end"
+                    android:text="4,5"
+                    android:textColor="@color/colorGraphite"
+                    android:textSize="45sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="@dimen/default_padding"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/provider_ratingbar"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:stepSize="0.1"
+                        android:theme="@style/SecondaryRatingBar" />
+
+                    <TextView
+                        android:id="@+id/total_comments_provider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_padding"
+                        android:drawableEnd="@mipmap/ic_user_comments"
+                        android:drawablePadding="@dimen/default_padding"
+                        android:text="@string/description_image"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_padding"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.9"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatRatingBar
+                                style="@style/CustomRatingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:isIndicator="true"
+                                android:numStars="5"
+                                android:stepSize="0.1" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/five_rating_start"
+                            style="@style/CustomProgressBarHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.2"
+                            android:progress="100"
+                            android:progressDrawable="@drawable/square_progressbar"
+                            android:progressTint="@color/colorGreen" />
+
+
+                        <TextView
+                            android:id="@+id/five_total_comments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_padding"
+                            android:layout_weight="0.9"
+                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:text="372"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.9"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatRatingBar
+                                style="@style/CustomRatingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:isIndicator="true"
+                                android:numStars="4"
+                                android:stepSize="0.1" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/four_rating_start"
+                            style="@style/CustomProgressBarHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.2"
+                            android:progress="80"
+                            android:progressDrawable="@drawable/square_progressbar"
+                            android:progressTint="@color/colorOk" />
+
+
+                        <TextView
+                            android:id="@+id/four_total_comments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_padding"
+                            android:layout_weight="0.9"
+                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:text="290"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.9"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatRatingBar
+                                style="@style/CustomRatingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:isIndicator="true"
+                                android:numStars="3"
+                                android:stepSize="0.1" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/three_rating_start"
+                            style="@style/CustomProgressBarHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.2"
+                            android:progress="60"
+                            android:progressDrawable="@drawable/square_progressbar"
+                            android:progressTint="@color/colorRatingbar" />
+
+
+                        <TextView
+                            android:id="@+id/three_total_comments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_padding"
+                            android:layout_weight="0.9"
+                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:text="200"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.9"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatRatingBar
+                                style="@style/CustomRatingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:isIndicator="true"
+                                android:numStars="2"
+                                android:stepSize="0.1" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/two_rating_start"
+                            style="@style/CustomProgressBarHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.2"
+                            android:progress="40"
+                            android:progressDrawable="@drawable/square_progressbar"
+                            android:progressTint="@color/colorOrange" />
+
+
+                        <TextView
+                            android:id="@+id/two_total_comments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_padding"
+                            android:layout_weight="0.9"
+                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:text="120"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.9"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.AppCompatRatingBar
+                                style="@style/CustomRatingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:isIndicator="true"
+                                android:numStars="1"
+                                android:stepSize="0.1" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/one_rating_start"
+                            style="@style/CustomProgressBarHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.2"
+                            android:progress="20"
+                            android:progressDrawable="@drawable/square_progressbar"
+                            android:progressTint="@color/colorRed" />
+
+
+                        <TextView
+                            android:id="@+id/one_total_comments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_padding"
+                            android:layout_weight="0.9"
+                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:text="20"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rating_data_container"
+            android:layout_margin="@dimen/default_padding"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_margin="@dimen/default_padding"
+                android:background="@color/divider" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_padding" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

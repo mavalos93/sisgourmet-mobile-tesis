@@ -17,6 +17,7 @@ import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.entities.ProviderRating;
+import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 /**
  * Created by Manu0 on 9/10/2017.
@@ -73,29 +74,31 @@ public class ProviderQualificationAdapter extends RecyclerView.Adapter<ProviderQ
 
     @Override
     public void onBindViewHolder(ProviderQualificationAdapter.ProviderQualificationViewHolder holder, final int position) {
-        ProviderRating ProviderRating = getItemAtPosition(position);
+        ProviderRating providerRating = getItemAtPosition(position);
 
-        holder.mProviderNameTextView.setText(ProviderRating.getProviderName());
-        holder.mTotalRatingTextView.setText(ProviderRating.getProviderRating());
-        Bitmap bmp = BitmapFactory.decodeByteArray(ProviderRating.getProviderImage(), 0, ProviderRating.getProviderImage().length);
+        holder.mProviderNameTextView.setText(providerRating.getProviderName());
+        holder.mTotalRatingTextView.setText(providerRating.getProviderRating().replace(".", ","));
+        Bitmap bmp = BitmapFactory.decodeByteArray(providerRating.getProviderImage(), 0, providerRating.getProviderImage().length);
         holder.mProviderImage.setImageBitmap(bmp);
-        holder.mTotalCommentsTextView.setText(String.valueOf(ProviderRating.getTotalUserComments()));
-
-        holder.mFiveRatingProgressBar.setMax(ProviderRating.getTotalUserComments());
-        holder.mFiveRatingProgressBar.setProgress(ProviderRating.getFiveStar());
-
-        holder.mFourRatingProgressBar.setMax(ProviderRating.getTotalUserComments());
-        holder.mFourRatingProgressBar.setProgress(ProviderRating.getFourStar());
+        holder.mTotalCommentsTextView.setText(String.valueOf(providerRating.getTotalUserComments()));
+        holder.mProviderRatingBar.setRating(Utils.setupRatingValue(providerRating.getProviderRating()));
 
 
-        holder.mThreeRatingProgressBar.setMax(ProviderRating.getTotalUserComments());
-        holder.mThreeRatingProgressBar.setProgress(ProviderRating.getThreeStar());
+        holder.mFiveRatingProgressBar.setMax(providerRating.getTotalUserComments());
+        holder.mFiveRatingProgressBar.setProgress(providerRating.getFiveStar());
 
-        holder.mTwoRatingProgressBar.setMax(ProviderRating.getTotalUserComments());
-        holder.mTwoRatingProgressBar.setProgress(ProviderRating.getTwoStar());
+        holder.mFourRatingProgressBar.setMax(providerRating.getTotalUserComments());
+        holder.mFourRatingProgressBar.setProgress(providerRating.getFourStar());
 
-        holder.mOneRatingProgressBar.setMax(ProviderRating.getTotalUserComments());
-        holder.mOneRatingProgressBar.setProgress(ProviderRating.getOneStar());
+
+        holder.mThreeRatingProgressBar.setMax(providerRating.getTotalUserComments());
+        holder.mThreeRatingProgressBar.setProgress(providerRating.getThreeStar());
+
+        holder.mTwoRatingProgressBar.setMax(providerRating.getTotalUserComments());
+        holder.mTwoRatingProgressBar.setProgress(providerRating.getTwoStar());
+
+        holder.mOneRatingProgressBar.setMax(providerRating.getTotalUserComments());
+        holder.mOneRatingProgressBar.setProgress(providerRating.getOneStar());
 
     }
 

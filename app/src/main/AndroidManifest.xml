@@ -60,6 +60,10 @@
         <activity
             android:name=".activities.QualificationActivity"
             android:label="@string/title_activity_qualification"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.CommentsDetailActivity"
+            android:label="@string/title_activity_comments_detail"
             android:theme="@style/AppTheme"></activity>
     </application>
 

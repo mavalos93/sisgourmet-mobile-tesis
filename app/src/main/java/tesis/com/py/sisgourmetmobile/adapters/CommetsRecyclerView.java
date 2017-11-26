@@ -141,7 +141,7 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
             holder.mFavoriteButton.setBackgroundResource(R.mipmap.ic_star_border_36_dp);
 
         }
-        holder.mRatingBar.setRating(Utils.setupRatingValue(mQualificationObject.getQualificationValue()));
+        holder.mRatingBar.setRating(Utils.setupRatingValue(String.valueOf(mQualificationObject.getQualificationValue())));
 
         holder.mMoreDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,7 +209,7 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
         setupUserImage(mUserImage);
         mSelectedMenu.setText(mQualificationObject.getMainMenu());
         mUserNameTextView.setText(mQualificationObject.getUser().toUpperCase());
-        mRatingBar.setRating(Utils.setupRatingValue(mQualificationObject.getQualificationValue()));
+        mRatingBar.setRating(Utils.setupRatingValue(String.valueOf(mQualificationObject.getQualificationValue())));
         mDateTextView.setText(mQualificationObject.getSendAppAt());
         mCommentTextView.setText(mQualificationObject.getCommentary());
         mAcceptButton.setOnClickListener(new View.OnClickListener() {

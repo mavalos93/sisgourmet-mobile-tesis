@@ -32,19 +32,18 @@
                 <TextView
                     android:id="@+id/provider_rating_value"
                     android:layout_width="wrap_content"
-                    android:layout_margin="@dimen/default_padding"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_padding"
                     android:text="4,2"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/colorGraphite"
                     android:textSize="50sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/default_padding"
-                    android:layout_weight="0.8"
                     android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_weight="0.7"
                     android:orientation="vertical">
 
                     <ImageView
@@ -58,19 +57,21 @@
                     <android.support.v7.widget.AppCompatRatingBar
                         android:id="@+id/qualification_rating_bar"
                         style="@style/Widget.AppCompat.RatingBar.Small"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:isIndicator="true"
                         android:numStars="5"
+                        android:layout_gravity="center"
+                        android:stepSize="0.1"
                         android:theme="@style/SecondaryRatingBar" />
 
                     <TextView
                         android:id="@+id/total_user_comments_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_padding"
                         android:drawableEnd="@mipmap/ic_user_comments"
                         android:drawablePadding="@dimen/default_padding"
-                        android:gravity="center"
                         android:text="@string/description_image"
                         android:textSize="12sp" />
 
@@ -80,7 +81,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/default_padding"
                     android:layout_weight="0.6"
                     android:orientation="vertical">
 

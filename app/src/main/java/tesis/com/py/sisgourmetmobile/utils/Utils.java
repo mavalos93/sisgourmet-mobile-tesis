@@ -406,7 +406,7 @@ public class Utils {
 
     public static String formatNumber(String number, String appendCurrency) {
         double data = 0;
-        Log.d("TAG", "NUMBER: " + number);
+
         try {
             data = Double.parseDouble(number);
         } catch (Exception e) {
@@ -438,9 +438,8 @@ public class Utils {
         return sayDayName(date1);
     }
 
-    public static float setupRatingValue(long mRatingValue) {
-        String stringRaiting = String.valueOf(mRatingValue);
-        return Float.parseFloat(stringRaiting);
+    public static float setupRatingValue(String mRatingValue) {
+        return Float.parseFloat(mRatingValue);
     }
     private static String sayDayName(Date d) {
         DateFormat f = new SimpleDateFormat("EEEE");

@@ -163,8 +163,6 @@ public class MenuFragment extends Fragment {
             } else {
                 sendRequest();
             }
-
-
     }
 
 
@@ -175,6 +173,7 @@ public class MenuFragment extends Fragment {
         new HomeDataRequest(new HomeDataRequest.ResponseInterface() {
             @Override
             public void processFinish(String action, String message) {
+                clearSwipeRefreshLayout();
                 executingAction(action, message);
             }
         }, getContext());
@@ -197,7 +196,6 @@ public class MenuFragment extends Fragment {
                 mMessageTextView.setText(message);
                 break;
             case Constants.ACTION_VIEW_DATA:
-                clearSwipeRefreshLayout();
                 mProgressBar.setVisibility(View.GONE);
                 mContainerData.setVisibility(View.VISIBLE);
                 setupData();

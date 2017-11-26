@@ -93,7 +93,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         return (null != itemsList ? itemsList.size() : 0);
     }
 
-    public class SingleItemRowHolder extends RecyclerView.ViewHolder {
+    class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
         private TextView mainMenuDescription;
         private ImageView itemImage;
@@ -102,14 +102,14 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         private ImageButton mQualificationButton;
 
 
-        public SingleItemRowHolder(View view) {
+        SingleItemRowHolder(View view) {
             super(view);
 
-            this.mainMenuDescription = (TextView) view.findViewById(R.id.main_menu_desciption);
-            this.garnishDescription = (TextView) view.findViewById(R.id.garnish_description);
-            this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
-            this.mQualificationMenuValue = (TextView) view.findViewById(R.id.qualification_menu_value);
-            this.mQualificationButton = (ImageButton) view.findViewById(R.id.star_imageButton);
+            this.mainMenuDescription = view.findViewById(R.id.main_menu_desciption);
+            this.garnishDescription = view.findViewById(R.id.garnish_description);
+            this.itemImage = view.findViewById(R.id.itemImage);
+            this.mQualificationMenuValue = view.findViewById(R.id.qualification_menu_value);
+            this.mQualificationButton = view.findViewById(R.id.star_imageButton);
 
 
             view.setOnClickListener(new View.OnClickListener() {

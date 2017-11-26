@@ -21,7 +21,11 @@ public class ProviderRatingRepository {
         return getDao().insertOrReplace(providerRating);
     }
 
-    public static void clearAll(){
+    public static long cont() {
+        return getDao().queryBuilder().count();
+    }
+
+    public static void clearAll() {
         getDao().deleteAll();
     }
 
