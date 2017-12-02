@@ -92,28 +92,30 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="end"
                             android:layout_weight="0.9"
+                            android:gravity="end"
                             android:orientation="vertical">
 
                             <android.support.v7.widget.AppCompatRatingBar
-                                style="@style/CustomRatingBar"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_gravity="end"
                                 android:isIndicator="true"
                                 android:numStars="5"
-                                android:stepSize="0.1" />
+                                android:stepSize="0.1"
+                                android:theme="@style/RatingBar" />
 
                         </LinearLayout>
 
                         <ProgressBar
                             android:id="@+id/five_rating_start"
-                            style="@style/CustomProgressBarHorizontal"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="0.2"
+                            android:layout_weight="0.6"
                             android:progress="100"
                             android:progressDrawable="@drawable/square_progressbar"
                             android:progressTint="@color/colorGreen" />
@@ -123,9 +125,10 @@
                             android:id="@+id/five_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="@dimen/default_padding"
-                            android:layout_weight="0.9"
-                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="372"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -146,18 +149,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="end"
                             android:layout_weight="0.9"
+                            android:gravity="end"
                             android:orientation="vertical">
 
                             <android.support.v7.widget.AppCompatRatingBar
-                                style="@style/CustomRatingBar"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_gravity="end"
                                 android:isIndicator="true"
                                 android:numStars="4"
-                                android:stepSize="0.1" />
+                                android:stepSize="0.1"
+                                android:theme="@style/RatingBar" />
 
                         </LinearLayout>
 
@@ -167,7 +172,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="0.2"
+                            android:layout_weight="0.6"
                             android:progress="80"
                             android:progressDrawable="@drawable/square_progressbar"
                             android:progressTint="@color/colorOk" />
@@ -177,9 +182,10 @@
                             android:id="@+id/four_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="@dimen/default_padding"
-                            android:layout_weight="0.9"
-                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="290"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -201,18 +207,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="end"
                             android:layout_weight="0.9"
+                            android:gravity="end"
                             android:orientation="vertical">
 
                             <android.support.v7.widget.AppCompatRatingBar
-                                style="@style/CustomRatingBar"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_gravity="end"
                                 android:isIndicator="true"
                                 android:numStars="3"
-                                android:stepSize="0.1" />
+                                android:stepSize="0.1"
+                                android:theme="@style/RatingBar" />
 
                         </LinearLayout>
 
@@ -222,7 +230,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="0.2"
+                            android:layout_weight="0.6"
                             android:progress="60"
                             android:progressDrawable="@drawable/square_progressbar"
                             android:progressTint="@color/colorRatingbar" />
@@ -232,9 +240,10 @@
                             android:id="@+id/three_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="@dimen/default_padding"
-                            android:layout_weight="0.9"
-                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="200"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -255,18 +264,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="end"
                             android:layout_weight="0.9"
+                            android:gravity="end"
                             android:orientation="vertical">
 
                             <android.support.v7.widget.AppCompatRatingBar
-                                style="@style/CustomRatingBar"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_gravity="end"
                                 android:isIndicator="true"
                                 android:numStars="2"
-                                android:stepSize="0.1" />
+                                android:stepSize="0.1"
+                                android:theme="@style/RatingBar" />
 
                         </LinearLayout>
 
@@ -276,7 +287,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="0.2"
+                            android:layout_weight="0.6"
                             android:progress="40"
                             android:progressDrawable="@drawable/square_progressbar"
                             android:progressTint="@color/colorOrange" />
@@ -286,9 +297,10 @@
                             android:id="@+id/two_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="@dimen/default_padding"
-                            android:layout_weight="0.9"
-                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="120"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -309,18 +321,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="end"
                             android:layout_weight="0.9"
+                            android:gravity="end"
                             android:orientation="vertical">
 
                             <android.support.v7.widget.AppCompatRatingBar
-                                style="@style/CustomRatingBar"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_gravity="end"
                                 android:isIndicator="true"
                                 android:numStars="1"
-                                android:stepSize="0.1" />
+                                android:stepSize="0.1"
+                                android:theme="@style/RatingBar" />
 
                         </LinearLayout>
 
@@ -330,7 +344,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="0.2"
+                            android:layout_weight="0.6"
                             android:progress="20"
                             android:progressDrawable="@drawable/square_progressbar"
                             android:progressTint="@color/colorRed" />
@@ -340,9 +354,10 @@
                             android:id="@+id/one_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="@dimen/default_padding"
-                            android:layout_weight="0.9"
-                            android:drawableEnd="@mipmap/ic_user_comments"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="20"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -364,6 +379,7 @@
                 android:background="@color/divider" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/comments_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/default_padding" />

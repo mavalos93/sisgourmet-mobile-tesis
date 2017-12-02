@@ -353,5 +353,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_comments_detail">CommentsDetailActivity</string>
+    <string name="title_activity_comments">CommentsActivity</string>
 
 </resources>

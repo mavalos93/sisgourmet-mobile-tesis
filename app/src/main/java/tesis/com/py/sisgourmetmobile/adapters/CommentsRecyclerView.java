@@ -1,34 +1,23 @@
 package tesis.com.py.sisgourmetmobile.adapters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +39,14 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
  * Created by Manu0 on 31/5/2017.
  */
 
-public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerView.CommentViewHolder> {
+public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerView.CommentViewHolder> {
 
     private List<Qualification> qualificationItem = new ArrayList<>();
     private Context mContext;
     private Dialog dialog;
 
 
-    public CommetsRecyclerView(List<Qualification> qualificationList, Context context) {
+    public CommentsRecyclerView(List<Qualification> qualificationList, Context context) {
         qualificationItem = qualificationList;
         mContext = context;
     }
@@ -110,13 +99,13 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
     }
 
     @Override
-    public CommetsRecyclerView.CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommentsRecyclerView.CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comment, parent, false);
-        return new CommetsRecyclerView.CommentViewHolder(itemView);
+        return new CommentsRecyclerView.CommentViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final CommetsRecyclerView.CommentViewHolder holder, final int position) {
+    public void onBindViewHolder(final CommentsRecyclerView.CommentViewHolder holder, final int position) {
         Qualification mQualificationObject = qualificationItem.get(position);
 
         if (mQualificationObject.getGarnish().equals("")) {
@@ -160,7 +149,7 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
         }
     }
 
-    private void setupUserImage(CommetsRecyclerView.CommentViewHolder holder) {
+    private void setupUserImage(CommentsRecyclerView.CommentViewHolder holder) {
         User mUserObject = UserRepository.getUser(mContext);
         if (mUserObject != null) {
             if (mUserObject.getImageProfile() != null) {
@@ -170,7 +159,7 @@ public class CommetsRecyclerView extends RecyclerView.Adapter<CommetsRecyclerVie
         }
     }
 
-    private void showPopup(Context context, CommetsRecyclerView.CommentViewHolder holder, final Qualification qualification) {
+    private void showPopup(Context context, CommentsRecyclerView.CommentViewHolder holder, final Qualification qualification) {
         //creating a popup menu
         PopupMenu popup = new PopupMenu(context, holder.mMoreDetailsButton);
         //inflating menu from xml resource

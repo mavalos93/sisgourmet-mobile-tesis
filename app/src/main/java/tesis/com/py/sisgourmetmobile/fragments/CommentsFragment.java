@@ -1,5 +1,6 @@
 package tesis.com.py.sisgourmetmobile.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
+import tesis.com.py.sisgourmetmobile.activities.CommentsDetailActivity;
 import tesis.com.py.sisgourmetmobile.adapters.ProviderQualificationAdapter;
 import tesis.com.py.sisgourmetmobile.entities.ProviderComments;
 import tesis.com.py.sisgourmetmobile.entities.ProviderRating;
@@ -39,6 +41,7 @@ import tesis.com.py.sisgourmetmobile.request.HomeDataRequest;
 import tesis.com.py.sisgourmetmobile.request.ProviderCommentsRequest;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
+import tesis.com.py.sisgourmetmobile.utils.RecyclerItemClickListener;
 import tesis.com.py.sisgourmetmobile.utils.URLS;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
@@ -88,6 +91,17 @@ public class CommentsFragment extends Fragment {
         mProvidersDataAdapter = new ProviderQualificationAdapter(new ArrayList<ProviderRating>(), getContext());
         mProvidersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mProvidersRecyclerView.setAdapter(mProvidersDataAdapter);
+        mProvidersRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mProvidersRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                startActivity(new Intent(getContext(), CommentsDetailActivity.class));
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        }));
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
