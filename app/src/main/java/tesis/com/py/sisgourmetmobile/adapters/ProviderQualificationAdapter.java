@@ -76,7 +76,7 @@ public class ProviderQualificationAdapter extends RecyclerView.Adapter<ProviderQ
     public void onBindViewHolder(ProviderQualificationAdapter.ProviderQualificationViewHolder holder, final int position) {
         ProviderRating providerRating = getItemAtPosition(position);
 
-        holder.mProviderNameTextView.setText(providerRating.getProviderName());
+        holder.mProviderNameTextView.setText(providerRating.getProviderName().toUpperCase());
         holder.mTotalRatingTextView.setText(providerRating.getProviderRating().replace(".", ","));
         Bitmap bmp = BitmapFactory.decodeByteArray(providerRating.getProviderImage(), 0, providerRating.getProviderImage().length);
         holder.mProviderImage.setImageBitmap(bmp);

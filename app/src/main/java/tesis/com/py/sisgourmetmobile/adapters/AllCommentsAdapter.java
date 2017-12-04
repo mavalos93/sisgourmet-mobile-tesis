@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.entities.Comments;
+import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 
 /**
@@ -37,54 +39,45 @@ public class AllCommentsAdapter extends RecyclerView.Adapter<AllCommentsAdapter.
         mContext = context;
     }
 
-    public class AllCommetViewHolder extends RecyclerView.ViewHolder {
+    class AllCommetViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mUserTextView;
-        TextView mCommentTextView;
-        TextView mMyLunchTextView;
-        ImageView mFirstNameImageView;
-        AppCompatRatingBar mRatingBar;
-        TextView mDateQualificationTextView;
+        private ImageView mUserImage;
+        private TextView mUserName;
+        private TextView mDate;
+        private RatingBar mCommentRating;
+        private TextView mCommentUser;
+        private TextView mLunchDescription;
 
-
-        public AllCommetViewHolder(View view) {
+        AllCommetViewHolder(View view) {
             super(view);
             mContext = view.getContext();
-            mUserTextView = (TextView) view.findViewById(R.id.item_all_comment_user_name);
-            mCommentTextView = (TextView) view.findViewById(R.id.item_all_comment_description);
-            mMyLunchTextView = (TextView) view.findViewById(R.id.item_all_comment_user_selected_menu);
-            mFirstNameImageView = (ImageView) view.findViewById(R.id.image_view_first_name);
-            mRatingBar = (AppCompatRatingBar) view.findViewById(R.id.qualification_rating_bar);
-            mDateQualificationTextView = (TextView) view.findViewById(R.id.date_qualfication_textView);
+
+            mUserImage = view.findViewById(R.id.user_comment_image);
+            mUserName = view.findViewById(R.id.username_value);
+            mDate = view.findViewById(R.id.date_comment);
+            mCommentRating = view.findViewById(R.id.user_comment_ratingbar);
+            mCommentUser = view.findViewById(R.id.data_user_comment);
+            mLunchDescription = view.findViewById(R.id.lunch_package_description);
+
 
         }
     }
 
     @Override
     public AllCommentsAdapter.AllCommetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_all_comments, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comments_user, parent, false);
         return new AllCommentsAdapter.AllCommetViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(AllCommentsAdapter.AllCommetViewHolder holder, final int position) {
         Comments mCommentObject = commentsItem.get(position);
-        String firstLetter = "";
+        holder.mLunchDescription.setText(mCommentObject.getLunchPackageDescription());
+        holder.mUserName.setText(mCommentObject.getUserName());
+        holder.mDate.setText(mCommentObject.getDateComment());
+        holder.mCommentRating.setRating(Utils.setupRatingValue(String.valueOf(mCommentObject.getRatingValue())));
+        holder.mCommentUser.setText(mCommentObject.getCommentDescription());
 
-        if (mCommentObject.getUserName() != null || !mCommentObject.getUserName().equals("null") || !mCommentObject.getUserName().equals("")) {
-            firstLetter = String.valueOf(mCommentObject.getUserName().charAt(0)).toUpperCase();
-        }
-
-
-        holder.mUserTextView.setText(mCommentObject.getUserName());
-        holder.mCommentTextView.setText(mCommentObject.getCommentDescription());
-        holder.mMyLunchTextView.setText(mCommentObject.getLunchPackageDescription());
-        holder.mDateQualificationTextView.setText(mCommentObject.getDateComment());
-        ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
-        int color = generator.getColor(commentsItem.get(position));
-        TextDrawable drawable = TextDrawable.builder()
-                .buildRound(firstLetter, color); // radius in px
-        holder.mFirstNameImageView.setImageDrawable(drawable);
 
     }
 

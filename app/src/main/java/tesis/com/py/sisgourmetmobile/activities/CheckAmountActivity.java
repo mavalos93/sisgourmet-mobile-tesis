@@ -39,11 +39,7 @@ import tesis.com.py.sisgourmetmobile.utils.Utils;
 public class CheckAmountActivity extends AppCompatActivity {
 
     // VIEW
-    private TextView mName;
-    private TextView mLastName;
-    private TextView mIdentifyCard;
-    private TextView mAvailableAmount;
-    private ImageView mToolbarImageView;
+
     private Dialog dialog;
 
     // Utilitarian Variable
@@ -57,22 +53,11 @@ public class CheckAmountActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mToolbarImageView = findViewById(R.id.header_image);
-        mName = findViewById(R.id.name_user_value);
-        mLastName = findViewById(R.id.last_name_user_value);
-        mIdentifyCard = findViewById(R.id.identify_card_user_value);
-        mAvailableAmount = findViewById(R.id.amount_value);
-        FloatingActionButton mFABSettings = findViewById(R.id.fab_settings);
-        mFABSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSettingsDialog();
-            }
-        });
-        setupData();
+
+        //setupData();
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bundle bundle = data.getExtras();
             if (bundle != null) {
@@ -87,9 +72,9 @@ public class CheckAmountActivity extends AppCompatActivity {
                 return;
             }
         }
-    }
+    }*/
 
-    private void setupData() {
+   /* private void setupData() {
         User user = UserRepository.getUser(this);
         if (user != null) {
             mName.setText(user.getName());
@@ -104,7 +89,7 @@ public class CheckAmountActivity extends AppCompatActivity {
             Utils.builToast(this, getString(R.string.error_get_data_user));
             finish();
         }
-    }
+    }*/
 
     private long saveImageUser(byte[] arrayImage) {
         User user = UserRepository.getUser(this);

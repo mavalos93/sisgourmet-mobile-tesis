@@ -107,6 +107,7 @@ public class MyDaoGenerator {
 
         Entity providerRating = schema.addEntity("ProviderRating");
         providerRating.addIdProperty();
+        providerRating.addIntProperty("providerId");
         providerRating.addStringProperty("providerName");
         providerRating.addIntProperty("maxRating");
         providerRating.addStringProperty("providerRating");

@@ -63,7 +63,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 }
             } else if (listSize > 1) {
                 mGarnishText = "Combinable";
-                holder.garnishDescription.setTextColor(mContext.getResources().getColor(R.color.accent));
+                holder.garnishDescription.setTextColor(mContext.getResources().getColor(R.color.colorRatingbar));
             }
         }
 

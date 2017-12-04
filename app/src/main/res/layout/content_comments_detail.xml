@@ -18,6 +18,7 @@
             android:id="@+id/rating_data_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
 
@@ -105,7 +106,7 @@
                                 android:isIndicator="true"
                                 android:numStars="5"
                                 android:stepSize="0.1"
-                                android:theme="@style/RatingBar" />
+                                android:theme="@style/SecondaryRatingBar" />
 
                         </LinearLayout>
 
@@ -125,10 +126,10 @@
                             android:id="@+id/five_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="start"
                             android:layout_marginStart="@dimen/default_padding"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:text="372"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -162,7 +163,7 @@
                                 android:isIndicator="true"
                                 android:numStars="4"
                                 android:stepSize="0.1"
-                                android:theme="@style/RatingBar" />
+                                android:theme="@style/SecondaryRatingBar" />
 
                         </LinearLayout>
 
@@ -182,10 +183,10 @@
                             android:id="@+id/four_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="start"
                             android:layout_marginStart="@dimen/default_padding"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:text="290"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -220,7 +221,7 @@
                                 android:isIndicator="true"
                                 android:numStars="3"
                                 android:stepSize="0.1"
-                                android:theme="@style/RatingBar" />
+                                android:theme="@style/SecondaryRatingBar" />
 
                         </LinearLayout>
 
@@ -240,10 +241,10 @@
                             android:id="@+id/three_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="start"
                             android:layout_marginStart="@dimen/default_padding"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:text="200"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -277,7 +278,7 @@
                                 android:isIndicator="true"
                                 android:numStars="2"
                                 android:stepSize="0.1"
-                                android:theme="@style/RatingBar" />
+                                android:theme="@style/SecondaryRatingBar" />
 
                         </LinearLayout>
 
@@ -297,10 +298,10 @@
                             android:id="@+id/two_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="start"
                             android:layout_marginStart="@dimen/default_padding"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:text="120"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -334,7 +335,7 @@
                                 android:isIndicator="true"
                                 android:numStars="1"
                                 android:stepSize="0.1"
-                                android:theme="@style/RatingBar" />
+                                android:theme="@style/SecondaryRatingBar" />
 
                         </LinearLayout>
 
@@ -354,10 +355,10 @@
                             android:id="@+id/one_total_comments"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="start"
                             android:layout_marginStart="@dimen/default_padding"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:gravity="start"
                             android:text="20"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -382,7 +383,8 @@
                 android:id="@+id/comments_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/default_padding" />
+                android:layout_margin="@dimen/default_padding"
+                android:descendantFocusability="afterDescendants" />
 
         </LinearLayout>
 

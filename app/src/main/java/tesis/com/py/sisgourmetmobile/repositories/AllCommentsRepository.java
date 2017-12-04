@@ -35,7 +35,7 @@ public class AllCommentsRepository {
                 getCommentsDao();
     }
 
-    public static long countCommentByProviderId(int mProviderId) {
-        return getDao().queryBuilder().where(CommentsDao.Properties.ProviderId.eq(mProviderId)).count();
+    public static List<Comments> getCommentsByProviderId(int mProviderId) {
+        return getDao().queryBuilder().where(CommentsDao.Properties.ProviderId.eq(mProviderId)).list();
     }
 }

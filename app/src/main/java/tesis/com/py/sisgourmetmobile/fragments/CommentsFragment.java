@@ -73,7 +73,7 @@ public class CommentsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.comments_fragment, container, false);
@@ -94,7 +94,12 @@ public class CommentsFragment extends Fragment {
         mProvidersRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mProvidersRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                startActivity(new Intent(getContext(), CommentsDetailActivity.class));
+
+                Bundle providerBundle = new Bundle();
+                providerBundle.putSerializable(Constants.ACTION_COMMENTS, mProvidersDataAdapter.getItemAtPosition(position));
+                Intent intent = new Intent(getContext(), CommentsDetailActivity.class);
+                intent.putExtra(Constants.SERIALIZABLE, providerBundle);
+                startActivity(intent);
             }
 
             @Override

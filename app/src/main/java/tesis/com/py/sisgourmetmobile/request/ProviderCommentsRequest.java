@@ -2,6 +2,7 @@ package tesis.com.py.sisgourmetmobile.request;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -195,14 +196,15 @@ public class ProviderCommentsRequest {
                 counterComments++;
                 try {
                     JSONObject jsonObject = mProviderComments.getJSONObject(j);
-                    Comments cdm = CommentsDataMapping.getCommentsDataFromJson(jsonObject);
+                    Comments cdm = new Comments();
+                    cdm = CommentsDataMapping.getCommentsDataFromJson(jsonObject);
                     AllCommentsRepository.store(cdm);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-
+            Log.d("TAG", "COMMENTS: " + mProviderComments.length());
             return counterProviderData == mProviderArray.length() && counterComments == mProviderComments.length();
         }
 

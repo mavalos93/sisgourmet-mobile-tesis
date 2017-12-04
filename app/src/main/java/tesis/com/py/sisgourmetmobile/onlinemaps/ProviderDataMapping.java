@@ -21,6 +21,9 @@ public class ProviderDataMapping {
                 pdm.setProviderName(data.getString("name"));
             }
 
+            if (data.has("provider_id")) {
+                pdm.setProviderId(data.getInt("provider_id"));
+            }
             if (data.has("max_value")) {
                 pdm.setMaxRating(data.getInt("max_value"));
             }

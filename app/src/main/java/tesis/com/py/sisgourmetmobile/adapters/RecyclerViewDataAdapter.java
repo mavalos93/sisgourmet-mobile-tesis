@@ -40,7 +40,7 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
 
-        final String sectionName = itemDataList.get(i).getHeaderTitle();
+        final String sectionName = itemDataList.get(i).getHeaderTitle().toUpperCase();
 
         List singleSectionItems = itemDataList.get(i).getAllItemsInSection();
 
