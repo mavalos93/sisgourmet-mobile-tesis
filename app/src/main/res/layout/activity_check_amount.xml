@@ -5,25 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:theme="@style/AppTheme.ActionBar"
     tools:context="tesis.com.py.sisgourmetmobile.activities.CheckAmountActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            app:navigationIcon="@mipmap/ic_arrow_back_white_36dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-
-    </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_check_amount" />
 

@@ -7,222 +7,204 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="tesis.com.py.sisgourmetmobile.activities.CheckAmountActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/description_image"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/sisgourmet_background" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@mipmap/ic_arrow_back_white_36dp"
+        android:background="@android:color/transparent" />
 
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/account_container"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/navigation_padding_overlap">
+
+        <TextView
+            android:id="@+id/username"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:paddingTop="@dimen/big_margin_layout"
+            android:text="Manuel Avalos"
+            android:textColor="@color/icons"
+            android:textSize="20sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_below="@id/username"
+            app:civ_border_color="@color/icons"
+            app:civ_border_width="1dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_user_flaticons" />
+
+
+        <LinearLayout
+            android:id="@+id/account_data_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_image"
+            android:layout_gravity="center"
             android:layout_margin="@dimen/default_padding"
-            app:cardCornerRadius="@dimen/default_padding">
+            android:layout_marginBottom="@dimen/img_width_height"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_padding"
+                android:gravity="center"
+                android:text="Nombre:  Manuel"
+                android:textColor="@color/icons"
+                android:textSize="17sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_padding"
+                android:gravity="center"
+                android:text="Apellido: Avalos"
+                android:textColor="@color/icons"
+                android:textSize="17sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_padding"
+                android:gravity="center"
+                android:text="Ci: 5034452"
+                android:textColor="@color/icons"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/data_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/default_padding"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/activity_horizontal_margin">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/neon"
-                    android:layout_margin="@dimen/activity_horizontal_margin"
-                    android:gravity="center"
-                    android:text="Datos de la cuenta"
-                    android:textSize="18sp" />
-
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:contentDescription="@string/description_image"
+                    android:src="@mipmap/ic_asigned_amount" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/default_padding"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
-                        android:src="@mipmap/ic_user_flaticons" />
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center"
-                        android:gravity="start|center"
-                        android:orientation="vertical">
+                        android:text="Monto Asignado"
+                        android:textColor="@color/icons"
+                        android:textSize="12sp" />
 
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/default_padding"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/default_padding"
-                                android:text="@string/tag_name"
-                                android:textColor="@color/colorGraphite"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/username_value"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Blás Manuel" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/default_padding"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/default_padding"
-                                android:text="@string/tag_last_name"
-                                android:textColor="@color/colorGraphite"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lastname_value"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Avalos Cruz" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/default_padding"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/default_padding"
-                                android:text="@string/tag_ci"
-                                android:textColor="@color/colorGraphite"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/identifycard_value"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="5034452" />
-                        </LinearLayout>
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="@string/description_image"
-                            android:src="@mipmap/ic_settings_black_24dp" />
-                    </LinearLayout>
-
-
+                    <TextView
+                        android:id="@+id/asigned_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="450.000 Gs."
+                        android:textColor="@color/icons"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
+            </LinearLayout>
 
-                <android.support.v7.widget.CardView
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_padding"
+                android:background="@color/icons"
+                android:padding="@dimen/default_padding" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_marginStart="@dimen/default_padding"
+                    android:contentDescription="@string/description_image"
+                    android:src="@mipmap/ic_available_amount" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                    android:layout_margin="@dimen/activity_horizontal_margin"
-                    android:backgroundTint="@color/colorPrimary"
-                    app:cardCornerRadius="@dimen/default_padding">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/default_padding"
-                        android:orientation="vertical"
-                        android:padding="@dimen/activity_horizontal_margin">
+                        android:text="Monto Disponible"
+                        android:textColor="@color/icons"
+                        android:textSize="12sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/available_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="450.000 Gs."
+                        android:textColor="@color/icons"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="0.5"
-                                android:fontFamily="@font/neon"
-                                android:text="@string/app_name"
-                                android:textColor="@color/icons" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:layout_weight="0.5"
-                                android:gravity="end">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="end"
-                                    android:contentDescription="@string/description_image"
-                                    android:src="@mipmap/ic_credit_account_card" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/avalilable_amount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="@dimen/default_padding"
-                            android:gravity="center"
-                            android:text="450.000 Gs."
-                            android:textColor="@color/icons"
-                            android:textSize="40sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/default_padding"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/user_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.5"
-                                android:fontFamily="@font/panforte_serif"
-                                android:text="Blas Manuel Avalos Cruz"
-                                android:textColor="@color/icons"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.5"
-                                android:paddingBottom="@dimen/default_padding">
-
-                                <TextView
-                                    android:id="@+id/date"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:text="12/05/1993"
-                                    android:textColor="@color/icons"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
             </LinearLayout>
+        </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
 
 </RelativeLayout>
