@@ -101,9 +101,11 @@ public class MyDaoGenerator {
         user.addStringProperty("name");
         user.addStringProperty("lastName");
         user.addStringProperty("identifyCard");
-        user.addStringProperty("currentAmount");
+        user.addIntProperty("currentAmount");
         user.addStringProperty("userName");
         user.addByteArrayProperty("imageProfile");
+        user.addStringProperty("asignedToAmount");
+        user.addStringProperty("asignedToDate");
 
         Entity providerRating = schema.addEntity("ProviderRating");
         providerRating.addIdProperty();

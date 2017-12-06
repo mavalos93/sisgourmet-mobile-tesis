@@ -54,49 +54,140 @@
             android:src="@mipmap/ic_user_flaticons" />
 
 
+
         <LinearLayout
             android:id="@+id/account_data_container"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_image"
             android:layout_gravity="center"
+            android:layout_centerInParent="true"
             android:layout_margin="@dimen/default_padding"
             android:layout_marginBottom="@dimen/img_width_height"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center"
+                android:gravity="start|center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/default_padding"
+                    android:gravity="center"
+                    android:text="@string/tag_name"
+                    android:textStyle="bold"
+                    android:textColor="@color/icons"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/username_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/default_padding"
+                    android:gravity="center"
+                    android:text="Manuel"
+                    android:textColor="@color/icons"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:gravity="start|center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/default_padding"
                 android:gravity="center"
-                android:text="Nombre:  Manuel"
+                android:textStyle="bold"
+                android:text="@string/tag_last_name"
                 android:textColor="@color/icons"
-                android:textSize="17sp" />
-
+                android:textSize="15sp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/lastname_value"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/default_padding"
                 android:gravity="center"
-                android:text="Apellido: Avalos"
+                android:text="Avalos"
                 android:textColor="@color/icons"
-                android:textSize="17sp" />
+                android:textSize="15sp" />
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:gravity="start|center"
+            android:orientation="horizontal">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/default_padding"
                 android:gravity="center"
-                android:text="Ci: 5034452"
+                android:text="@string/tag_ci"
+                android:textStyle="bold"
                 android:textColor="@color/icons"
-                android:textSize="17sp" />
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/identifycard_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_padding"
+                android:gravity="center"
+                android:text="5034452"
+                android:textColor="@color/icons"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:gravity="start|center"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/default_padding"
+                    android:gravity="center"
+                    android:text="@string/tag_asigned_to_date"
+                    android:textStyle="bold"
+                    android:textColor="@color/icons"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/asigned_to_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/default_padding"
+                    android:gravity="center"
+                    android:text="12/05/1993"
+                    android:textColor="@color/icons"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
@@ -106,10 +197,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/default_padding"
+            android:layout_margin="@dimen/big_margin_layout"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/activity_horizontal_margin">
+            android:paddingTop="@dimen/big_margin_layout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -137,7 +228,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Monto Asignado"
+                        android:text="Asignado"
                         android:textColor="@color/icons"
                         android:textSize="12sp" />
 
@@ -187,7 +278,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Monto Disponible"
+                        android:text="Disponible"
                         android:textColor="@color/icons"
                         android:textSize="12sp" />
 

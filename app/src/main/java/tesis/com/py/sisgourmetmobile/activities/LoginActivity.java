@@ -180,7 +180,8 @@ public class LoginActivity extends AppCompatActivity {
             String mIdentifyCard = "";
             String mName = "";
             String mUserLastName = "";
-            String mCurrentAmount = "";
+            int mAsignedToAmount = 0;
+            String mAsingedToDate = "";
             int status = -1;
 
             if (response == null) {
@@ -201,9 +202,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.has("name")) mName = response.getString("name");
                     if (response.has("lastName")) mUserLastName = response.getString("lastName");
                     if (response.has("currentAmount"))
-                        mCurrentAmount = response.getString("currentAmount");
-
-                    long userId = saveUserData(mName, mUserLastName, mCurrentAmount, mUsername, mIdentifyCard);
+                        mAsignedToAmount = response.getInt("currentAmount");
+                    if (response.has("asignedToDate")) mAsingedToDate = response.getString("asignedToDate");
+                    long userId = saveUserData(mName, mUserLastName, mAsignedToAmount, mUsername, mIdentifyCard, mAsingedToDate);
                     if (userId > 0) {
                         AppPreferences.getAppPreferences(LoginActivity.this).edit().putBoolean(AppPreferences.KEY_PREFERENCE_LOGGED_IN, false).apply();
                         AppPreferences.getAppPreferences(LoginActivity.this).edit().putLong(AppPreferences.KEY_USER_ID, userId).apply();
@@ -227,14 +228,24 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
-        private long saveUserData(String name, String lastName, String currentAmount, String mUsername, String identifyCard) {
+        private long saveUserData(String name, String lastName, int currentAmount, String mUsername, String identifyCard, String asignedToDate) {
             User user = new User();
-            user.setName(name);
-            user.setIdentifyCard(identifyCard);
-            user.setLastName(lastName);
-            user.setCurrentAmount(currentAmount);
-            user.setUserName(mUsername);
-            return UserRepository.store(user);
+            long mInsertId = 0;
+            try {
+                user.setName(name);
+                user.setIdentifyCard(identifyCard);
+                user.setLastName(lastName);
+                user.setAsignedToAmount(String.valueOf(currentAmount));
+                user.setCurrentAmount(currentAmount);
+                user.setUserName(mUsername);
+                user.setAsignedToDate(asignedToDate);
+                mInsertId = UserRepository.store(user);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                mInsertId = 0;
+            }
+
+            return mInsertId;
         }
 
         class LoginRequest extends RequestObject {

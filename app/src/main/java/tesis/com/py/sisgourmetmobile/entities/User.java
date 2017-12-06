@@ -10,9 +10,11 @@ public class User {
     private String name;
     private String lastName;
     private String identifyCard;
-    private String currentAmount;
+    private Integer currentAmount;
     private String userName;
     private byte[] imageProfile;
+    private String asignedToAmount;
+    private String asignedToDate;
 
     public User() {
     }
@@ -21,7 +23,7 @@ public class User {
         this.id = id;
     }
 
-    public User(Long id, String name, String lastName, String identifyCard, String currentAmount, String userName, byte[] imageProfile) {
+    public User(Long id, String name, String lastName, String identifyCard, Integer currentAmount, String userName, byte[] imageProfile, String asignedToAmount, String asignedToDate) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -29,6 +31,8 @@ public class User {
         this.currentAmount = currentAmount;
         this.userName = userName;
         this.imageProfile = imageProfile;
+        this.asignedToAmount = asignedToAmount;
+        this.asignedToDate = asignedToDate;
     }
 
     public Long getId() {
@@ -63,11 +67,11 @@ public class User {
         this.identifyCard = identifyCard;
     }
 
-    public String getCurrentAmount() {
+    public Integer getCurrentAmount() {
         return currentAmount;
     }
 
-    public void setCurrentAmount(String currentAmount) {
+    public void setCurrentAmount(Integer currentAmount) {
         this.currentAmount = currentAmount;
     }
 
@@ -85,6 +89,22 @@ public class User {
 
     public void setImageProfile(byte[] imageProfile) {
         this.imageProfile = imageProfile;
+    }
+
+    public String getAsignedToAmount() {
+        return asignedToAmount;
+    }
+
+    public void setAsignedToAmount(String asignedToAmount) {
+        this.asignedToAmount = asignedToAmount;
+    }
+
+    public String getAsignedToDate() {
+        return asignedToDate;
+    }
+
+    public void setAsignedToDate(String asignedToDate) {
+        this.asignedToDate = asignedToDate;
     }
 
 }

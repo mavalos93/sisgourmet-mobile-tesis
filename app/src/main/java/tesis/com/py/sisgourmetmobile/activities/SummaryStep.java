@@ -1,5 +1,6 @@
 package tesis.com.py.sisgourmetmobile.activities;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +49,7 @@ import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.OrderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.QualificationRepository;
 import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
+import tesis.com.py.sisgourmetmobile.support.UserControlAmount;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.DividerItemDecoration;
@@ -178,10 +180,10 @@ public class SummaryStep extends AbstractStep {
         mTotalPriceTextView.setText("Total: " + mTotalAmount);
     }
 
-    private void validateOrder(Lunch lunchObject, int mGarnishSelectedId, int mDrinkId) {
+    private void validateOrder(final Lunch lunchObject, final int mGarnishSelectedId, final int mDrinkId) {
         try {
 
-            String mUserName = UserRepository.getUser(getContext()).getUserName();
+            final String mUserName = UserRepository.getUser(getContext()).getUserName();
             if (lunchObject.getPrincipalMenuCode() == null || lunchObject.getPrincipalMenuCode() == 0) {
                 Utils.builToast(getContext(), "Error, no se pudo obtener el identificador del menú principal");
                 getActivity().finish();
@@ -206,9 +208,39 @@ public class SummaryStep extends AbstractStep {
                 return;
             }
 
-            mOrderTask = new OrderTask(mUserName, lunchObject.getProviderId(), lunchObject.getPrincipalMenuCode(),
-                    mGarnishSelectedId, mDrinkId, mTotalAmount);
-            mOrderTask.confirm();
+            if (UserControlAmount.overdaftAcount(getContext(), mTotalAmount)) {
+                android.app.AlertDialog.Builder builder = Utils.createSimpleDialog(getContext(), "Sobregiro", "Ya sobrepasaste el tu monto asignado, deseas sobregirar el pedido ?", R.mipmap.ic_info_black_36dp, false);
+                builder.setPositiveButton(getString(R.string.label_accept), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (UserControlAmount.updateAmount(getContext(), mTotalAmount) <= 0) {
+                            Utils.builToast(getContext(), getString(R.string.error_save_transaction));
+                        } else {
+                            mOrderTask = new OrderTask(mUserName, lunchObject.getProviderId(), lunchObject.getPrincipalMenuCode(),
+                                    mGarnishSelectedId, mDrinkId, mTotalAmount);
+                            mOrderTask.execute();
+                        }
+                    }
+                });
+                builder.setNegativeButton(getString(R.string.label_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.create();
+                builder.show();
+            }else {
+                if (UserControlAmount.updateAmount(getContext(), mTotalAmount) <= 0) {
+                    Utils.builToast(getContext(), getString(R.string.error_save_transaction));
+                } else {
+                    mOrderTask = new OrderTask(mUserName, lunchObject.getProviderId(), lunchObject.getPrincipalMenuCode(),
+                            mGarnishSelectedId, mDrinkId, mTotalAmount);
+                    mOrderTask.confirm();
+                }
+            }
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

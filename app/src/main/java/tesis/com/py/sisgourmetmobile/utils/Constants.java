@@ -7,6 +7,7 @@ package tesis.com.py.sisgourmetmobile.utils;
 public class Constants {
 
     public static final String DEFAULT_DATETIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
+    public static final String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
     public static final String DEFAULT_DATE_FORMAT_POSTGRES = "dd-MM-yyyy";
 
     public static final int RESPONSE_OK = 1;

@@ -27,9 +27,11 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property LastName = new Property(2, String.class, "lastName", false, "LAST_NAME");
         public final static Property IdentifyCard = new Property(3, String.class, "identifyCard", false, "IDENTIFY_CARD");
-        public final static Property CurrentAmount = new Property(4, String.class, "currentAmount", false, "CURRENT_AMOUNT");
+        public final static Property CurrentAmount = new Property(4, Integer.class, "currentAmount", false, "CURRENT_AMOUNT");
         public final static Property UserName = new Property(5, String.class, "userName", false, "USER_NAME");
         public final static Property ImageProfile = new Property(6, byte[].class, "imageProfile", false, "IMAGE_PROFILE");
+        public final static Property AsignedToAmount = new Property(7, String.class, "asignedToAmount", false, "ASIGNED_TO_AMOUNT");
+        public final static Property AsignedToDate = new Property(8, String.class, "asignedToDate", false, "ASIGNED_TO_DATE");
     };
 
 
@@ -49,9 +51,11 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"NAME\" TEXT," + // 1: name
                 "\"LAST_NAME\" TEXT," + // 2: lastName
                 "\"IDENTIFY_CARD\" TEXT," + // 3: identifyCard
-                "\"CURRENT_AMOUNT\" TEXT," + // 4: currentAmount
+                "\"CURRENT_AMOUNT\" INTEGER," + // 4: currentAmount
                 "\"USER_NAME\" TEXT," + // 5: userName
-                "\"IMAGE_PROFILE\" BLOB);"); // 6: imageProfile
+                "\"IMAGE_PROFILE\" BLOB," + // 6: imageProfile
+                "\"ASIGNED_TO_AMOUNT\" TEXT," + // 7: asignedToAmount
+                "\"ASIGNED_TO_DATE\" TEXT);"); // 8: asignedToDate
     }
 
     /** Drops the underlying database table. */
@@ -85,9 +89,9 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindString(4, identifyCard);
         }
  
-        String currentAmount = entity.getCurrentAmount();
+        Integer currentAmount = entity.getCurrentAmount();
         if (currentAmount != null) {
-            stmt.bindString(5, currentAmount);
+            stmt.bindLong(5, currentAmount);
         }
  
         String userName = entity.getUserName();
@@ -98,6 +102,16 @@ public class UserDao extends AbstractDao<User, Long> {
         byte[] imageProfile = entity.getImageProfile();
         if (imageProfile != null) {
             stmt.bindBlob(7, imageProfile);
+        }
+ 
+        String asignedToAmount = entity.getAsignedToAmount();
+        if (asignedToAmount != null) {
+            stmt.bindString(8, asignedToAmount);
+        }
+ 
+        String asignedToDate = entity.getAsignedToDate();
+        if (asignedToDate != null) {
+            stmt.bindString(9, asignedToDate);
         }
     }
 
@@ -115,9 +129,11 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // lastName
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // identifyCard
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // currentAmount
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // currentAmount
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // userName
-            cursor.isNull(offset + 6) ? null : cursor.getBlob(offset + 6) // imageProfile
+            cursor.isNull(offset + 6) ? null : cursor.getBlob(offset + 6), // imageProfile
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // asignedToAmount
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // asignedToDate
         );
         return entity;
     }
@@ -129,9 +145,11 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setLastName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setIdentifyCard(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setCurrentAmount(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setCurrentAmount(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
         entity.setUserName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setImageProfile(cursor.isNull(offset + 6) ? null : cursor.getBlob(offset + 6));
+        entity.setAsignedToAmount(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setAsignedToDate(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     /** @inheritdoc */

@@ -244,8 +244,8 @@
     <string name="tag_name">Nombre: </string>
     <string name="tag_last_name">Apellido: </string>
     <string name="tag_ci">Cédula: </string>
-
-
+    <string name="tag_change_image">Imagen de Perfil</string>
+    <string name="tag_asigned_to_date">Asignación: </string>
     <!-- Comments View Activity-->
     <string name="title_activity_commets_view">CommetsViewActivity</string>
     <string name="error_all_comments_null">No se encontraron registros de comentarios</string>
