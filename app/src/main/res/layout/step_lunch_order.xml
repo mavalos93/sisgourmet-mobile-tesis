@@ -66,7 +66,6 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/robot_regular"
                                 android:text="@string/item_main_menu"
-                                android:textStyle="bold"
                                 android:textColor="@color/colorGraphite"
                                 android:textSize="15sp" />
 
@@ -77,8 +76,7 @@
                                 android:fontFamily="@font/robot_regular"
                                 android:text="@string/selected_garnish"
                                 android:textColor="@color/colorGraphite"
-                                android:textSize="15sp"
-                                android:textStyle="italic" />
+                                android:textSize="15sp" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -118,6 +116,7 @@
                 android:gravity="start"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_horizontal_margin">
+
 
                 <RadioGroup
                     android:id="@+id/radioContainer"

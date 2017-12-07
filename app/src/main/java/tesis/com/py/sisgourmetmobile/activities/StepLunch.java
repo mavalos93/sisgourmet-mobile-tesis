@@ -121,11 +121,10 @@ public class StepLunch extends AbstractStep {
     private void chargeDataGarnish(List<Garnish> garnishList) {
         for (Garnish garnish : garnishList) {
             RadioButton radioButton = new RadioButton(getContext());
-            radioButton.setText(garnish.getDescription().toUpperCase() + "\n" + "Precio: " + Utils.formatNumber(String.valueOf(garnish.getUnitPrice())," Gs."));
+            radioButton.setText(garnish.getDescription().toUpperCase() + "   |   " + Utils.formatNumber(String.valueOf(garnish.getUnitPrice()), " Gs."));
             radioButton.setId(garnish.getGarnishId());
+            radioButton.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGraphite));
             radioButton.setPadding(10, 20, 10, 20);
-            radioButton.setTextSize(17);
-            radioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.serve_garnish, 0, 0, 0);
             mRadioGroupGarnish.addView(radioButton);
         }
         mRadioGroupGarnish.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -134,7 +133,7 @@ public class StepLunch extends AbstractStep {
                 radioGarnishId = checkedId;
                 Garnish mGarnihsQuery = GarnishRepository.getGarnishById(radioGarnishId);
                 if (mGarnihsQuery != null) {
-                    mSelectedGarnishTextView.setText(mGarnihsQuery.getDescription());
+                    mSelectedGarnishTextView.setText(mGarnihsQuery.getDescription().toUpperCase());
                 }
 
                 TabStepper.isDone = true;

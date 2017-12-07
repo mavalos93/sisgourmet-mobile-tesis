@@ -72,20 +72,20 @@ public class SummaryStep extends AbstractStep {
     private LayoutInflater mlayoutInflater;
     private View customeView;
     private TextView mMainMenuTextView;
+    private TextView mMainMenuPrice;
     private TextView mGarnishTextView;
+    private TextView mDrinkPrice;
+    private TextView mGarnishPriceTextView;
     private TextView mTotalPriceTextView;
     private TextView mDrinkSelectedTextView;
-    RecyclerView mSummaryDrinkRecyclerView;
+    private TextView mProviderDescription;
 
 
     // Objects & variable
     private Lunch lunchObject = new Lunch();
-    private boolean isDone = true;
     private int mGarnishPrice;
     private int mLunchPrice;
     private long mOrderId = 0;
-    private List<Drinks> selectedDrinkList = new ArrayList<>();
-    private SummaryDrinksAdapter mAdapterSummaryDrink;
     private String mTotalAmount;
     private OrderTask mOrderTask;
     private Order mOrder;
@@ -108,28 +108,14 @@ public class SummaryStep extends AbstractStep {
 
         mlayoutInflater = LayoutInflater.from(getContext());
         customeView = mlayoutInflater.inflate(R.layout.summary_step, null);
-        mMainMenuTextView = (TextView) customeView.findViewById(R.id.summary_main_menu_textView);
-        mGarnishTextView = (TextView) customeView.findViewById(R.id.summary_garnish_textView);
-        mTotalPriceTextView = (TextView) customeView.findViewById(R.id.summary_price_textView);
-        mDrinkSelectedTextView = (TextView) customeView.findViewById(R.id.summary_drink_textView);
-        mSummaryDrinkRecyclerView = (RecyclerView) customeView.findViewById(R.id.recyclerView_summary_drinks);
-
-
-        mSummaryDrinkRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mSummaryDrinkRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        mSummaryDrinkRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mSummaryDrinkRecyclerView.setHasFixedSize(true);
-        mSummaryDrinkRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mSummaryDrinkRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                mAdapterSummaryDrink.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
-        }));
+        mMainMenuTextView = customeView.findViewById(R.id.selected_main_menu);
+        mGarnishTextView = customeView.findViewById(R.id.selected_garnish_menu);
+        mTotalPriceTextView = customeView.findViewById(R.id.total_amount);
+        mDrinkSelectedTextView = customeView.findViewById(R.id.selected_drink);
+        mProviderDescription = customeView.findViewById(R.id.provider_description);
+        mMainMenuPrice = customeView.findViewById(R.id.main_menu_amount);
+        mGarnishPriceTextView = customeView.findViewById(R.id.garnish_amount);
+        mDrinkPrice = customeView.findViewById(R.id.drink_amount);
 
 
         return customeView;
@@ -138,23 +124,26 @@ public class SummaryStep extends AbstractStep {
 
     private void setupData(int mGarnishSelectedId, int mTypeLunch, int mDrinkId) {
 
-        Log.d(TAG_CLASS, "GARNISH_ID: " + mGarnishSelectedId);
-        Log.d(TAG_CLASS, "LUNCH_TYPE: " + mTypeLunch);
-
         int priceDrink = 0;
 
-        Drinks mQueryDrink = DrinksRepository.getDrinkById((long) mDrinkId);
-        if (mQueryDrink != null) {
-            priceDrink = mQueryDrink.getPriceUnit();
-            selectedDrinkList.add(mQueryDrink);
-            mAdapterSummaryDrink.setData(selectedDrinkList);
-            mAdapterSummaryDrink.notifyDataSetChanged();
+        if (mDrinkId == 0){
+            mDrinkSelectedTextView.setText("Sin Bebida");
+            mDrinkPrice.setText(Utils.formatNumber(String.valueOf("0"), " Gs."));
+        }else {
+            Drinks mQueryDrink = DrinksRepository.getDrinkById((long) mDrinkId);
+            if (mQueryDrink != null) {
+                priceDrink = mQueryDrink.getPriceUnit();
+                mDrinkSelectedTextView.setText(mQueryDrink.getDescription());
+                mDrinkPrice.setText(Utils.formatNumber(String.valueOf(mQueryDrink.getPriceUnit()), " Gs."));
+
+            }
         }
 
 
-        mMainMenuTextView.setText("Menú principal: " + lunchObject.getMainMenuDescription());
-        mLunchPrice = lunchObject.getPriceUnit();
 
+        mMainMenuTextView.setText(lunchObject.getMainMenuDescription().toLowerCase());
+        mLunchPrice = lunchObject.getPriceUnit();
+        mMainMenuPrice.setText(Utils.formatNumber(String.valueOf(lunchObject.getPriceUnit()), "Gs. "));
 
         switch (mTypeLunch) {
 
@@ -163,7 +152,8 @@ public class SummaryStep extends AbstractStep {
                 if (mGarnihsList.size() != 0) {
                     for (Garnish gr : mGarnihsList) {
                         mGarnishPrice = gr.getUnitPrice();
-                        mGarnishTextView.setText("Guarnición: " + gr.getDescription());
+                        mGarnishTextView.setText(gr.getDescription());
+                        mGarnishPriceTextView.setText(Utils.formatNumber(String.valueOf(gr.getUnitPrice()), "Gs. "));
                     }
                 }
                 break;
@@ -171,13 +161,15 @@ public class SummaryStep extends AbstractStep {
                 Garnish mGarnihsQuerySelected = GarnishRepository.getGarnishById(mGarnishSelectedId);
                 if (mGarnihsQuerySelected != null) {
                     mGarnishPrice = mGarnihsQuerySelected.getUnitPrice();
-                    mGarnishTextView.setText("Guarnición: " + mGarnihsQuerySelected.getDescription());
+                    mGarnishTextView.setText(mGarnihsQuerySelected.getDescription());
+                    mGarnishPriceTextView.setText(Utils.formatNumber(String.valueOf(mGarnihsQuerySelected.getUnitPrice()), "Gs. "));
+
                 }
                 break;
         }
 
         mTotalAmount = String.valueOf(mLunchPrice + mGarnishPrice + priceDrink);
-        mTotalPriceTextView.setText("Total: " + mTotalAmount);
+        mTotalPriceTextView.setText("Total: " + Utils.formatNumber(String.valueOf(mTotalAmount), " Gs."));
     }
 
     private void validateOrder(final Lunch lunchObject, final int mGarnishSelectedId, final int mDrinkId) {
@@ -230,7 +222,7 @@ public class SummaryStep extends AbstractStep {
                 });
                 builder.create();
                 builder.show();
-            }else {
+            } else {
                 if (UserControlAmount.updateAmount(getContext(), mTotalAmount) <= 0) {
                     Utils.builToast(getContext(), getString(R.string.error_save_transaction));
                 } else {
@@ -264,23 +256,18 @@ public class SummaryStep extends AbstractStep {
 
     @Override
     public boolean isOptional() {
-        return isDone;
+        return true;
     }
 
 
     @Override
     public void onStepVisible() {
-        selectedDrinkList.clear();
-        mAdapterSummaryDrink = new SummaryDrinksAdapter(new ArrayList<Drinks>());
-        mSummaryDrinkRecyclerView.setAdapter(mAdapterSummaryDrink);
         setupData(StepLunch.radioGarnishId, StepLunch.typeLunchCase, StepDrinks.mDrinkId);
 
     }
 
     @Override
     public void onNext() {
-        Log.d("TAG", "onNext");
-        System.out.println("onNext");
     }
 
     @Override

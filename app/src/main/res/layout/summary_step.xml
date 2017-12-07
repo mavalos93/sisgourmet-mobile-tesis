@@ -5,98 +5,236 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:id="@+id/relative_layout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
+        android:fillViewport="true">
 
 
         <LinearLayout
-            android:id="@+id/container_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/big_margin_layout"
+            android:layout_margin="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_gravity="center"
+                android:fontFamily="@font/robot_regular"
                 android:gravity="center"
-                android:text="@string/label_summary_lunch_description"
+                android:text="@string/label_summary"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/summary_main_menu_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:gravity="start"
-                android:paddingBottom="@dimen/activity_horizontal_margin"
-                android:text="@string/label_summary_main_menu"
-                android:textColor="@color/primary_text"
-                android:textSize="17sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/summary_garnish_textView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:gravity="start"
-                android:paddingBottom="@dimen/activity_horizontal_margin"
-                android:text="@string/label_summary_garnish"
-                android:textColor="@color/primary_text"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:layout_margin="@dimen/default_padding"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/summary_drink_textView"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/robot_regular"
+                    android:gravity="center"
+                    android:text="@string/tag_main_menu"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/description_image"
+                        android:src="@mipmap/ic_menu" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/selected_main_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bife a Caballo"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/provider_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bolsi"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/main_menu_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="15.000 Gs."
+                        android:textColor="@color/primary_text"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/default_padding"
+                android:background="@color/divider" />
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:gravity="start"
-                android:paddingBottom="@dimen/activity_horizontal_margin"
-                android:text="@string/label_summary_drink"
-                android:textColor="@color/primary_text"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:layout_margin="@dimen/default_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/robot_regular"
+                    android:gravity="center"
+                    android:text="@string/tag_garnish"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/default_padding"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:contentDescription="@string/description_image"
+                        android:src="@mipmap/ic_garnish_flaticon" />
+
+
+                    <TextView
+                        android:id="@+id/selected_garnish_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:text="Ensalada Verde" />
+
+
+                    <TextView
+                        android:id="@+id/garnish_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="5.000 Gs."
+                        android:textColor="@color/primary_text"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/default_padding"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/robot_regular"
+                    android:gravity="center"
+                    android:text="@string/tag_drink"
+                    android:textColor="@color/primary_text"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/default_padding"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/default_padding"
+                        android:contentDescription="@string/description_image"
+                        android:src="@mipmap/ic_drink_flaticon" />
+
+
+                    <TextView
+                        android:id="@+id/selected_drink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:textSize="14sp"
+                        android:text="Coca Cola 500 cc." />
+
+
+                    <TextView
+                        android:id="@+id/drink_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="5.000 Gs."
+                        android:textColor="@color/primary_text"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/round_corners"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/total_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:fontFamily="@font/robot_regular"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Total: 25.000 Gs. "
+                    android:textColor="@color/colorGraphite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView_summary_drinks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/summary_price_textView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/container_view"
-            android:layout_margin="@dimen/activity_horizontal_margin">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <TextView
-            android:id="@+id/summary_price_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:text="@string/label_summary_total_price"
-            android:textColor="@color/primary_text"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-    </RelativeLayout>
-
+    </ScrollView>
 
 </RelativeLayout>

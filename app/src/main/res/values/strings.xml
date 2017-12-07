@@ -35,7 +35,7 @@
     <string name="tag_error_main_data">Error al obtener datos, favor inténtalo de nuevo</string>
 
     <!-- Order Type-->
-    <string name="main_menu_order">Menu principal: </string>
+    <string name="main_menu_order">Menú principal: </string>
     <string name="garnish_order">Guarnicion: </string>
     <string name="drink_order">Bebidas: </string>
     <string name="launch_package_order">Mi Almuerzo</string>
@@ -149,6 +149,9 @@
     <string name="item_order_amount">Monto</string>
     <string name="item_order_status">Estado</string>
     <string name="item_rating_value">Valor</string>
+    <string name="tag_main_menu">Menú Principal</string>
+    <string name="tag_garnish">Guarnición</string>
+    <string name="tag_drink">Bebida</string>
     <!-- Selected Menu Item-->
     <string name="item_main_menu">Menú pincipal:</string>
     <string name="item_garnish">Guarnición:</string>
