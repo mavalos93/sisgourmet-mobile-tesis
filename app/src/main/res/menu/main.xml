@@ -6,5 +6,5 @@
         android:orderInCategory="100"
         android:title="Rate This App"
         app:showAsAction="always"
-        android:icon="@mipmap/ic_user_account" />
+        android:icon="@mipmap/ic_credit_account_card" />
 </menu>

@@ -34,8 +34,8 @@
                 android:id="@+id/steps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="72dp"
                 android:background="@color/colorPrimaryLigth"
+                android:minHeight="72dp"
                 android:scrollbars="none">
 
                 <LinearLayout

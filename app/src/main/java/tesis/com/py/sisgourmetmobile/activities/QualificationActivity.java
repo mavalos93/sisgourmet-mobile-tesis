@@ -71,8 +71,6 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
     private String mMainMenuDescription = "";
     private String KEY_ACTIVITY = "";
     private String mGarnishDescription = "";
-    private boolean mSuccessForm = false;
-    private  Dialog dialog;
 
 
     // View atributes
@@ -84,6 +82,8 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
     private AppCompatRatingBar mRatingMenu;
     private String mCommentString;
     private TextView mQualificationValue;
+    private AppCompatRatingBar mQualificationMenuRatingBar;
+    private AppCompatEditText mQualificationEditText;
 
     // Object & instances
     private Order mOrderObject = new Order();
@@ -113,33 +113,18 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         priceLunchTextView = findViewById(R.id.qualification_price_unit_textView);
         mRatingMenu = findViewById(R.id.qualification_menu_rating);
         mQualificationValue = findViewById(R.id.qualification_value_textView);
-        FloatingActionButton mQualificatioButton = findViewById(R.id.fab_qualification);
-        mQualificatioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCommentDialog();
-            }
-        });
-        AppCompatButton mSendCommentButton = findViewById(R.id.send_qualification);
+        mQualificationMenuRatingBar = findViewById(R.id.qualification_rating);
+        mQualificationEditText = findViewById(R.id.qualification_comment_edtitText);
+        FloatingActionButton mSendCommentButton = findViewById(R.id.send_qualification);
         mSendCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mSuccessForm) {
-                    if (KEY_ACTIVITY.equals(Constants.SEND_ORDER_OBJECT)) {
-                        mOrderObject.setRatingLunch(mRatingValue);
-                        OrderRepository.store(mOrderObject);
-                    }
-                    String mUsername = UserRepository.getUser(QualificationActivity.this).getUserName();
-                    Log.d(TAG_CLASS, "username: " + mUsername);
-                    mQualificationTask = new QualificationTask(mUsername, mCommentString, mProviderId, mMainMenuDescription, mGarnishDescription, mRatingValue);
-                    mQualificationTask.confirm();
-                } else {
-                    Utils.builToast(QualificationActivity.this, getString(R.string.error_form_comments_complete_required));
-                }
+                validateFields();
 
             }
         });
         setupDataView(mLunchId);
+        getRatingValueListener();
 
     }
 
@@ -187,53 +172,28 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         }
     }
 
-    private void showCommentDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View mDialogCommentView = layoutInflater.inflate(R.layout.qualification_dialog, null);
-        AppCompatRatingBar mRatingBar = mDialogCommentView.findViewById(R.id.qualification_rating);
-        final AppCompatEditText mCommentEditText = mDialogCommentView.findViewById(R.id.qualification_comment_edtitText);
-        AppCompatButton mAcceptButton = mDialogCommentView.findViewById(R.id.button_accept);
-        AppCompatButton mCancelButton = mDialogCommentView.findViewById(R.id.button_cancel);
-        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-
+    private void getRatingValueListener() {
+        mQualificationMenuRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
                 float mRaitingValue = Float.parseFloat(String.valueOf(rating));
                 mRatingValue = (long) mRaitingValue;
                 setupRatingValue(String.valueOf(rating));
             }
         });
-        mAcceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validateFields(dialog,mCommentEditText);
-            }
-        });
-
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.setView(mDialogCommentView);
-        dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.show();
     }
 
-    private void validateFields(Dialog dialog,AppCompatEditText mCommentEditText) {
-        mCommentEditText.setError(null);
-        mCommentString = mCommentEditText.getText().toString().trim();
+
+    private void validateFields() {
+        mQualificationEditText.setError(null);
+        mCommentString = mQualificationEditText.getText().toString().trim();
         View focusView = null;
         boolean cancel = false;
 
 
         if (TextUtils.isEmpty(mCommentString)) {
-            mCommentEditText.setError(getString(R.string.error_comment_empty));
-            focusView = mCommentEditText;
+            mQualificationEditText.setError(getString(R.string.error_comment_empty));
+            focusView = mQualificationEditText;
             focusView.requestFocus();
             cancel = true;
         }
@@ -264,8 +224,14 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         if (cancel) {
             focusView.requestFocus();
         } else {
-            dialog.dismiss();
-            mSuccessForm = true;
+
+            if (KEY_ACTIVITY.equals(Constants.SEND_ORDER_OBJECT)) {
+                mOrderObject.setRatingLunch(mRatingValue);
+                OrderRepository.store(mOrderObject);
+            }
+            String mUsername = UserRepository.getUser(QualificationActivity.this).getUserName();
+            mQualificationTask = new QualificationTask(mUsername, mCommentString, mProviderId, mMainMenuDescription, mGarnishDescription, mRatingValue);
+            mQualificationTask.confirm();
         }
     }
 
@@ -317,10 +283,13 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         try {
 
 
-            mQualificationValue.setText(stringRaiting.replace(".",","));
+            mQualificationValue.setText(stringRaiting.replace(".", ","));
             float mRaitingValue = Float.parseFloat(stringRaiting);
             mRatingValue = (long) mRaitingValue;
             switch (stringRaiting) {
+                case "0.0":
+                    mRatingMenu.setRating(mRaitingValue);
+                    break;
                 case "1.0":
                     mRatingMenu.setRating(mRaitingValue);
                     break;
@@ -466,7 +435,6 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                             errorDialog.show(getFragmentManager(), CancelableAlertDialogFragment.TAG);
                         }
                     });
-            Log.d(TAG_CLASS, "PARAMS: " + mQualificationRequest.getParams());
             jsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
             jsonObjectRequest.setTag(REQUEST_TAG);
             NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest, getApplicationContext());
@@ -487,7 +455,6 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 return;
             }
 
-            Log.i(TAG_CLASS, REQUEST_TAG + " | Response: " + response.toString());
 
             try {
                 if (response.has("status")) status = response.getInt("status");

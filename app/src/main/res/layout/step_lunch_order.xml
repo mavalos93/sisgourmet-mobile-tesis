@@ -10,97 +10,124 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:orientation="vertical">
 
 
-            <LinearLayout
-                android:id="@+id/container_all_view"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="vertical"
-                android:padding="@dimen/activity_horizontal_margin"
-                tools:ignore="UselessParent">
+                android:layout_margin="@dimen/default_padding">
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/provider_imageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/nav_header_height"
-                        android:contentDescription="@string/description_image"
-                        android:src="@mipmap/nha_esutaquia" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lunch_container"
+                    android:id="@+id/container_all_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/selected_main_menu_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/item_main_menu"
-                        android:textColor="@color/primary_text"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/selected_garnish_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/item_garnish"
-                        android:textSize="16sp"
-                        android:textStyle="italic" />
+                    android:baselineAligned="false"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
 
 
-                    <android.support.v7.widget.AppCompatRatingBar
-                        android:id="@+id/selected_provider_rating_menu"
-                        style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:theme="@style/RatingBar"
-                        android:clickable="false" />
 
-                    <TextView
-                        android:id="@+id/selected_rating_description_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/item_qualification"
-                        android:textColor="@color/primary_text"
-                        android:textStyle="italic" />
+                        <ImageView
+                            android:id="@+id/menu_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:contentDescription="@string/description_image"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/nha_esutaquia" />
 
                     <LinearLayout
-                        android:id="@+id/garnish_selected_container"
+                        android:id="@+id/lunch_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/activity_horizontal_margin">
+                        android:orientation="horizontal">
 
-                        <RadioGroup
-                            android:id="@+id/radioContainer"
-                            android:layout_width="wrap_content"
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/provider_image"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/default_padding"
+                            android:contentDescription="@string/description_image" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/default_padding"
                             android:orientation="vertical">
 
-                        </RadioGroup>
+                            <TextView
+                                android:id="@+id/selected_main_menu_textView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/robot_regular"
+                                android:text="@string/item_main_menu"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorGraphite"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/selected_garnish_textView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/robot_regular"
+                                android:text="@string/selected_garnish"
+                                android:textColor="@color/colorGraphite"
+                                android:textSize="15sp"
+                                android:textStyle="italic" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/menu_qualification_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/default_padding"
+                                    android:textColor="@color/primary_text"
+                                    android:textStyle="bold" />
+
+                                <android.support.v7.widget.AppCompatRatingBar
+                                    android:id="@+id/selected_provider_rating_menu"
+                                    style="@style/Widget.AppCompat.RatingBar.Small"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="@dimen/default_padding"
+                                    android:theme="@style/RatingBar" />
+                            </LinearLayout>
+
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
+            </android.support.v7.widget.CardView>
 
+
+            <LinearLayout
+                android:id="@+id/garnish_selected_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_horizontal_margin">
+
+                <RadioGroup
+                    android:id="@+id/radioContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </RadioGroup>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
 
     </ScrollView>
 

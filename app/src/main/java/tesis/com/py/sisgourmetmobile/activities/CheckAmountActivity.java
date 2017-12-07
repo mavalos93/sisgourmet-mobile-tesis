@@ -67,7 +67,6 @@ public class CheckAmountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_check_amount);
         Toolbar toolbar = findViewById(R.id.toolbar_account);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mMainUsername = findViewById(R.id.username);
         mName = findViewById(R.id.username_value);

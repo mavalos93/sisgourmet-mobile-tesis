@@ -113,7 +113,6 @@ public class TabStepper extends BasePager implements View.OnClickListener {
             }
         }
 
-        Log.d("TAG", "isdone_boolean: " + isDone);
         int size = mStepTabs.getChildCount();
 
         for (i = 0; i < size; i++) {
@@ -121,7 +120,6 @@ public class TabStepper extends BasePager implements View.OnClickListener {
             View view = mStepTabs.getChildAt(i);
 
             boolean done = mLinearity.isDone(i);
-            Log.d("TAG", "VIEW: " + done);
 
             View doneIcon = view.findViewById(R.id.done);
             View stepIcon = view.findViewById(R.id.step);

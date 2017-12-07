@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,20 +45,19 @@ public class StepLunch extends AbstractStep {
     private View customeView;
     private TextView mSelectedMainMenuTextView;
     private TextView mSelectedGarnishTextView;
-    private TextView mSelectedQualificationTextView;
-    private ImageView mProviderImageView;
+    private ImageView mProviderImage;
+    private ImageView mMenuImageView;
     private AppCompatRatingBar mRatingMenu;
     private RadioGroup mRadioGroupGarnish;
     private LinearLayout mGarnishDataContainer;
+    private TextView mQualificationValue;
     public static int radioGarnishId = 0;
     public static int typeLunchCase = 0;
-    TabStepper tabStepper = new TabStepper();
 
     // Objects & variable
     private Lunch luncObject = new Lunch();
     private List<Garnish> mGarnishList = new ArrayList<>();
     private boolean setupDoneIcon = false;
-    private Provider mProviderObject = new Provider();
 
 
     public StepLunch(Lunch lunchObject) {
@@ -72,13 +72,14 @@ public class StepLunch extends AbstractStep {
         mlayoutInflater = LayoutInflater.from(getContext());
         customeView = mlayoutInflater.inflate(R.layout.step_lunch_order, null);
 
-        mSelectedMainMenuTextView = (TextView) customeView.findViewById(R.id.selected_main_menu_textView);
-        mSelectedGarnishTextView = (TextView) customeView.findViewById(R.id.selected_garnish_textView);
-        mSelectedQualificationTextView = (TextView) customeView.findViewById(R.id.selected_rating_description_textView);
-        mProviderImageView = (ImageView) customeView.findViewById(R.id.provider_imageView);
-        mRatingMenu = (AppCompatRatingBar) customeView.findViewById(R.id.selected_provider_rating_menu);
-        mRadioGroupGarnish = (RadioGroup) customeView.findViewById(R.id.radioContainer);
-        mGarnishDataContainer = (LinearLayout) customeView.findViewById(R.id.garnish_selected_container);
+        mSelectedMainMenuTextView = customeView.findViewById(R.id.selected_main_menu_textView);
+        mSelectedGarnishTextView = customeView.findViewById(R.id.selected_garnish_textView);
+        mMenuImageView = customeView.findViewById(R.id.menu_image);
+        mRatingMenu = customeView.findViewById(R.id.selected_provider_rating_menu);
+        mRadioGroupGarnish = customeView.findViewById(R.id.radioContainer);
+        mQualificationValue = customeView.findViewById(R.id.menu_qualification_value);
+        mGarnishDataContainer = customeView.findViewById(R.id.garnish_selected_container);
+        mProviderImage = customeView.findViewById(R.id.provider_image);
         setupDataView();
 
         return customeView;
@@ -120,10 +121,11 @@ public class StepLunch extends AbstractStep {
     private void chargeDataGarnish(List<Garnish> garnishList) {
         for (Garnish garnish : garnishList) {
             RadioButton radioButton = new RadioButton(getContext());
-            radioButton.setText(garnish.getDescription() + "\n" + "Precio: " + garnish.getUnitPrice() + " Gs.");
+            radioButton.setText(garnish.getDescription().toUpperCase() + "\n" + "Precio: " + Utils.formatNumber(String.valueOf(garnish.getUnitPrice())," Gs."));
             radioButton.setId(garnish.getGarnishId());
-            radioButton.setPadding(0, 20, 0, 20);
-            radioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_restaurant_menu_black_36dp, 0, 0, 0);
+            radioButton.setPadding(10, 20, 10, 20);
+            radioButton.setTextSize(17);
+            radioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.serve_garnish, 0, 0, 0);
             mRadioGroupGarnish.addView(radioButton);
         }
         mRadioGroupGarnish.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -155,32 +157,16 @@ public class StepLunch extends AbstractStep {
         String stringRaiting = String.valueOf(luncObject.getRatingMenu());
         float mRaitingValue = Float.parseFloat(stringRaiting);
 
-        Log.d("tag", "rating: " + mRaitingValue);
-        switch (stringRaiting) {
-            case "1.0":
-                mRatingMenu.setRating(mRaitingValue);
-                mSelectedQualificationTextView.setText("Muy Malo");
-                break;
-            case "2.0":
-                mRatingMenu.setRating(mRaitingValue);
-                mSelectedQualificationTextView.setText("Malo");
-                break;
-            case "3.0":
-                mRatingMenu.setRating(mRaitingValue);
-                mSelectedQualificationTextView.setText("Bién");
-                break;
-            case "4.0":
-                mRatingMenu.setRating(mRaitingValue);
-                mSelectedQualificationTextView.setText("Muy Bién");
-                break;
-            case "5.0":
-                mRatingMenu.setRating(mRaitingValue);
-                mSelectedQualificationTextView.setText("Excelente");
-                break;
-        }
+        mQualificationValue.setText(stringRaiting);
+        mRatingMenu.setRating(mRaitingValue);
 
+        Provider provider = ProviderRepository.getProviderById(luncObject.getProviderId());
+        if (provider != null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(provider.getProviderImage(), 0, provider.getProviderImage().length);
+            mProviderImage.setImageBitmap(bmp);
+        }
         Bitmap bmp = BitmapFactory.decodeByteArray(luncObject.getImageMenu(), 0, luncObject.getImageMenu().length);
-        mProviderImageView.setImageBitmap(bmp);
+        mMenuImageView.setImageBitmap(bmp);
     }
 
     @Override

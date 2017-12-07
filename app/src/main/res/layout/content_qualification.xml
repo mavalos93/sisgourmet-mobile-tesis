@@ -28,18 +28,59 @@
                 android:orientation="vertical">
 
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/big_margin_layout"
-                    android:drawablePadding="@dimen/default_padding"
-                    android:textColor="@color/colorRatingbar"
-                    android:drawableTop="@mipmap/ic_rating"
+                    android:layout_margin="@dimen/default_padding"
                     android:gravity="center"
-                    android:text="@string/tag_qualification_menu"
-                    android:textSize="20sp" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/qualification_menu_decription"
+                        android:textColor="@color/primary_text"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/qualification_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:focusable="false"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:stepSize="1.0"
+                        android:theme="@style/RatingBar" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:contentDescription="@string/description_image"
+                            android:src="@mipmap/ic_create_black_36dp" />
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/qualification_comment_edtitText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/default_padding"
+                            android:gravity="start"
+                            android:hint="@string/comments_label"
+                            android:imeOptions="actionDone"
+                            android:lines="3" />
+                    </LinearLayout>
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -87,7 +128,6 @@
                         android:text="@string/description_image"
                         android:textSize="17sp" />
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -144,18 +184,15 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.AppCompatButton
+                <android.support.design.widget.FloatingActionButton
                     android:id="@+id/send_qualification"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:paddingTop="@dimen/big_margin_layout"
                     android:layout_marginTop="@dimen/big_margin_layout"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:padding="@dimen/default_padding"
-                    android:text="@string/tag_send_qualification"
-                    android:textColor="@color/icons"
-                    android:textStyle="bold" />
+                    app:backgroundTint="@color/colorPrimary"
+                    android:src="@mipmap/ic_send_white_36dp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </RelativeLayout>

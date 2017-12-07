@@ -67,8 +67,8 @@ public class StepDrinks extends AbstractStep {
 
         mlayoutInflater = LayoutInflater.from(getContext());
         customeView = mlayoutInflater.inflate(R.layout.selected_drinks_fragment, null);
-        mDrinkRadioContainer = (RadioGroup) customeView.findViewById(R.id.drink_radio_container);
-        mNotDrinkCheckBox = (AppCompatCheckBox) customeView.findViewById(R.id.not_drink_checkBox);
+        mDrinkRadioContainer = customeView.findViewById(R.id.drink_radio_container);
+        mNotDrinkCheckBox = customeView.findViewById(R.id.not_drink_checkBox);
         setupData();
         setupCheckBoxListener();
         return customeView;
@@ -113,10 +113,10 @@ public class StepDrinks extends AbstractStep {
         if (mDrinkList.size() != 0) {
             for (Drinks drinks : mDrinkList) {
                 final RadioButton mDrinkRadioButton = new RadioButton(getContext());
-                mDrinkRadioButton.setText(drinks.getDescription() + "\n" + "Precio: " + drinks.getPriceUnit() + " Gs.");
+                mDrinkRadioButton.setText(drinks.getDescription().toUpperCase() + "\n" + "Precio: " + Utils.formatNumber(String.valueOf(drinks.getPriceUnit()) ," Gs."));
                 mDrinkRadioButton.setId(drinks.getDrinkId());
                 mDrinkRadioButton.setPadding(0, 20, 0, 20);
-                mDrinkRadioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.drink_icon, 0, 0, 0);
+                mDrinkRadioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.water, 0, 0, 0);
                 mDrinkRadioButton.setEnabled(isEnable);
                 mDrinkRadioContainer.addView(mDrinkRadioButton);
             }

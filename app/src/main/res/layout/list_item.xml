@@ -28,8 +28,7 @@
                 android:text="@string/description_image"
                 style="@style/TextAppearenceStyle"
                 android:textColor="@color/primary_text"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
 
         </RelativeLayout>
