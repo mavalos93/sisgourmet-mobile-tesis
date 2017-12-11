@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -32,10 +34,12 @@ import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Order;
 import tesis.com.py.sisgourmetmobile.entities.Provider;
+import tesis.com.py.sisgourmetmobile.entities.Qualification;
 import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
+import tesis.com.py.sisgourmetmobile.services.SendOrderService;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
@@ -58,7 +62,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         TextView orderStatusTextView;
         TextView ratingValueTextView;
         TextView mSendAppAtTextView;
-        ImageView orderStatusIcon;
         ImageView orderTypeImageView;
         ImageButton starCommetButton;
         ImageButton detailsButton;
@@ -67,12 +70,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             super(view);
             orderAmountTextView = view.findViewById(R.id.item_order_amount);
             orderStatusTextView = view.findViewById(R.id.id_order_status);
-            orderStatusIcon = view.findViewById(R.id.status_image_icon);
             orderTypeImageView = view.findViewById(R.id.order_imageView);
             ratingValueTextView = view.findViewById(R.id.item_rating_value_textView);
             starCommetButton = view.findViewById(R.id.star_comment_button);
             mSendAppAtTextView = view.findViewById(R.id.date_order_textView);
-            detailsButton = view.findViewById(R.id.details_button);
+            detailsButton = view.findViewById(R.id.option_popup_id);
             starCommetButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -85,12 +87,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     }
                 }
             });
-            detailsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    detailsOrder(getItemAtPosition(getAdapterPosition()));
-                }
-            });
+
 
         }
     }
@@ -102,26 +99,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     @Override
-    public void onBindViewHolder(OrderAdapter.OrderViewHolder holder, int position) {
+    public void onBindViewHolder(final OrderAdapter.OrderViewHolder holder, final int position) {
         Order mOrder = mOrderList.get(position);
-        int iconResource;
         int iconOrder = 0;
         String mStatusOrder = "";
         holder.orderAmountTextView.setText(Utils.formatNumber(mOrder.getOrderAmount(), " Gs."));
         holder.mSendAppAtTextView.setText(mOrder.getSendAppAt());
 
 
-        if (mOrder.getStatusOrder() == Constants.TRANSACTION_NO_SEND) {
-            iconResource = R.mipmap.ic_replay_black_24dp;
-            holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
-            mStatusOrder = "pendiente";
-        } else {
-            iconResource = R.mipmap.ic_done_black_24dp;
-            holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorOk));
-            mStatusOrder = "enviado";
+        switch (mOrder.getStatusOrder()) {
+            case Constants.TRANSACTION_SEND:
+                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorOk));
+                mStatusOrder = "enviado";
+                break;
+            case Constants.TRANSACTION_NO_SEND:
+                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
+                mStatusOrder = "pendiente";
+                break;
+            case Constants.TRANSACTION_CANCEL:
+                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
+                mStatusOrder = "cancelado";
+                break;
         }
-        holder.orderStatusIcon.setBackgroundResource(iconResource);
-        Lunch mLunchObject = LunchRepository.getLunchById(mOrder.getLunchId());
+        final Lunch mLunchObject = LunchRepository.getLunchById(mOrder.getLunchId());
 
 
         if (mLunchObject != null) {
@@ -156,8 +156,82 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     break;
             }
         }
+        holder.detailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopup(mContext,holder,mOrderList.get(position));
+            }
+        });
         holder.orderStatusTextView.setText(mStatusOrder);
         holder.orderTypeImageView.setBackgroundResource(iconOrder);
+    }
+
+
+    private void showPopup(Context context, final OrderAdapter.OrderViewHolder holder, final Order order) {
+        //creating a popup menu
+        PopupMenu popup = new PopupMenu(context, holder.detailsButton);
+        //inflating menu from xml resource
+        popup.inflate(R.menu.order_menu_item);
+        //adding click listener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.id_order_send:
+                        if (Utils.checkNetworkConnection(mContext)){
+                            sendTransaction("ENVIAR",order,holder);
+                        }else {
+                            Utils.builToast(mContext,mContext.getString(R.string.tag_not_internet));
+                        }
+                        break;
+                    case R.id.id_order_cancel:
+                        if (Utils.checkNetworkConnection(mContext)){
+                            sendTransaction("CANCELAR",order,holder);
+                        }else {
+                            Utils.builToast(mContext,mContext.getString(R.string.tag_not_internet));
+                        }                        break;
+                    case R.id.id_order_details:
+                        detailsOrder(order);
+                        break;
+                }
+                return false;
+            }
+        });
+        //displaying the popup
+        popup.show();
+    }
+
+    private void sendTransaction(String action, Order order, OrderAdapter.OrderViewHolder holder) {
+        switch (action) {
+            case "ENVIAR":
+                switch (order.getStatusOrder()) {
+                    case Constants.TRANSACTION_SEND:
+                        Utils.builToast(mContext, mContext.getString(R.string.order_alredy_send));
+                        break;
+                    case Constants.TRANSACTION_NO_SEND:
+                        holder.orderStatusTextView.setText("Enviando....");
+                        SendOrderService.startSendTransaction(mContext, order.getId());
+                        break;
+                    case Constants.TRANSACTION_CANCEL:
+                        Utils.builToast(mContext, mContext.getString(R.string.order_cancel_not_send));
+                        break;
+                }
+                break;
+            case "CANCELAR":
+                switch (order.getStatusOrder()) {
+                    case Constants.TRANSACTION_SEND:
+                        holder.orderStatusTextView.setText("Cancelando.....");
+                        // TODO ENVIAR LA PETICION --> HACER EL SERVICE
+                        break;
+                    case Constants.TRANSACTION_NO_SEND:
+                        Utils.builToast(mContext, mContext.getString(R.string.order_pending_not_cancel));
+                        break;
+                    case Constants.TRANSACTION_CANCEL:
+                        Utils.builToast(mContext, mContext.getString(R.string.order_alredy_cancel));
+                        break;
+                }
+                break;
+        }
     }
 
     private void detailsOrder(Order orderObject) {

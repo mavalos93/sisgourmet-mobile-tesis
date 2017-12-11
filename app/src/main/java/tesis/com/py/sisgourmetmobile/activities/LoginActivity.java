@@ -58,31 +58,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.action_done_menu, menu);
-        return true;
-    }
+
 
     private void setupView() {
         userNameInputText = findViewById(R.id.username_input_text);
         passwordInputText = findViewById(R.id.password_input_text);
         AppCompatButton loginButton = findViewById(R.id.id_login_button);
-        final AppCompatCheckBox mViewPasswordCheckBox = findViewById(R.id.view_password_check_box);
         mCoordinatorLayout = findViewById(R.id.coordinator_layout_login);
-        mViewPasswordCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (!isChecked) {
-                    // show password
-                    passwordInputText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    // hide password
-                    passwordInputText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-            }
-        });
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(userPasswordString)) {
-            passwordInputText.setError(getString(R.string.error_password_register_required));
+            passwordInputText.setError(getString(R.string.error_password_register_required),null);
             focusView = passwordInputText;
             focusView.requestFocus();
             cancel = true;
@@ -189,7 +171,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            Log.d("TAG", "LOGIN_RESPONSE: " + response.toString());
             try {
                 if (response.has("status")) status = response.getInt("status");
                 if (response.has("message")) message = response.getString("message");

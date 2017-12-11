@@ -275,7 +275,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         }
 
         setupRatingValue("0.0");
-        priceLunchTextView.setText(mPrice + " Gs.");
+        priceLunchTextView.setText(Utils.formatNumber(mPrice," Gs."));
     }
 
 
@@ -375,8 +375,6 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
             progressDialog = ProgressDialogFragment.newInstance(getApplicationContext());
             progressDialog.show(getFragmentManager(), ProgressDialogFragment.TAG_CLASS);
 
-            if (jsonObjectRequest != null)
-                mQueue.cancelAll(REQUEST_TAG);
             QualificationRequest mQualificationRequest = new QualificationRequest(mUserName, mComment, mProviderId, mMainMenu, mGarnish, mRatingValue);
             if (mQualification == null) {
                 mQualification = new Qualification();

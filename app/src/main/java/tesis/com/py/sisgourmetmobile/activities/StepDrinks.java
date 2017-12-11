@@ -48,6 +48,7 @@ public class StepDrinks extends AbstractStep {
     private int i = 2;
     public static int mDrinkId = 0;
     private final static String CLICK = "click";
+    private int mCheckCounter = 0;
 
     // View
     private LayoutInflater mlayoutInflater;
@@ -57,7 +58,6 @@ public class StepDrinks extends AbstractStep {
 
 
     // Objects & variable
-    private boolean isDone = true;
     private List<Drinks> mDrinkList = new ArrayList<>();
 
 
@@ -84,7 +84,6 @@ public class StepDrinks extends AbstractStep {
             mDrinkRadioContainer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                    Log.d("TAG_CLASS", "test: " + mDrinkRadioContainer.getCheckedRadioButtonId());
                     mDrinkId = checkedId;
                 }
             });
@@ -98,9 +97,11 @@ public class StepDrinks extends AbstractStep {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    mCheckCounter++;
                     mDrinkId = 0;
                     setupDrinkView(mDrinkList, false);
                 } else {
+                    mCheckCounter--;
                     setupDrinkView(mDrinkList, true);
                 }
             }
@@ -113,7 +114,7 @@ public class StepDrinks extends AbstractStep {
         if (mDrinkList.size() != 0) {
             for (Drinks drinks : mDrinkList) {
                 final RadioButton mDrinkRadioButton = new RadioButton(getContext());
-                mDrinkRadioButton.setText(drinks.getDescription().toUpperCase() + "\n" + "Precio: " + Utils.formatNumber(String.valueOf(drinks.getPriceUnit()) ," Gs."));
+                mDrinkRadioButton.setText(drinks.getDescription().toUpperCase() + "\n" + "Precio: " + Utils.formatNumber(String.valueOf(drinks.getPriceUnit()), " Gs."));
                 mDrinkRadioButton.setId(drinks.getDrinkId());
                 mDrinkRadioButton.setPadding(0, 20, 0, 20);
                 mDrinkRadioButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.water, 0, 0, 0);
@@ -121,6 +122,16 @@ public class StepDrinks extends AbstractStep {
                 mDrinkRadioContainer.addView(mDrinkRadioButton);
             }
         }
+    }
+
+    private boolean nextControl() {
+        boolean status = false;
+        if (mCheckCounter != 0 || mDrinkId !=0) {
+            TabStepper.isDone = true;
+            status = true;
+        }
+
+        return status;
     }
 
     @Override
@@ -138,7 +149,7 @@ public class StepDrinks extends AbstractStep {
     @Override
     public boolean isOptional() {
         // boolean method pass to next stepper
-        return isDone;
+        return false;
     }
 
 
@@ -165,12 +176,12 @@ public class StepDrinks extends AbstractStep {
     @Override
     public boolean nextIf() {
         // variable boolean to set done icon
-        return true;
+        return nextControl();
     }
 
     @Override
     public String error() {
-        return "Debes seleccionar una bebida";
+        return "Selecciona una bebida o marca la opcion sin bebida porfavor";
     }
 
 

@@ -34,6 +34,7 @@ public class MyDaoGenerator {
         qualification.addLongProperty("createdAt");
         qualification.addStringProperty("SendAppAt");
         qualification.addStringProperty("user");
+        qualification.addStringProperty("observation");
         qualification.addStringProperty("httpDetail");
 
 
@@ -70,6 +71,8 @@ public class MyDaoGenerator {
         order.addStringProperty("orderAmount");
         order.addLongProperty("ratingLunch");
         order.addStringProperty("user");
+        order.addIntProperty("transactionOrderId");
+        order.addStringProperty("observation");
         order.addStringProperty("httpDetail");
 
         Entity providers = schema.addEntity("Provider");
@@ -120,9 +123,6 @@ public class MyDaoGenerator {
         providerRating.addIntProperty("threeStar");
         providerRating.addIntProperty("twoStar");
         providerRating.addIntProperty("oneStar");
-
-
-
 
 
         new DaoGenerator().generateAll(schema, "../app/src/main/java");

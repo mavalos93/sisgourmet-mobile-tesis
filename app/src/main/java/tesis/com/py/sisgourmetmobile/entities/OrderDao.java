@@ -35,7 +35,9 @@ public class OrderDao extends AbstractDao<Order, Long> {
         public final static Property OrderAmount = new Property(9, String.class, "orderAmount", false, "ORDER_AMOUNT");
         public final static Property RatingLunch = new Property(10, Long.class, "ratingLunch", false, "RATING_LUNCH");
         public final static Property User = new Property(11, String.class, "user", false, "USER");
-        public final static Property HttpDetail = new Property(12, String.class, "httpDetail", false, "HTTP_DETAIL");
+        public final static Property TransactionOrderId = new Property(12, Integer.class, "transactionOrderId", false, "TRANSACTION_ORDER_ID");
+        public final static Property Observation = new Property(13, String.class, "observation", false, "OBSERVATION");
+        public final static Property HttpDetail = new Property(14, String.class, "httpDetail", false, "HTTP_DETAIL");
     };
 
 
@@ -63,7 +65,9 @@ public class OrderDao extends AbstractDao<Order, Long> {
                 "\"ORDER_AMOUNT\" TEXT," + // 9: orderAmount
                 "\"RATING_LUNCH\" INTEGER," + // 10: ratingLunch
                 "\"USER\" TEXT," + // 11: user
-                "\"HTTP_DETAIL\" TEXT);"); // 12: httpDetail
+                "\"TRANSACTION_ORDER_ID\" INTEGER," + // 12: transactionOrderId
+                "\"OBSERVATION\" TEXT," + // 13: observation
+                "\"HTTP_DETAIL\" TEXT);"); // 14: httpDetail
     }
 
     /** Drops the underlying database table. */
@@ -137,9 +141,19 @@ public class OrderDao extends AbstractDao<Order, Long> {
             stmt.bindString(12, user);
         }
  
+        Integer transactionOrderId = entity.getTransactionOrderId();
+        if (transactionOrderId != null) {
+            stmt.bindLong(13, transactionOrderId);
+        }
+ 
+        String observation = entity.getObservation();
+        if (observation != null) {
+            stmt.bindString(14, observation);
+        }
+ 
         String httpDetail = entity.getHttpDetail();
         if (httpDetail != null) {
-            stmt.bindString(13, httpDetail);
+            stmt.bindString(15, httpDetail);
         }
     }
 
@@ -165,7 +179,9 @@ public class OrderDao extends AbstractDao<Order, Long> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // orderAmount
             cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10), // ratingLunch
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // user
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // httpDetail
+            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // transactionOrderId
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // observation
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // httpDetail
         );
         return entity;
     }
@@ -185,7 +201,9 @@ public class OrderDao extends AbstractDao<Order, Long> {
         entity.setOrderAmount(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setRatingLunch(cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10));
         entity.setUser(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setHttpDetail(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setTransactionOrderId(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
+        entity.setObservation(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setHttpDetail(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     /** @inheritdoc */

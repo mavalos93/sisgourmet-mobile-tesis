@@ -29,15 +29,14 @@
             android:layout_margin="@dimen/default_padding"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/notification_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_padding"
-                android:contentDescription="@string/description_image"
-                android:src="@mipmap/ic_perm_scan_wifi" />
+                android:contentDescription="@string/description_image" />
 
             <TextView
                 android:id="@+id/notification_message"
@@ -57,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_padding"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/round_button"
                 android:padding="@dimen/default_padding"
                 android:text="@string/description_image"
                 android:textColor="@color/icons"

@@ -32,6 +32,7 @@ import tesis.com.py.sisgourmetmobile.recivers.MyCommentsObserver;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.QualificationRepository;
 import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
+import tesis.com.py.sisgourmetmobile.services.SendCommentService;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
@@ -159,7 +160,7 @@ public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerV
         }
     }
 
-    private void showPopup(Context context, CommentsRecyclerView.CommentViewHolder holder, final Qualification qualification) {
+    private void showPopup(Context context, final CommentsRecyclerView.CommentViewHolder holder, final Qualification qualification) {
         //creating a popup menu
         PopupMenu popup = new PopupMenu(context, holder.mMoreDetailsButton);
         //inflating menu from xml resource
@@ -169,11 +170,17 @@ public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerV
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+
+                    case R.id.id_action_send:
+                        if (Utils.checkNetworkConnection(mContext)) {
+                            Utils.builToast(mContext,mContext.getString(R.string.sending_comment));
+                            sendTransaction(qualification, holder);
+                        } else {
+                            Utils.builToast(mContext, mContext.getString(R.string.tag_not_internet));
+                        }
+                        break;
                     case R.id.id_action_view_details:
                         showCommentDialog(qualification);
-                        break;
-                    case R.id.id_action_send:
-                        //handle menu2 click
                         break;
                 }
                 return false;
@@ -183,6 +190,17 @@ public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerV
         popup.show();
     }
 
+
+    private void sendTransaction(Qualification qualification, CommentsRecyclerView.CommentViewHolder holder) {
+        switch (qualification.getStatusSend()) {
+            case Constants.TRANSACTION_SEND:
+                Utils.builToast(mContext, mContext.getString(R.string.order_alredy_send));
+                break;
+            case Constants.TRANSACTION_NO_SEND:
+                SendCommentService.startSendTransaction(mContext, qualification.getId());
+                break;
+        }
+    }
 
     private void showCommentDialog(Qualification mQualificationObject) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -194,7 +212,7 @@ public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerV
         AppCompatButton mAcceptButton = dialogView.findViewById(R.id.dismis_button);
         TextView mCommentTextView = dialogView.findViewById(R.id.all_commentview);
         ImageView mUserImage = dialogView.findViewById(R.id.user_image_comment);
-        TextView mSelectedMenu  = dialogView.findViewById(R.id.main_menu_textView);
+        TextView mSelectedMenu = dialogView.findViewById(R.id.main_menu_textView);
         setupUserImage(mUserImage);
         mSelectedMenu.setText(mQualificationObject.getMainMenu());
         mUserNameTextView.setText(mQualificationObject.getUser().toUpperCase());

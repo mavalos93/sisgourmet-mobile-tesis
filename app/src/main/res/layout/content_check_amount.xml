@@ -79,6 +79,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
                     android:gravity="center"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -109,7 +111,7 @@
                             android:layout_height="wrap_content"
                             android:text="Manuel"
                             android:textColor="@color/icons"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -124,11 +126,11 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_marginStart="@dimen/big_margin_layout"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
                     android:gravity="center"
+                    android:layout_marginStart="@dimen/desc_padding"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -142,8 +144,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:gravity="end"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -159,7 +161,7 @@
                             android:layout_height="wrap_content"
                             android:text="Avalos"
                             android:textColor="@color/icons"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -181,6 +183,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
                     android:gravity="center"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -211,7 +215,7 @@
                             android:layout_height="wrap_content"
                             android:text="Manuel"
                             android:textColor="@color/icons"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -231,8 +235,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
-                    android:layout_marginStart="@dimen/big_margin_layout"
                     android:gravity="center"
+                    android:layout_marginStart="@dimen/desc_padding"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -240,7 +244,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/default_padding"
-                        android:layout_marginStart="@dimen/default_padding"
                         android:contentDescription="@string/description_image"
                         android:src="@mipmap/ic_date_range_white_24dp" />
 
@@ -264,7 +267,7 @@
                             android:layout_height="wrap_content"
                             android:text="12/05/1993"
                             android:textColor="@color/icons"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -287,6 +290,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
                     android:gravity="center"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -317,7 +321,7 @@
                             android:layout_height="wrap_content"
                             android:text="450.000 Gs."
                             android:textColor="@color/icons"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -333,10 +337,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/big_margin_layout"
+                    android:layout_gravity="end"
                     android:layout_weight="0.4"
-                    android:gravity="center"
+                    android:layout_marginStart="@dimen/desc_padding"
+                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -344,7 +348,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/default_padding"
-                        android:layout_marginStart="@dimen/default_padding"
                         android:contentDescription="@string/description_image"
                         android:src="@mipmap/ic_available_amount" />
 
@@ -368,16 +371,12 @@
                             android:layout_height="wrap_content"
                             android:text="450.000 Gs."
                             android:textColor="@color/icons"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
-
     </RelativeLayout>
-
-
 </RelativeLayout>

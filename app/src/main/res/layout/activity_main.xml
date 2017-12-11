@@ -19,9 +19,21 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:elevation="4dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:title="@string/app_toolbar_name"
-            app:titleTextColor="@color/icons" />
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/description_image"
+                    android:src="@mipmap/ic_toolbar_logo"/>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 

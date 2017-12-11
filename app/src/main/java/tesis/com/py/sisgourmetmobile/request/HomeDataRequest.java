@@ -3,6 +3,7 @@ package tesis.com.py.sisgourmetmobile.request;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -281,6 +282,7 @@ public class HomeDataRequest {
                 DrinksRepository.store(drinks);
             }
 
+            Log.d("Tag","menu_principal: "+mLunchList.size());
             status = providerCount == mProviderList.size() && lunchCount == mLunchList.size() && garnishCount == mGarnishList.size() && drinksCount == mDrinkList.size();
 
             return status;

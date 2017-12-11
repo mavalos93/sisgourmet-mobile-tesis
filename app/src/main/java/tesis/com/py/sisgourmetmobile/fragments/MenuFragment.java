@@ -85,7 +85,12 @@ public class MenuFragment extends Fragment {
         mMessageTextView = rootView.findViewById(R.id.description_notification);
         mNotificationContainer = rootView.findViewById(R.id.notification_container);
         mActionButton = rootView.findViewById(R.id.action_button);
-
+        mActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendRequest();
+            }
+        });
 
         myRecyclerView = rootView.findViewById(R.id.my_recycler_view);
         myRecyclerView.setHasFixedSize(true);

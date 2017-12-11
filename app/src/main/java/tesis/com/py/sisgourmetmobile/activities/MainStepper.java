@@ -18,8 +18,6 @@ public class MainStepper extends TabStepper {
     private int i = 1;
     private Lunch lunchObject = new Lunch();
     private long mProviderId = 0;
-    private Toolbar mToolbar;
-    private BaseStyle mBaseStyle = new BaseStyle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,6 @@ public class MainStepper extends TabStepper {
             if (bundle != null) {
                 lunchObject = (Lunch) bundle.get(Constants.ACTION_SELECTED_MENU);
                 if (lunchObject != null) {
-                    Log.d("LUNCH_TAG", "LUNCH: " + lunchObject.toString());
                     mProviderId = lunchObject.getProviderId();
                 } else {
                     Utils.builToast(this, getString(R.string.error_get_lunch_object));

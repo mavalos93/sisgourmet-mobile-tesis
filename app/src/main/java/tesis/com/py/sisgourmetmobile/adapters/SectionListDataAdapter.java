@@ -50,7 +50,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
         final Lunch lunchItem = itemsList.get(i);
         String mGarnishText = "";
-        int listSize = 0;
+        int listSize;
         float mRatingValue;
 
         List<Garnish> garnisList = GarnishRepository.getGarnishByLunchId(lunchItem.getPrincipalMenuCode());
@@ -59,7 +59,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         if (listSize != 0) {
             if (listSize == 1) {
                 for (Garnish gr : garnisList) {
-                    mGarnishText = gr.getDescription();
+                    mGarnishText = gr.getDescription().toLowerCase();
                 }
             } else if (listSize > 1) {
                 mGarnishText = "Combinable";

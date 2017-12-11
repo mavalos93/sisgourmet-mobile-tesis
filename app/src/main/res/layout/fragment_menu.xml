@@ -28,7 +28,6 @@
                 android:id="@+id/notification_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_error"
                 android:paddingBottom="@dimen/big_margin_layout"
                 android:contentDescription="@string/content_description" />
 

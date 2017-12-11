@@ -17,6 +17,7 @@ public class Qualification {
     private Long createdAt;
     private String SendAppAt;
     private String user;
+    private String observation;
     private String httpDetail;
 
     public Qualification() {
@@ -26,7 +27,7 @@ public class Qualification {
         this.id = id;
     }
 
-    public Qualification(Long id, Long providerId, Long qualificationValue, String commentary, String mainMenu, String garnish, Integer order, Integer statusSend, Long createdAt, String SendAppAt, String user, String httpDetail) {
+    public Qualification(Long id, Long providerId, Long qualificationValue, String commentary, String mainMenu, String garnish, Integer order, Integer statusSend, Long createdAt, String SendAppAt, String user, String observation, String httpDetail) {
         this.id = id;
         this.providerId = providerId;
         this.qualificationValue = qualificationValue;
@@ -38,6 +39,7 @@ public class Qualification {
         this.createdAt = createdAt;
         this.SendAppAt = SendAppAt;
         this.user = user;
+        this.observation = observation;
         this.httpDetail = httpDetail;
     }
 
@@ -127,6 +129,14 @@ public class Qualification {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public String getHttpDetail() {

@@ -135,7 +135,6 @@ public class StepLunch extends AbstractStep {
                 if (mGarnihsQuery != null) {
                     mSelectedGarnishTextView.setText(mGarnihsQuery.getDescription().toUpperCase());
                 }
-
                 TabStepper.isDone = true;
                 setupDoneIcon = true;
             }
@@ -170,7 +169,7 @@ public class StepLunch extends AbstractStep {
 
     @Override
     public String name() {
-        return "Plato principal";
+        return "Menú principal";
     }
 
 

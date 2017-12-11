@@ -21,6 +21,8 @@ public class Order implements Serializable{
     private String orderAmount;
     private Long ratingLunch;
     private String user;
+    private Integer transactionOrderId;
+    private String observation;
     private String httpDetail;
 
     public Order() {
@@ -30,7 +32,7 @@ public class Order implements Serializable{
         this.id = id;
     }
 
-    public Order(Long id, String orderType, Integer statusOrder, Long lunchId, Integer drinkId, Integer garnishId, Long createdAt, String SendAppAt, Long providerId, String orderAmount, Long ratingLunch, String user, String httpDetail) {
+    public Order(Long id, String orderType, Integer statusOrder, Long lunchId, Integer drinkId, Integer garnishId, Long createdAt, String SendAppAt, Long providerId, String orderAmount, Long ratingLunch, String user, Integer transactionOrderId, String observation, String httpDetail) {
         this.id = id;
         this.orderType = orderType;
         this.statusOrder = statusOrder;
@@ -43,6 +45,8 @@ public class Order implements Serializable{
         this.orderAmount = orderAmount;
         this.ratingLunch = ratingLunch;
         this.user = user;
+        this.transactionOrderId = transactionOrderId;
+        this.observation = observation;
         this.httpDetail = httpDetail;
     }
 
@@ -140,6 +144,22 @@ public class Order implements Serializable{
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public Integer getTransactionOrderId() {
+        return transactionOrderId;
+    }
+
+    public void setTransactionOrderId(Integer transactionOrderId) {
+        this.transactionOrderId = transactionOrderId;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public String getHttpDetail() {

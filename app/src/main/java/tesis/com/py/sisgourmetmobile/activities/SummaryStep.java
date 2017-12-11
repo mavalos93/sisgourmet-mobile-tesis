@@ -393,7 +393,7 @@ public class SummaryStep extends AbstractStep {
                         public void onErrorResponse(VolleyError error) {
                             progressDialog.dismiss();
                             String message = NetworkQueue.handleError(error, getContext());
-                            updateOrderTransaction(mOrder, Constants.TRANSACTION_NO_SEND);
+                            OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),0, Constants.TRANSACTION_NO_SEND,message);
                             jsonObjectRequest.cancel();
                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
                             builder.setIcon(R.mipmap.ic_info_black_36dp);
@@ -432,9 +432,10 @@ public class SummaryStep extends AbstractStep {
 
             String message = null;
             int status = -1;
+            int mTransactionOrderId = 0;
 
             if (response == null) {
-                updateOrderTransaction(mOrder, Constants.TRANSACTION_NO_SEND);
+                OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),0, Constants.TRANSACTION_NO_SEND,"Error inesperado,intente de nuevo");
                 Utils.builToast(getContext(), getString(R.string.volley_parse_error));
                 getActivity().finish();
                 return;
@@ -445,14 +446,16 @@ public class SummaryStep extends AbstractStep {
             try {
                 if (response.has("status")) status = response.getInt("status");
                 if (response.has("message")) message = response.getString("message");
+                if (response.has("order_id")) mTransactionOrderId = response.getInt("order_id");
+
 
                 if (status != Constants.RESPONSE_OK) {
-                    updateOrderTransaction(mOrder, Constants.TRANSACTION_NO_SEND);
+                    OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),0, Constants.TRANSACTION_NO_SEND,message);
                     Utils.builToast(getContext(), message);
                     return;
                 }
 
-                updateOrderTransaction(mOrder, Constants.TRANSACTION_SEND);
+                OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),mTransactionOrderId, Constants.TRANSACTION_SEND,message);
                 mOrder = null;
 
                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
@@ -520,13 +523,7 @@ public class SummaryStep extends AbstractStep {
         }
     }
 
-    public static void updateOrderTransaction(Order mOrder, int status) {
-        if (mOrder != null) {
-            mOrder.setCreatedAt(Utils.getToday().getTime());
-            mOrder.setStatusOrder(status);
-            OrderRepository.store(mOrder);
-        }
-    }
+
 
 }
 

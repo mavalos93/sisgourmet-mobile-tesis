@@ -31,7 +31,7 @@
     <string name="dialog_confirmation_title">Confirmación</string>
     <string name="dialog_confirmation_message">Desea confirmar esta operación?</string>
     <string name="dialog_success_title">Operación Exitosa</string>
-    <string name="tag_not_internet">No posees conexión a internet favor actívala</string>
+    <string name="tag_not_internet">No posees conexión a internet favor actívalo</string>
     <string name="tag_error_main_data">Error al obtener datos, favor inténtalo de nuevo</string>
 
     <!-- Order Type-->
@@ -97,7 +97,7 @@
     <string name="reset_password_menu">Seguridad</string>
     <string name="reset_password_menu_description">Cambiar Contraseña</string>
     <string name="qualification_menu">Calificacion</string>
-    <string name="qualification_menu_decription">Calificacion del Servicio</string>
+    <string name="qualification_menu_decription">Calificación del menú</string>
     <string name="tab_menu">Menú</string>
     <string name="tab_orders">Pedidos</string>
     <string name="tab_my_favorites">Favoritos</string>
@@ -106,6 +106,7 @@
     <string name="title_activity_provider">Proveedores</string>
     <string name="title_activity_qualification">Calificación</string>
     <string name="title_activity_reset_pass">Cambio de Contraseña</string>
+    <string name="sending_comment">Enviando Comentarios</string>
 
     <!--Principal Selected Activity-->
 
@@ -201,7 +202,10 @@
     <string name="my_lunch">Mi almuerzo</string>
     <string name="order_send_succes_message">Pedido de almuerzo enviado exitosamente</string>
     <string name="error_not_data_drinks">Debes descargar las bebidas</string>
-
+    <string name="order_alredy_send">Ya has enviado este pedido.</string>
+    <string name="order_pending_not_cancel">No puedes cancelar un pedido pendiente de envío</string>
+    <string name="order_alredy_cancel">Ya has cancelado este pedido.</string>
+    <string name="order_cancel_not_send">No puedes volver a enviar un pedido cancelado</string>
     <!-- Qualification menu-->
     <string name="qualification_activity_title">Calificaciones</string>
     <string name="error_comment_empty">Debes ingresar un comentario</string>

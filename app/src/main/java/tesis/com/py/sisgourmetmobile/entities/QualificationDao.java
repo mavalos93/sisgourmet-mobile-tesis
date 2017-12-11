@@ -34,7 +34,8 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
         public final static Property CreatedAt = new Property(8, Long.class, "createdAt", false, "CREATED_AT");
         public final static Property SendAppAt = new Property(9, String.class, "SendAppAt", false, "SEND_APP_AT");
         public final static Property User = new Property(10, String.class, "user", false, "USER");
-        public final static Property HttpDetail = new Property(11, String.class, "httpDetail", false, "HTTP_DETAIL");
+        public final static Property Observation = new Property(11, String.class, "observation", false, "OBSERVATION");
+        public final static Property HttpDetail = new Property(12, String.class, "httpDetail", false, "HTTP_DETAIL");
     };
 
 
@@ -61,7 +62,8 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
                 "\"CREATED_AT\" INTEGER," + // 8: createdAt
                 "\"SEND_APP_AT\" TEXT," + // 9: SendAppAt
                 "\"USER\" TEXT," + // 10: user
-                "\"HTTP_DETAIL\" TEXT);"); // 11: httpDetail
+                "\"OBSERVATION\" TEXT," + // 11: observation
+                "\"HTTP_DETAIL\" TEXT);"); // 12: httpDetail
     }
 
     /** Drops the underlying database table. */
@@ -130,9 +132,14 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
             stmt.bindString(11, user);
         }
  
+        String observation = entity.getObservation();
+        if (observation != null) {
+            stmt.bindString(12, observation);
+        }
+ 
         String httpDetail = entity.getHttpDetail();
         if (httpDetail != null) {
-            stmt.bindString(12, httpDetail);
+            stmt.bindString(13, httpDetail);
         }
     }
 
@@ -157,7 +164,8 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
             cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // createdAt
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // SendAppAt
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // user
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // httpDetail
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // observation
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // httpDetail
         );
         return entity;
     }
@@ -176,7 +184,8 @@ public class QualificationDao extends AbstractDao<Qualification, Long> {
         entity.setCreatedAt(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
         entity.setSendAppAt(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setUser(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setHttpDetail(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setObservation(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setHttpDetail(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
      }
     
     /** @inheritdoc */

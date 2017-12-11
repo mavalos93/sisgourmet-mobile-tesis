@@ -115,7 +115,7 @@ public class BaseStyle extends AppCompatActivity implements Stepable {
     protected void init() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(primaryColor);
-        toolbar.setNavigationIcon(R.mipmap.ic_keyboard_arrow_left_white_48dp);
+        toolbar.setNavigationIcon(R.mipmap.ic_arrow_back_white_24dp);
         toolbar.setTitle(Html.fromHtml(mTitle));
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
