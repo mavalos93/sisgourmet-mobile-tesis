@@ -41,7 +41,7 @@ public class SendCommentService extends IntentService {
 
 
     public static void startSendTransaction(Context context, long commentId) {
-        Intent intent = new Intent(context, SendOrderService.class);
+        Intent intent = new Intent(context, SendCommentService.class);
         intent.putExtra(COMMENT_ID, commentId);
         intent.setAction(Constants.ACTION_SEND_SINGLE);
         context.startService(intent);

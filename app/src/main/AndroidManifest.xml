@@ -77,8 +77,20 @@
             android:enabled="true"
             android:exported="false" />
 
+        <service
+            android:name=".services.SendCommentService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".services.CancelOrderService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.SummaryOrderActivity"
+            android:label="@string/title_activity_summary_order"
+            android:theme="@style/AppTheme"></activity>
     </application>
-
-
 
 </manifest>

@@ -12,14 +12,11 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.entities.Order;
 import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
 import tesis.com.py.sisgourmetmobile.repositories.OrderRepository;
+import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.support.UserControlAmount;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.JsonObjectRequest;
@@ -27,25 +24,24 @@ import tesis.com.py.sisgourmetmobile.utils.URLS;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 /**
- * Created by Manu0 on 12/10/2017.
+ * Created by Manu0 on 12/11/2017.
  */
 
-public class SendOrderService extends IntentService {
-    private static final String TAG_CLASS = SendOrderService.class.getName();
-    private static final String ORDER_ID = "TRANSACTION_ID";
+public class CancelOrderService extends IntentService {
+    private static final String TAG_CLASS = SendCommentService.class.getName();
+    private static final String ORDER_ID = "ORDER_ID";
     private static final String REQUEST_TAG = "SEND_TRANSACTION";
-    private List<Order> mOrderList = new ArrayList<>();
     private NetworkQueue mQueue;
 
-    public SendOrderService() {
-        super("SendOrderService");
+    public CancelOrderService() {
+        super("CancelOrderService");
         mQueue = new NetworkQueue(this);
     }
 
 
-    public static void startSendTransaction(Context context, long transactionId) {
-        Intent intent = new Intent(context, SendOrderService.class);
-        intent.putExtra(ORDER_ID, transactionId);
+    public static void startSendTransaction(Context context, long orderId) {
+        Intent intent = new Intent(context, CancelOrderService.class);
+        intent.putExtra(ORDER_ID, orderId);
         intent.setAction(Constants.ACTION_SEND_SINGLE);
         context.startService(intent);
     }
@@ -68,15 +64,8 @@ public class SendOrderService extends IntentService {
 
 
     private void makeRequest(final Order order) {
-        JSONObject body = null;
-        try {
-            body = new JSONObject(order.getHttpDetail());
-        } catch (JSONException jEX) {
-            jEX.printStackTrace();
-            Log.w(TAG_CLASS, "Error while create JSONObject " + jEX.getMessage());
 
-        }
-        JsonObjectRequest momoJsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URLS.ORDER_URL, body, new Response.Listener<JSONObject>() {
+        JsonObjectRequest momoJsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URLS.CANCEL_ORDER_URL, getParams(order), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 handleResponse(response, order);
@@ -85,24 +74,36 @@ public class SendOrderService extends IntentService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String message = NetworkQueue.handleError(error, getApplicationContext());
-                OrderRepository.updateOrderTransaction(SendOrderService.this, order.getId(), 0, Constants.TRANSACTION_NO_SEND, message);
+                OrderRepository.updateOrderTransaction(CancelOrderService.this, order.getId(), order.getTransactionOrderId(), Constants.TRANSACTION_NO_CANCEL, message);
                 Utils.builToast(getApplicationContext(), (message == null) ? getString(R.string.volley_default_error) : message);
 
             }
         });
 
+        Log.d("TAG","SEND_REQUEST: "+getParams(order));
         momoJsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
         momoJsonObjectRequest.setTag(REQUEST_TAG);
         NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(momoJsonObjectRequest, getApplicationContext());
     }
 
+    private JSONObject getParams(Order order) {
+        JSONObject params = new JSONObject();
+        try {
+
+            params.put("username", UserRepository.getUser(CancelOrderService.this).getUserName());
+            params.put("order_id", order.getTransactionOrderId());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return params;
+    }
+
     protected void handleResponse(JSONObject response, Order order) {
         String message = null;
         int status = -1;
-        int orderId = 0;
 
         if (response == null) {
-            OrderRepository.updateOrderTransaction(SendOrderService.this, order.getId(), 0, Constants.TRANSACTION_NO_SEND, getString(R.string.volley_parse_error));
+            OrderRepository.updateOrderTransaction(CancelOrderService.this, order.getId(), order.getTransactionOrderId(), Constants.TRANSACTION_NO_CANCEL, getString(R.string.volley_parse_error));
             Utils.builToast(this, (message == null) ? getString(R.string.volley_default_error) : message);
             return;
         }
@@ -112,16 +113,15 @@ public class SendOrderService extends IntentService {
         try {
             if (response.has("status")) status = response.getInt("status");
             if (response.has("message")) message = response.getString("message");
-            if (response.has("order_id")) orderId = response.getInt("order_id");
 
             if (status != Constants.RESPONSE_OK) {
-                OrderRepository.updateOrderTransaction(SendOrderService.this, order.getId(), orderId, Constants.TRANSACTION_NO_SEND, (message == null) ? getString(R.string.volley_default_error) : message);
+                OrderRepository.updateOrderTransaction(CancelOrderService.this, order.getId(), order.getTransactionOrderId(), Constants.TRANSACTION_NO_CANCEL, (message == null) ? getString(R.string.volley_default_error) : message);
                 Utils.builToast(this, (message == null) ? getString(R.string.volley_default_error) : message);
                 return;
             }
 
-            UserControlAmount.saveHistoryData(order.getId(), Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT), order.getDrinkId(), order.getLunchId().intValue(), order.getGarnishId(), order.getProviderId().intValue());
-            OrderRepository.updateOrderTransaction(SendOrderService.this, order.getId(), orderId, Constants.TRANSACTION_SEND, message);
+            UserControlAmount.deleteHistoryValue(order.getId());
+            OrderRepository.updateOrderTransaction(CancelOrderService.this, order.getId(), order.getTransactionOrderId(), Constants.TRANSACTION_CANCEL, message);
             Utils.builToast(this, message);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -133,4 +133,5 @@ public class SendOrderService extends IntentService {
 
     }
 }
+
 

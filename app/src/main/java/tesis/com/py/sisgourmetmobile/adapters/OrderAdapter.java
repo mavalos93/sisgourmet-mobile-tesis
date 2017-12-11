@@ -39,6 +39,7 @@ import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
+import tesis.com.py.sisgourmetmobile.services.CancelOrderService;
 import tesis.com.py.sisgourmetmobile.services.SendOrderService;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
@@ -110,18 +111,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         switch (mOrder.getStatusOrder()) {
             case Constants.TRANSACTION_SEND:
                 holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorOk));
-                mStatusOrder = "enviado";
+                mStatusOrder = "Enviado";
                 break;
             case Constants.TRANSACTION_NO_SEND:
                 holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
-                mStatusOrder = "pendiente";
+                mStatusOrder = "Pendiente";
                 break;
             case Constants.TRANSACTION_CANCEL:
                 holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
-                mStatusOrder = "cancelado";
+                mStatusOrder = "Cancelado";
+                break;
+            case Constants.TRANSACTION_NO_CANCEL:
+                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
+                mStatusOrder = "No cancelado";
                 break;
         }
-        final Lunch mLunchObject = LunchRepository.getLunchById(mOrder.getLunchId());
+        final Lunch mLunchObject = LunchRepository.getLunchById(mOrder.getLunchId().intValue());
 
 
         if (mLunchObject != null) {
@@ -159,7 +164,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.detailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopup(mContext,holder,mOrderList.get(position));
+                showPopup(mContext, holder, mOrderList.get(position));
             }
         });
         holder.orderStatusTextView.setText(mStatusOrder);
@@ -178,18 +183,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.id_order_send:
-                        if (Utils.checkNetworkConnection(mContext)){
-                            sendTransaction("ENVIAR",order,holder);
-                        }else {
-                            Utils.builToast(mContext,mContext.getString(R.string.tag_not_internet));
+                        if (Utils.checkNetworkConnection(mContext)) {
+                            sendTransaction("ENVIAR", order, holder);
+                        } else {
+                            Utils.builToast(mContext, mContext.getString(R.string.tag_not_internet));
                         }
                         break;
                     case R.id.id_order_cancel:
-                        if (Utils.checkNetworkConnection(mContext)){
-                            sendTransaction("CANCELAR",order,holder);
-                        }else {
-                            Utils.builToast(mContext,mContext.getString(R.string.tag_not_internet));
-                        }                        break;
+                        if (Utils.checkNetworkConnection(mContext)) {
+                            sendTransaction("CANCELAR", order, holder);
+                        } else {
+                            Utils.builToast(mContext, mContext.getString(R.string.tag_not_internet));
+                        }
+                        break;
                     case R.id.id_order_details:
                         detailsOrder(order);
                         break;
@@ -202,8 +208,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     private void sendTransaction(String action, Order order, OrderAdapter.OrderViewHolder holder) {
+
+        Log.d("TAG", "ACTION: " + action);
         switch (action) {
             case "ENVIAR":
+                Log.d("TAG","ENTRO ACA ORDEN");
+
                 switch (order.getStatusOrder()) {
                     case Constants.TRANSACTION_SEND:
                         Utils.builToast(mContext, mContext.getString(R.string.order_alredy_send));
@@ -215,19 +225,28 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     case Constants.TRANSACTION_CANCEL:
                         Utils.builToast(mContext, mContext.getString(R.string.order_cancel_not_send));
                         break;
+                    case Constants.TRANSACTION_NO_CANCEL:
+                        Utils.builToast(mContext, mContext.getString(R.string.order_pending_cancel_not_send));
+                        break;
                 }
                 break;
             case "CANCELAR":
+                Log.d("TAG","ENTRO ACA CANCELAR");
+
                 switch (order.getStatusOrder()) {
                     case Constants.TRANSACTION_SEND:
                         holder.orderStatusTextView.setText("Cancelando.....");
-                        // TODO ENVIAR LA PETICION --> HACER EL SERVICE
+                        CancelOrderService.startSendTransaction(mContext, order.getId());
                         break;
                     case Constants.TRANSACTION_NO_SEND:
                         Utils.builToast(mContext, mContext.getString(R.string.order_pending_not_cancel));
                         break;
                     case Constants.TRANSACTION_CANCEL:
                         Utils.builToast(mContext, mContext.getString(R.string.order_alredy_cancel));
+                        break;
+                    case Constants.TRANSACTION_NO_CANCEL:
+                        holder.orderStatusTextView.setText("Cancelando.....");
+                        CancelOrderService.startSendTransaction(mContext, order.getId());
                         break;
                 }
                 break;
@@ -248,7 +267,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
         }
         if (orderObject.getLunchId() != 0) {
-            Lunch mLunchQuery = LunchRepository.getLunchById(orderObject.getLunchId());
+            Lunch mLunchQuery = LunchRepository.getLunchById(orderObject.getLunchId().intValue());
             if (mLunchQuery != null) {
                 mSelectedMainMenu = mLunchQuery.getMainMenuDescription();
             }
@@ -262,7 +281,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
         if (orderObject.getProviderId() != 0) {
-            Provider mProviderQuery = ProviderRepository.getProviderById(orderObject.getProviderId());
+            Provider mProviderQuery = ProviderRepository.getProviderById(orderObject.getProviderId().intValue());
             if (mProviderQuery != null) {
                 mSelectedProvider = mProviderQuery.getProviderName();
             }

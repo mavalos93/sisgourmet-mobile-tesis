@@ -125,6 +125,20 @@ public class MyDaoGenerator {
         providerRating.addIntProperty("oneStar");
 
 
+        Entity summaryOrder = schema.addEntity("SummaryOrder");
+        summaryOrder.addIdProperty();
+        summaryOrder.addStringProperty("orderDescription");
+        summaryOrder.addStringProperty("garnishDescription");
+        summaryOrder.addStringProperty("drinkDescription");
+        summaryOrder.addStringProperty("date");
+        summaryOrder.addIntProperty("year");
+        summaryOrder.addIntProperty("month");
+        summaryOrder.addStringProperty("price");
+        summaryOrder.addStringProperty("provider");
+        summaryOrder.addByteArrayProperty("image");
+        summaryOrder.addLongProperty("orderId");
+
+
         new DaoGenerator().generateAll(schema, "../app/src/main/java");
 
 

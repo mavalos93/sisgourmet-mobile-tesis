@@ -17,6 +17,8 @@
     <string name="tag_error_home_data">Error al obtener datos del menú principal</string>
     <string name="internal_processing_error_data">Error al procesar datos internos</string>
     <string name="empty_required_data">No se encontraron los datos requeridos</string>
+    <string name="label_history_order">Historial de Pedidos</string>
+    <string name="label_search">Buscar</string>
 
     <!-- Provider labels-->
     <string name="provider_vienesa">La Vienesa</string>volley_network_error
@@ -57,7 +59,7 @@
     <!--Default labels-->
     <string name="label_cancel">Cancelar</string>
     <string name="label_accept">Aceptar</string>
-    <string name="label_session">Sesion</string>
+    <string name="label_session">Sesión</string>
     <string name="label_send">Enviar</string>
     <string name="label_back">Atrás</string>
     <string name="label_view">VER</string>
@@ -76,7 +78,8 @@
     <string name="label_send_queue">Enviar luego</string>
     <string name="error_parsing_json">Error al interpretar la respuesta</string>
     <string name="error_processing_image">Error al procesar imagen</string>
-
+    <string name="tag_year">Año</string>
+    <string name="tag_month">Mes</string>
 
     <!--LoginFormActivity labels-->
     <string name="login_form_activity_title">Registro de usuarios</string>
@@ -195,6 +198,7 @@
     <string name="error_get_lunch_object">Error al obtener menu seleccionado</string>
     <string name="selected_garnish">Seleccionar Guarnición</string>
 
+
     <!-- Order Selected Activity-->
     <string name="label_drink_selected">Seleccionar Bebida</string>
     <string name="qualification_menu_privider_value">valor</string>
@@ -203,9 +207,11 @@
     <string name="order_send_succes_message">Pedido de almuerzo enviado exitosamente</string>
     <string name="error_not_data_drinks">Debes descargar las bebidas</string>
     <string name="order_alredy_send">Ya has enviado este pedido.</string>
+    <string name="comment_alredy_send">Ya has enviado este comentario.</string>
     <string name="order_pending_not_cancel">No puedes cancelar un pedido pendiente de envío</string>
     <string name="order_alredy_cancel">Ya has cancelado este pedido.</string>
     <string name="order_cancel_not_send">No puedes volver a enviar un pedido cancelado</string>
+    <string name="order_pending_cancel_not_send">No puedes enviar un pedido pendiente de cancelar</string>
     <!-- Qualification menu-->
     <string name="qualification_activity_title">Calificaciones</string>
     <string name="error_comment_empty">Debes ingresar un comentario</string>
@@ -290,4 +296,8 @@
     <string name="error_get_provider_object">Error al obtener datos del proveedor</string>
     <string name="title_activity_comments">CommentsActivity</string>
 
+
+    <!-- Summary Order Activity-->
+    <string name="title_activity_summary_order">SummaryOrderActivity</string>
+    <string name="tag_total_spent">Total Gastado en el mes: </string>
 </resources>

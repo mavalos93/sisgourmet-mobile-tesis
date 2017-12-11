@@ -153,7 +153,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                             mLunchId = mOrderObject.getLunchId();
                             mPrice = mOrderObject.getOrderAmount();
                             mProviderId = mOrderObject.getProviderId();
-                            Lunch lunchQuery = LunchRepository.getLunchById(mOrderObject.getLunchId());
+                            Lunch lunchQuery = LunchRepository.getLunchById(mOrderObject.getLunchId().intValue());
                             if (lunchQuery != null) {
                                 mMainMenuDescription = lunchQuery.getMainMenuDescription();
                             }
@@ -235,9 +235,9 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
         }
     }
 
-    private void setupDataView(long mLunchId) {
+    private void setupDataView(Long mLunchId) {
         List<Garnish> mGarnishList = GarnishRepository.getGarnishByLunchId(mLunchId);
-        Lunch lunchObject = LunchRepository.getLunchById(mLunchId);
+        Lunch lunchObject = LunchRepository.getLunchById(mLunchId.intValue());
         if (lunchObject != null) {
             mainMenuTextView.setVisibility(View.VISIBLE);
             mainMenuTextView.setText(lunchObject.getMainMenuDescription().toLowerCase());

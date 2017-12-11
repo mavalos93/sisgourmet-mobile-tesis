@@ -17,6 +17,8 @@ public class Constants {
     public static final int TRANSACTION_SEND = 1;
     public static final int TRANSACTION_NO_SEND = 2;
     public static final int TRANSACTION_CANCEL = 3;
+    public static final int TRANSACTION_NO_CANCEL = 4;
+
 
 
     //Transaction Types

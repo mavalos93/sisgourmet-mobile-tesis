@@ -73,6 +73,7 @@ public class OrdersFragment extends Fragment implements LoaderManager.LoaderCall
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Log.d("TAG","MENU: "+mAdapter.getItemAtPosition(position).toString());
                 mListener.onItemOrderListenerSelected(mAdapter.getItemAtPosition(position));
             }
 

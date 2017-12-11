@@ -2,8 +2,22 @@ package tesis.com.py.sisgourmetmobile.support;
 
 import android.content.Context;
 
+import java.util.Date;
+
+import tesis.com.py.sisgourmetmobile.activities.SummaryStep;
+import tesis.com.py.sisgourmetmobile.entities.Drinks;
+import tesis.com.py.sisgourmetmobile.entities.Garnish;
+import tesis.com.py.sisgourmetmobile.entities.Lunch;
+import tesis.com.py.sisgourmetmobile.entities.Provider;
+import tesis.com.py.sisgourmetmobile.entities.SummaryOrder;
 import tesis.com.py.sisgourmetmobile.entities.User;
+import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
+import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
+import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
+import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
+import tesis.com.py.sisgourmetmobile.repositories.SummaryOrderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
+import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 /**
  * Created by Manu0 on 12/6/2017.
@@ -44,5 +58,32 @@ public class UserControlAmount {
             ex.printStackTrace();
         }
         return mInsertId;
+    }
+
+    public static void deleteHistoryValue(long orderId) {
+        SummaryOrder summaryOrder = new SummaryOrder();
+        summaryOrder = SummaryOrderRepository.getByLunchId(orderId);
+        if (summaryOrder != null) {
+            SummaryOrderRepository.getDao().delete(summaryOrder);
+        }
+    }
+
+    public static void saveHistoryData(long orderId, String date, int mDrinkId, int mMainMenuId, int mGarnishId, int mProviderId) {
+
+        SummaryOrder mSummaryOrder = new SummaryOrder();
+        mSummaryOrder.setOrderId(orderId);
+        mSummaryOrder.setDate(date);
+        mSummaryOrder.setMonth(Utils.getMonth(new Date()));
+        mSummaryOrder.setYear(Utils.getYear(new Date()));
+        Drinks drinks = DrinksRepository.getDrinkById(mDrinkId);
+        mSummaryOrder.setDrinkDescription((drinks == null ? "Sin Bebida" : drinks.getDescription()));
+        Garnish garnish = GarnishRepository.getGarnishById(mGarnishId);
+        mSummaryOrder.setGarnishDescription((garnish == null ? "Sin Guarnición" : garnish.getDescription()));
+        Lunch lunch = LunchRepository.getLunchById(mMainMenuId);
+        mSummaryOrder.setOrderDescription((lunch == null ? "Sin Menú principal" : lunch.getMainMenuDescription()));
+        Provider provider = ProviderRepository.getProviderById(mProviderId);
+        mSummaryOrder.setProvider((provider == null ? "Sin proveedor" : provider.getProviderName()));
+        mSummaryOrder.setImage((lunch == null ? null : lunch.getImageMenu()));
+
     }
 }

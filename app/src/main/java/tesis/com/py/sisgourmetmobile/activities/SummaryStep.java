@@ -39,15 +39,20 @@ import tesis.com.py.sisgourmetmobile.entities.Drinks;
 import tesis.com.py.sisgourmetmobile.entities.Garnish;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
 import tesis.com.py.sisgourmetmobile.entities.Order;
+import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.entities.Qualification;
+import tesis.com.py.sisgourmetmobile.entities.SummaryOrder;
 import tesis.com.py.sisgourmetmobile.network.MyRequest;
 import tesis.com.py.sisgourmetmobile.network.NetworkQueue;
 import tesis.com.py.sisgourmetmobile.recivers.MyCommentsObserver;
 import tesis.com.py.sisgourmetmobile.recivers.OrdersObserver;
 import tesis.com.py.sisgourmetmobile.repositories.DrinksRepository;
 import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
+import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
 import tesis.com.py.sisgourmetmobile.repositories.OrderRepository;
+import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.QualificationRepository;
+import tesis.com.py.sisgourmetmobile.repositories.SummaryOrderRepository;
 import tesis.com.py.sisgourmetmobile.repositories.UserRepository;
 import tesis.com.py.sisgourmetmobile.support.UserControlAmount;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
@@ -126,11 +131,11 @@ public class SummaryStep extends AbstractStep {
 
         int priceDrink = 0;
 
-        if (mDrinkId == 0){
+        if (mDrinkId == 0) {
             mDrinkSelectedTextView.setText("Sin Bebida");
             mDrinkPrice.setText(Utils.formatNumber(String.valueOf("0"), " Gs."));
-        }else {
-            Drinks mQueryDrink = DrinksRepository.getDrinkById((long) mDrinkId);
+        } else {
+            Drinks mQueryDrink = DrinksRepository.getDrinkById(mDrinkId);
             if (mQueryDrink != null) {
                 priceDrink = mQueryDrink.getPriceUnit();
                 mDrinkSelectedTextView.setText(mQueryDrink.getDescription());
@@ -138,7 +143,6 @@ public class SummaryStep extends AbstractStep {
 
             }
         }
-
 
 
         mMainMenuTextView.setText(lunchObject.getMainMenuDescription().toLowerCase());
@@ -241,6 +245,7 @@ public class SummaryStep extends AbstractStep {
     }
 
 
+
     @Override
     public void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
@@ -297,13 +302,13 @@ public class SummaryStep extends AbstractStep {
     private class OrderTask extends MyRequest {
         static final String REQUEST_TAG = "OrderTask";
         private String mUserName;
-        private long mProviderId;
-        private long mLunchId;
+        private int mProviderId;
+        private int mLunchId;
         private Integer mGarnishId;
         private Integer mDrinkId;
         private String mTotalAmount;
 
-        OrderTask(String mUserName, long mProviderId, long mLunchId, Integer mGarnishId, Integer mDrinkId, String mTotalAmount) {
+        OrderTask(String mUserName, int mProviderId, int mLunchId, Integer mGarnishId, Integer mDrinkId, String mTotalAmount) {
             this.mUserName = mUserName;
             this.mProviderId = mProviderId;
             this.mLunchId = mLunchId;
@@ -350,12 +355,12 @@ public class SummaryStep extends AbstractStep {
                 mOrder = new Order();
                 mOrder.setOrderType(Constants.LUNCH_PACKAGE_ORDER);
                 mOrder.setStatusOrder(Constants.TRANSACTION_NO_SEND);
-                mOrder.setLunchId(mLunchId);
+                mOrder.setLunchId(Long.valueOf(String.valueOf(mLunchId)));
                 mOrder.setDrinkId(mDrinkId);
                 mOrder.setGarnishId(mGarnishId);
                 mOrder.setCreatedAt(Utils.getToday().getTime());
                 mOrder.setSendAppAt(Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT_POSTGRES));
-                mOrder.setProviderId(mProviderId);
+                mOrder.setProviderId(Long.valueOf(String.valueOf(mProviderId)));
                 mOrder.setOrderAmount(mTotalAmount);
                 mOrder.setRatingLunch(0L);
                 mOrder.setUser(mUserName);
@@ -393,7 +398,7 @@ public class SummaryStep extends AbstractStep {
                         public void onErrorResponse(VolleyError error) {
                             progressDialog.dismiss();
                             String message = NetworkQueue.handleError(error, getContext());
-                            OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),0, Constants.TRANSACTION_NO_SEND,message);
+                            OrderRepository.updateOrderTransaction(getContext(), mOrder.getId(), 0, Constants.TRANSACTION_NO_SEND, message);
                             jsonObjectRequest.cancel();
                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
                             builder.setIcon(R.mipmap.ic_info_black_36dp);
@@ -435,7 +440,7 @@ public class SummaryStep extends AbstractStep {
             int mTransactionOrderId = 0;
 
             if (response == null) {
-                OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),0, Constants.TRANSACTION_NO_SEND,"Error inesperado,intente de nuevo");
+                OrderRepository.updateOrderTransaction(getContext(), mOrder.getId(), 0, Constants.TRANSACTION_NO_SEND, "Error inesperado,intente de nuevo");
                 Utils.builToast(getContext(), getString(R.string.volley_parse_error));
                 getActivity().finish();
                 return;
@@ -450,12 +455,12 @@ public class SummaryStep extends AbstractStep {
 
 
                 if (status != Constants.RESPONSE_OK) {
-                    OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),0, Constants.TRANSACTION_NO_SEND,message);
+                    OrderRepository.updateOrderTransaction(getContext(), mOrder.getId(), 0, Constants.TRANSACTION_NO_SEND, message);
                     Utils.builToast(getContext(), message);
                     return;
                 }
-
-                OrderRepository.updateOrderTransaction(getContext(),mOrder.getId(),mTransactionOrderId, Constants.TRANSACTION_SEND,message);
+                UserControlAmount.saveHistoryData(mOrderId, Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT), mDrinkId, mLunchId, mGarnishId, mProviderId);
+                OrderRepository.updateOrderTransaction(getContext(), mOrder.getId(), mTransactionOrderId, Constants.TRANSACTION_SEND, message);
                 mOrder = null;
 
                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
@@ -517,12 +522,13 @@ public class SummaryStep extends AbstractStep {
                     params.put("send_app_at", Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT_POSTGRES));
                 } catch (JSONException jEX) {
                     Log.w(TAG_CLASS, "Error while create JSONObject " + jEX.getMessage());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
                 return params;
             }
         }
     }
-
 
 
 }

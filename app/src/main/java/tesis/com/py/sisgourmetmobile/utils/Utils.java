@@ -441,6 +441,7 @@ public class Utils {
     public static float setupRatingValue(String mRatingValue) {
         return Float.parseFloat(mRatingValue);
     }
+
     private static String sayDayName(Date d) {
         DateFormat f = new SimpleDateFormat("EEEE");
         try {
@@ -451,4 +452,61 @@ public class Utils {
         }
     }
 
+    public static int getMonth(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.MONTH);
+    }
+
+    public static int getYear(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.YEAR);
+    }
+
+    public static String mapMonthName(Date date) {
+        String mMonthDate = "";
+        int month = getMonth(date);
+        switch (month) {
+            case 0:
+                mMonthDate = "Enero";
+                break;
+            case 1:
+                mMonthDate = "Febrero";
+                break;
+            case 2:
+                mMonthDate = "Marzo";
+                break;
+            case 3:
+                mMonthDate = "Abril";
+                break;
+            case 4:
+                mMonthDate = "Mayo";
+                break;
+            case 5:
+                mMonthDate = "Junio";
+                break;
+            case 6:
+                mMonthDate = "Julio";
+                break;
+            case 7:
+                mMonthDate = "Agosto";
+                break;
+            case 8:
+                mMonthDate = "Septiembre";
+                break;
+            case 9:
+                mMonthDate = "Octubre";
+                break;
+            case 10:
+                mMonthDate = "Noviembre";
+                break;
+            case 11:
+                mMonthDate = "Diciembre";
+                break;
+
+        }
+
+        return mMonthDate;
+    }
 }

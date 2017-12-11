@@ -116,7 +116,7 @@ public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerV
 
         }
         setupUserImage(holder);
-        Provider provider = ProviderRepository.getProviderById(mQualificationObject.getProviderId());
+        Provider provider = ProviderRepository.getProviderById(mQualificationObject.getProviderId().intValue());
         holder.mProviderDescription.setText((provider == null ? "Sin Proveedor" : provider.getProviderName().toUpperCase()));
         holder.mQualificationValue.setText(String.valueOf(mQualificationObject.getQualificationValue()) + ",0");
 
@@ -173,7 +173,6 @@ public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerV
 
                     case R.id.id_action_send:
                         if (Utils.checkNetworkConnection(mContext)) {
-                            Utils.builToast(mContext,mContext.getString(R.string.sending_comment));
                             sendTransaction(qualification, holder);
                         } else {
                             Utils.builToast(mContext, mContext.getString(R.string.tag_not_internet));
@@ -194,7 +193,7 @@ public class CommentsRecyclerView extends RecyclerView.Adapter<CommentsRecyclerV
     private void sendTransaction(Qualification qualification, CommentsRecyclerView.CommentViewHolder holder) {
         switch (qualification.getStatusSend()) {
             case Constants.TRANSACTION_SEND:
-                Utils.builToast(mContext, mContext.getString(R.string.order_alredy_send));
+                Utils.builToast(mContext, mContext.getString(R.string.comment_alredy_send));
                 break;
             case Constants.TRANSACTION_NO_SEND:
                 SendCommentService.startSendTransaction(mContext, qualification.getId());

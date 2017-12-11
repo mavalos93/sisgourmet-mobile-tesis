@@ -71,7 +71,6 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.DrinksView
                     selectedDrinkList.remove(drinksItem.get(position));
                 }
 
-                Log.d("TAG_LIST","LSIT_DRINK_ADAPTER: "+selectedDrinkList.toString());
             }
         });
     }
@@ -103,8 +102,6 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.DrinksView
 
 
     public List<Drinks> getSelectedDrinks() {
-        Log.d("TAG_LIST","LISTA_DE_RETORNO: "+selectedDrinkList.toString());
-
         return selectedDrinkList;
     }
 

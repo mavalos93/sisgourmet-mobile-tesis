@@ -170,4 +170,24 @@ public class Order implements Serializable{
         this.httpDetail = httpDetail;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderType='" + orderType + '\'' +
+                ", statusOrder=" + statusOrder +
+                ", lunchId=" + lunchId +
+                ", drinkId=" + drinkId +
+                ", garnishId=" + garnishId +
+                ", createdAt=" + createdAt +
+                ", SendAppAt='" + SendAppAt + '\'' +
+                ", providerId=" + providerId +
+                ", orderAmount='" + orderAmount + '\'' +
+                ", ratingLunch=" + ratingLunch +
+                ", user='" + user + '\'' +
+                ", transactionOrderId=" + transactionOrderId +
+                ", observation='" + observation + '\'' +
+                ", httpDetail='" + httpDetail + '\'' +
+                '}';
+    }
 }

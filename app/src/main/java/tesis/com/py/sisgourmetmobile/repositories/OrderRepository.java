@@ -2,6 +2,7 @@ package tesis.com.py.sisgourmetmobile.repositories;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.List;
 
@@ -42,7 +43,6 @@ public class OrderRepository {
     }
 
     public static void updateOrderTransaction(Context mContext, long orderId, int orderTransactionId, int status, String message) {
-
         long mTransactionId = 0;
         Order mOrderObject = getById(orderId);
         if (mOrderObject != null) {

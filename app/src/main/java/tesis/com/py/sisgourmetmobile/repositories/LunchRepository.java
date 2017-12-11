@@ -30,7 +30,7 @@ public class LunchRepository {
         return getDao().queryBuilder().where(LunchDao.Properties.ProviderId.eq(providerId)).list();
     }
 
-    public static Lunch getLunchById(long lunchId) {
+    public static Lunch getLunchById(int lunchId) {
         return getDao().queryBuilder().where(LunchDao.Properties.PrincipalMenuCode.eq(lunchId)).unique();
     }
 

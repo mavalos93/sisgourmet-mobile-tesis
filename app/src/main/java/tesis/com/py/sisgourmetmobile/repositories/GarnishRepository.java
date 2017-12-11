@@ -33,7 +33,7 @@ public class GarnishRepository {
 
     }
 
-    public static Garnish getGarnishById(long garnishId) {
+    public static Garnish getGarnishById(int garnishId) {
         return getDao().queryBuilder().where(GarnishDao.Properties.GarnishId.eq(garnishId)).unique();
     }
 

@@ -21,7 +21,7 @@ public class DrinksRepository {
                 .list();
     }
 
-    public static Drinks getDrinkById(long drinkId) {
+    public static Drinks getDrinkById(int drinkId) {
         return getDao().queryBuilder().where(DrinksDao.Properties.DrinkId.eq(drinkId)).unique();
     }
 
