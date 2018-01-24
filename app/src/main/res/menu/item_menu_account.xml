@@ -5,4 +5,10 @@
         android:orderInCategory="100"
         android:title="@string/tag_change_image"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_order_details"
+        android:orderInCategory="100"
+        android:title="@string/tag_order_details"
+        app:showAsAction="never"/>
 </menu>

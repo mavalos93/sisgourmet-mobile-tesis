@@ -245,7 +245,6 @@ public class SummaryStep extends AbstractStep {
     }
 
 
-
     @Override
     public void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
@@ -255,7 +254,6 @@ public class SummaryStep extends AbstractStep {
 
     @Override
     public String name() {
-        Log.d("TAG", "NAME");
         return "Tú Resúmen";
     }
 
@@ -282,7 +280,6 @@ public class SummaryStep extends AbstractStep {
 
     @Override
     public String optional() {
-
         return "Tu resúmen ";
     }
 
@@ -459,7 +456,7 @@ public class SummaryStep extends AbstractStep {
                     Utils.builToast(getContext(), message);
                     return;
                 }
-                UserControlAmount.saveHistoryData(mOrderId, Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT), mDrinkId, mLunchId, mGarnishId, mProviderId);
+                UserControlAmount.saveHistoryData(mOrderId, Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT), mDrinkId, mLunchId, mGarnishId, mProviderId, mTotalAmount);
                 OrderRepository.updateOrderTransaction(getContext(), mOrder.getId(), mTransactionOrderId, Constants.TRANSACTION_SEND, message);
                 mOrder = null;
 

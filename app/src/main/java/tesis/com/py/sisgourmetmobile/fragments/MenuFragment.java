@@ -15,19 +15,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
-import tesis.com.py.sisgourmetmobile.adapters.RecyclerViewDataAdapter;
+import tesis.com.py.sisgourmetmobile.adapters.LunchAdapter;
 import tesis.com.py.sisgourmetmobile.entities.Lunch;
-import tesis.com.py.sisgourmetmobile.entities.Provider;
 import tesis.com.py.sisgourmetmobile.models.SectionDataModel;
 import tesis.com.py.sisgourmetmobile.repositories.LunchRepository;
-import tesis.com.py.sisgourmetmobile.repositories.ProviderRepository;
 import tesis.com.py.sisgourmetmobile.request.HomeDataRequest;
 import tesis.com.py.sisgourmetmobile.utils.AppPreferences;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
@@ -46,14 +43,13 @@ public class MenuFragment extends Fragment {
     private ImageView mNotificationImageView;
     private TextView mMessageTextView;
     private LinearLayout mNotificationContainer;
-    private RelativeLayout mContainerData;
     private AppCompatButton mActionButton;
 
 
     // ADAPTERS AND LISTENERS
 
     private OnItemMenuListener mListener;
-    private RecyclerViewDataAdapter mAdapter;
+    private LunchAdapter mAdapter;
 
     // UTILITARIAN VARIABLE
     private List<SectionDataModel> allSampleData = new ArrayList<>();
@@ -79,7 +75,6 @@ public class MenuFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_menu, container, false);
         mSwipeRefreshLayout = rootView.findViewById(R.id.menu_refresh_layout);
 
-        mContainerData = rootView.findViewById(R.id.container_home_data);
         mProgressBar = rootView.findViewById(R.id.load_data_progress);
         mNotificationImageView = rootView.findViewById(R.id.notification_image);
         mMessageTextView = rootView.findViewById(R.id.description_notification);
@@ -94,8 +89,8 @@ public class MenuFragment extends Fragment {
 
         myRecyclerView = rootView.findViewById(R.id.my_recycler_view);
         myRecyclerView.setHasFixedSize(true);
-        mAdapter = new RecyclerViewDataAdapter(getContext(), new ArrayList<SectionDataModel>());
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mAdapter = new LunchAdapter(new ArrayList<Lunch>());
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         myRecyclerView.setAdapter(mAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -163,7 +158,7 @@ public class MenuFragment extends Fragment {
             if (statusData) {
                 mProgressBar.setVisibility(View.GONE);
                 mNotificationContainer.setVisibility(View.GONE);
-                mContainerData.setVisibility(View.VISIBLE);
+                myRecyclerView.setVisibility(View.VISIBLE);
                 setupData();
             } else {
                 sendRequest();
@@ -172,7 +167,7 @@ public class MenuFragment extends Fragment {
 
 
     private void sendRequest() {
-        mContainerData.setVisibility(View.GONE);
+        myRecyclerView.setVisibility(View.GONE);
         mNotificationContainer.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
         new HomeDataRequest(new HomeDataRequest.ResponseInterface() {
@@ -192,17 +187,19 @@ public class MenuFragment extends Fragment {
                 mProgressBar.setVisibility(View.GONE);
                 mNotificationContainer.setVisibility(View.VISIBLE);
                 mNotificationImageView.setBackgroundResource(R.mipmap.ic_perm_scan_wifi);
+                mActionButton.setText(getString(R.string.label_retry));
                 mMessageTextView.setText(message);
                 break;
             case Constants.SERVER_ERROR:
                 mProgressBar.setVisibility(View.GONE);
                 mNotificationContainer.setVisibility(View.VISIBLE);
                 mNotificationImageView.setBackgroundResource(R.mipmap.ic_error);
+                mActionButton.setText(getString(R.string.label_retry));
                 mMessageTextView.setText(message);
                 break;
             case Constants.ACTION_VIEW_DATA:
                 mProgressBar.setVisibility(View.GONE);
-                mContainerData.setVisibility(View.VISIBLE);
+                myRecyclerView.setVisibility(View.VISIBLE);
                 setupData();
                 break;
         }
@@ -211,7 +208,7 @@ public class MenuFragment extends Fragment {
 
     public void setupData() {
         clearData();
-        List<Provider> providerList = ProviderRepository.getAllProvider();
+        /*List<Provider> providerList = ProviderRepository.getAllProvider();
         for (Provider pr : providerList) {
             SectionDataModel dm = new SectionDataModel();
             dm.setHeaderTitle(pr.getProviderName());
@@ -223,7 +220,11 @@ public class MenuFragment extends Fragment {
             dm.setAllItemsInSection(newItemLunch);
             allSampleData.add(dm);
             mAdapter.setData(allSampleData);
-        }
+        }*/
+
+        List<Lunch> mLunchList = new ArrayList<>();
+        mLunchList = LunchRepository.getAllLunch();
+        mAdapter.setData(mLunchList);
     }
 
 

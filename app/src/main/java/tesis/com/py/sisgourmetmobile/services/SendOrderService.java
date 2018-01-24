@@ -120,7 +120,7 @@ public class SendOrderService extends IntentService {
                 return;
             }
 
-            UserControlAmount.saveHistoryData(order.getId(), Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT), order.getDrinkId(), order.getLunchId().intValue(), order.getGarnishId(), order.getProviderId().intValue());
+            UserControlAmount.saveHistoryData(order.getId(), Utils.formatDate(new Date(), Constants.DEFAULT_DATE_FORMAT), order.getDrinkId(), order.getLunchId().intValue(), order.getGarnishId(), order.getProviderId().intValue(),order.getOrderAmount());
             OrderRepository.updateOrderTransaction(SendOrderService.this, order.getId(), orderId, Constants.TRANSACTION_SEND, message);
             Utils.builToast(this, message);
         } catch (JSONException e) {

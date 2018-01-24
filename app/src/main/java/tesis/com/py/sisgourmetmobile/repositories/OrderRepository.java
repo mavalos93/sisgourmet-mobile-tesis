@@ -25,7 +25,7 @@ public class OrderRepository {
 
     public static List<Order> getAllOrder() {
         return getDao().queryBuilder()
-                .list();
+                .orderDesc(OrderDao.Properties.Id).list();
     }
 
     public static Order getById(long id) {

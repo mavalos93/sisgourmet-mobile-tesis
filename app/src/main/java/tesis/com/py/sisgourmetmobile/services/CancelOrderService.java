@@ -80,7 +80,6 @@ public class CancelOrderService extends IntentService {
             }
         });
 
-        Log.d("TAG","SEND_REQUEST: "+getParams(order));
         momoJsonObjectRequest.setRetryPolicy(Utils.getRetryPolicy());
         momoJsonObjectRequest.setTag(REQUEST_TAG);
         NetworkQueue.getInstance(getApplicationContext()).addToRequestQueue(momoJsonObjectRequest, getApplicationContext());
@@ -120,7 +119,7 @@ public class CancelOrderService extends IntentService {
                 return;
             }
 
-            UserControlAmount.deleteHistoryValue(order.getId());
+            UserControlAmount.deleteHistoryValue(CancelOrderService.this, order.getId());
             OrderRepository.updateOrderTransaction(CancelOrderService.this, order.getId(), order.getTransactionOrderId(), Constants.TRANSACTION_CANCEL, message);
             Utils.builToast(this, message);
         } catch (JSONException e) {

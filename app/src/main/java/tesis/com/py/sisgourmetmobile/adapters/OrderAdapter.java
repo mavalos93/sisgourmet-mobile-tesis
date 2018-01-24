@@ -114,7 +114,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 mStatusOrder = "Enviado";
                 break;
             case Constants.TRANSACTION_NO_SEND:
-                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
+                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRatingbar));
                 mStatusOrder = "Pendiente";
                 break;
             case Constants.TRANSACTION_CANCEL:
@@ -122,7 +122,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 mStatusOrder = "Cancelado";
                 break;
             case Constants.TRANSACTION_NO_CANCEL:
-                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRed));
+                holder.orderStatusTextView.setTextColor(mContext.getResources().getColor(R.color.colorRatingbar));
                 mStatusOrder = "No cancelado";
                 break;
         }
@@ -208,12 +208,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     private void sendTransaction(String action, Order order, OrderAdapter.OrderViewHolder holder) {
-
-        Log.d("TAG", "ACTION: " + action);
         switch (action) {
             case "ENVIAR":
-                Log.d("TAG","ENTRO ACA ORDEN");
-
                 switch (order.getStatusOrder()) {
                     case Constants.TRANSACTION_SEND:
                         Utils.builToast(mContext, mContext.getString(R.string.order_alredy_send));
@@ -231,8 +227,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 }
                 break;
             case "CANCELAR":
-                Log.d("TAG","ENTRO ACA CANCELAR");
-
                 switch (order.getStatusOrder()) {
                     case Constants.TRANSACTION_SEND:
                         holder.orderStatusTextView.setText("Cancelando.....");

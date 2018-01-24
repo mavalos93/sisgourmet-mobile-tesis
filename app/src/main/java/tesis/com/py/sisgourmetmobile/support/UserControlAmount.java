@@ -60,30 +60,45 @@ public class UserControlAmount {
         return mInsertId;
     }
 
-    public static void deleteHistoryValue(long orderId) {
-        SummaryOrder summaryOrder = new SummaryOrder();
-        summaryOrder = SummaryOrderRepository.getByLunchId(orderId);
-        if (summaryOrder != null) {
-            SummaryOrderRepository.getDao().delete(summaryOrder);
+    public static void deleteHistoryValue(Context context,long orderId) {
+        try {
+            SummaryOrder summaryOrder = new SummaryOrder();
+            summaryOrder = SummaryOrderRepository.getByLunchId(orderId);
+            if (summaryOrder != null) {
+                SummaryOrderRepository.getDao().delete(summaryOrder);
+                User user = UserRepository.getUser(context);
+                if (user != null){
+                    user.setCurrentAmount(user.getCurrentAmount()+Integer.parseInt(summaryOrder.getPrice()));
+                    UserRepository.store(user);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
-    public static void saveHistoryData(long orderId, String date, int mDrinkId, int mMainMenuId, int mGarnishId, int mProviderId) {
+    public static void saveHistoryData(long orderId, String date, int mDrinkId, int mMainMenuId, int mGarnishId, int mProviderId, String totalAmount) {
+        try {
 
-        SummaryOrder mSummaryOrder = new SummaryOrder();
-        mSummaryOrder.setOrderId(orderId);
-        mSummaryOrder.setDate(date);
-        mSummaryOrder.setMonth(Utils.getMonth(new Date()));
-        mSummaryOrder.setYear(Utils.getYear(new Date()));
-        Drinks drinks = DrinksRepository.getDrinkById(mDrinkId);
-        mSummaryOrder.setDrinkDescription((drinks == null ? "Sin Bebida" : drinks.getDescription()));
-        Garnish garnish = GarnishRepository.getGarnishById(mGarnishId);
-        mSummaryOrder.setGarnishDescription((garnish == null ? "Sin Guarnición" : garnish.getDescription()));
-        Lunch lunch = LunchRepository.getLunchById(mMainMenuId);
-        mSummaryOrder.setOrderDescription((lunch == null ? "Sin Menú principal" : lunch.getMainMenuDescription()));
-        Provider provider = ProviderRepository.getProviderById(mProviderId);
-        mSummaryOrder.setProvider((provider == null ? "Sin proveedor" : provider.getProviderName()));
-        mSummaryOrder.setImage((lunch == null ? null : lunch.getImageMenu()));
+            SummaryOrder mSummaryOrder = new SummaryOrder();
+            mSummaryOrder.setOrderId(orderId);
+            mSummaryOrder.setDate(date);
+            mSummaryOrder.setMonth(Utils.getMonth(new Date()));
+            mSummaryOrder.setYear(Utils.getYear(new Date()));
+            Drinks drinks = DrinksRepository.getDrinkById(mDrinkId);
+            mSummaryOrder.setDrinkDescription((drinks == null ? "Sin Bebida" : drinks.getDescription()));
+            Garnish garnish = GarnishRepository.getGarnishById(mGarnishId);
+            mSummaryOrder.setGarnishDescription((garnish == null ? "Sin Guarnición" : garnish.getDescription()));
+            Lunch lunch = LunchRepository.getLunchById(mMainMenuId);
+            mSummaryOrder.setOrderDescription((lunch == null ? "Sin Menú principal" : lunch.getMainMenuDescription()));
+            Provider provider = ProviderRepository.getProviderById(mProviderId);
+            mSummaryOrder.setProvider((provider == null ? "Sin proveedor" : provider.getProviderName()));
+            mSummaryOrder.setImage((lunch == null ? null : lunch.getImageMenu()));
+            mSummaryOrder.setPrice(String.valueOf(totalAmount));
+            SummaryOrderRepository.store(mSummaryOrder);
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

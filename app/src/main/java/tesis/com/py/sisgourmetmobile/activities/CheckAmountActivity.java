@@ -92,12 +92,16 @@ public class CheckAmountActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_change_image) {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+        switch (id) {
+            case R.id.action_change_image:
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                break;
+            case R.id.action_order_details:
+                startActivity(new Intent(CheckAmountActivity.this, SummaryOrderActivity.class));
+                break;
         }
-
-
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);
     }

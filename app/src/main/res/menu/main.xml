@@ -4,7 +4,12 @@
     <item
         android:id="@+id/action_my_account"
         android:orderInCategory="100"
-        android:title="Rate This App"
-        app:showAsAction="always"
-        android:icon="@mipmap/ic_credit_account_card" />
+        android:title="@string/tag_my_acount"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_close_session"
+        android:orderInCategory="100"
+        android:title="@string/tag_close_session"
+        app:showAsAction="never"/>
 </menu>

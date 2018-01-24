@@ -3,22 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:cardCornerRadius="@dimen/default_padding"
-    app:cardUseCompatPadding="true">
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/default_padding"
+    app:cardCornerRadius="@dimen/default_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical">
 
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_width="130dp"
+            android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/default_padding"
+            android:layout_gravity="center"
             android:contentDescription="@string/description_image"
             android:scaleType="fitXY"
             android:src="@mipmap/ic_restaurant_black_48dp" />
@@ -26,12 +27,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.8"
                 android:layout_marginBottom="@dimen/default_padding"
                 android:layout_marginStart="@dimen/default_padding"
                 android:orientation="vertical">
@@ -43,6 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/default_padding"
                     android:text="@string/qualification_menu_privider_value"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/secondary_text"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -59,8 +64,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.2"
                 android:layout_marginBottom="@dimen/default_padding"
                 android:layout_marginStart="@dimen/default_padding"
                 android:layout_marginTop="@dimen/default_padding"
@@ -68,7 +74,7 @@
 
                 <TextView
                     android:id="@+id/main_menu_desciption"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/default_padding"
                     android:ellipsize="end"
@@ -79,12 +85,22 @@
 
                 <TextView
                     android:id="@+id/garnish_description"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/default_padding"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/label_garnish_selected"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/price_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/label_summary_total_price"
                     android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>

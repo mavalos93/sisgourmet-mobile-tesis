@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -51,10 +52,11 @@ public class SummaryOrderActivity extends AppCompatActivity {
     }
 
     private void setData() {
+
         mYearValue.setText(String.valueOf(Utils.getYear(new Date())));
         mMonthValue.setText(Utils.mapMonthName(new Date()));
         mAdapter.setData(SummaryOrderRepository.getDataByYearAndMonth(Utils.getMonth(new Date()), Utils.getYear(new Date())));
-        mTotalAmountValue.setText(String.valueOf(mAdapter.getTotalSpendingOfMonth()));
+        mTotalAmountValue.setText(Utils.formatNumber(String.valueOf(mAdapter.getTotalSpendingOfMonth()), " Gs."));
     }
 
 }

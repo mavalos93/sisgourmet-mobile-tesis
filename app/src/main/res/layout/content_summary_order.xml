@@ -13,50 +13,60 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/filter_data_cardview"
+        <LinearLayout
+            android:id="@+id/container_data_summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_padding"
-            app:cardCornerRadius="@dimen/default_padding">
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_padding"
+                android:fontFamily="@font/robot_regular"
+                android:textColor="@color/primary_text"
+                android:gravity="center"
+                android:text="@string/label_history_order"
+                android:textSize="16sp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="top"
                     android:contentDescription="@string/description_image"
                     android:src="@mipmap/ic_menu" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/robot_regular"
-                        android:gravity="center"
-                        android:text="@string/label_history_order"
-                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_year" />
+                        android:text="@string/tag_year"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/month"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/tag_month" />
+                        android:text="@string/tag_month"
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -67,31 +77,32 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/default_padding"
-                            android:text="@string/tag_total_spent" />
+                            android:text="@string/tag_total_spent"
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/total_using_amount"
                             android:layout_width="wrap_content"
-                            android:textColor="@color/primary_text"
                             android:layout_height="wrap_content"
-                            android:text="437.000 Gs." />
-
-
+                            android:text="437.000 Gs."
+                            android:textColor="@color/primary_text" />
                     </LinearLayout>
 
 
                 </LinearLayout>
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/summary_order_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/filter_data_cardview"
-            android:layout_margin="@dimen/default_padding" />
+            android:layout_below="@+id/container_data_summary"
+            android:layout_margin="@dimen/default_padding"
+            android:paddingTop="@dimen/activity_horizontal_margin" />
     </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

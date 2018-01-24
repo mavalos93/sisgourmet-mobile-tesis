@@ -16,6 +16,7 @@ import java.util.List;
 
 import tesis.com.py.sisgourmetmobile.R;
 import tesis.com.py.sisgourmetmobile.entities.SummaryOrder;
+import tesis.com.py.sisgourmetmobile.utils.Utils;
 
 /**
  * Created by Manu0 on 12/11/2017.
@@ -70,7 +71,7 @@ public class SummaryOrderAdapter extends RecyclerView.Adapter<SummaryOrderAdapte
         holder.mOrderDescription.setText(summaryOrder.getOrderDescription());
         holder.mGarnishDescription.setText(summaryOrder.getGarnishDescription());
         holder.mDrinkDescription.setText(summaryOrder.getDrinkDescription());
-        holder.mTotalAmount.setText(summaryOrder.getPrice());
+        holder.mTotalAmount.setText(Utils.formatNumber(summaryOrder.getPrice(), " Gs."));
         holder.mDateOrder.setText(summaryOrder.getDate());
 
         if (summaryOrder != null) {

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -109,9 +110,19 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if(id == R.id.action_my_account){
-            startActivity(new Intent(MainActivity.this,CheckAmountActivity.class));
+
+        switch (id){
+            case R.id.action_my_account:
+                startActivity(new Intent(MainActivity.this,CheckAmountActivity.class));
+                break;
+
+            case R.id.action_close_session:
+                finish();
+                AppPreferences.getAppPreferences(this).edit().clear().apply();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK));
+
         }
+
 
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);

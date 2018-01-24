@@ -19,6 +19,7 @@
     <string name="empty_required_data">No se encontraron los datos requeridos</string>
     <string name="label_history_order">Historial de Pedidos</string>
     <string name="label_search">Buscar</string>
+    <string name="tag_close_session">Cerrar Sesión</string>
 
     <!-- Provider labels-->
     <string name="provider_vienesa">La Vienesa</string>volley_network_error
@@ -259,6 +260,7 @@
     <string name="tag_last_name">Apellido</string>
     <string name="tag_ci">Cédula</string>
     <string name="tag_change_image">Imagen de Perfil</string>
+    <string name="tag_order_details">Detalle de Pedidos</string>
     <string name="tag_asigned_to_date">Asignación</string>
     <!-- Comments View Activity-->
     <string name="title_activity_commets_view">CommetsViewActivity</string>

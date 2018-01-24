@@ -264,7 +264,7 @@ public class QualificationActivity extends AppCompatActivity implements AlertDia
                 default:
                     garnishTextView.setVisibility(View.GONE);
                     isCombinable = true;
-                    mGarnishDescription = "SIN GUARNICION";
+                    mGarnishDescription = "Sin Guarnición";
                     break;
             }
             isCombinable = true;

@@ -1,83 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/default_padding"
+    android:fitsSystemWindows="true">
 
-    <ProgressBar
-        android:id="@+id/load_data_progress"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="visible" />
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
+
+        <ProgressBar
+            android:id="@+id/load_data_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/notification_container"
+            android:layout_centerInParent="true" />
 
         <LinearLayout
             android:id="@+id/notification_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:gravity="center"
             android:layout_centerInParent="true"
+            android:layout_margin="@dimen/default_padding"
+            android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:padding="@dimen/big_margin_layout"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/notification_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/big_margin_layout"
-                android:contentDescription="@string/content_description" />
+                android:layout_margin="@dimen/default_padding"
+                android:contentDescription="@string/description_image" />
 
             <TextView
                 android:id="@+id/description_notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
                 android:gravity="center"
-                android:text="@string/content_description"
-                android:textColor="@color/secondary_text" />
+                android:text="@string/description_image"
+                android:textColor="@color/colorGraphite"
+                android:textSize="17sp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/action_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_padding"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorPrimary"
                 android:padding="@dimen/default_padding"
-                android:text="@string/label_retry"
-                android:textColor="@color/icons" />
+                android:text="@string/description_image"
+                android:textColor="@color/icons"
+                android:textStyle="bold" />
         </LinearLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/container_home_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/menu_refresh_layout"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/my_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:descendantFocusability="afterDescendants"
-                android:paddingBottom="@dimen/navigation_padding_overlap"
-                android:visibility="visible" />
-
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/navigation_padding_overlap"
+            android:scrollbars="vertical"
+            android:visibility="gone" />
     </RelativeLayout>
 
 
-</RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 
 
 

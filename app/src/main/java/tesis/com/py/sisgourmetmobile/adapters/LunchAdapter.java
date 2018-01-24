@@ -25,31 +25,66 @@ import tesis.com.py.sisgourmetmobile.repositories.GarnishRepository;
 import tesis.com.py.sisgourmetmobile.utils.Constants;
 import tesis.com.py.sisgourmetmobile.utils.Utils;
 
-
 /**
- * Created by Manu0 on 25/4/2017.
+ * Created by Manu0 on 1/24/2018.
  */
 
-public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
+public class LunchAdapter extends RecyclerView.Adapter<LunchAdapter.LunchViewHolder> {
 
-    private List<Lunch> itemsList;
-    private Context mContext;
+    private List<Lunch> mLunchItem = new ArrayList<>();
     private Lunch mLunchObject = new Lunch();
+    private Context mContext;
 
-    public SectionListDataAdapter(Context context, List<Lunch> itemsList) {
-        this.itemsList = itemsList;
-        this.mContext = context;
+    public LunchAdapter(List<Lunch> lunchList) {
+        mLunchItem = lunchList;
+    }
+
+    public class LunchViewHolder extends RecyclerView.ViewHolder {
+        private TextView mainMenuDescription;
+        private ImageView itemImage;
+        private TextView garnishDescription;
+        private TextView priceDescription;
+        private TextView mQualificationMenuValue;
+        private ImageButton mQualificationButton;
+
+
+
+        public LunchViewHolder(View view) {
+            super(view);
+            mContext = view.getContext();
+            this.mainMenuDescription = view.findViewById(R.id.main_menu_desciption);
+            this.garnishDescription = view.findViewById(R.id.garnish_description);
+            this.itemImage = view.findViewById(R.id.itemImage);
+            this.mQualificationMenuValue = view.findViewById(R.id.qualification_menu_value);
+            this.mQualificationButton = view.findViewById(R.id.star_imageButton);
+            this.priceDescription = view.findViewById(R.id.price_description);
+
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mLunchObject = mLunchItem.get(getAdapterPosition());
+                    Bundle menuBundle = new Bundle();
+                    menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, mLunchObject);
+                    Intent menuIntent = new Intent(mContext, MainStepper.class);
+                    menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
+                    mContext.startActivity(menuIntent);
+                }
+            });
+
+        }
     }
 
     @Override
-    public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_single_card, null);
-        return new SingleItemRowHolder(v);
+    public LunchAdapter.LunchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_single_card, parent, false);
+        return new LunchAdapter.LunchViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-        final Lunch lunchItem = itemsList.get(i);
+    public void onBindViewHolder(LunchAdapter.LunchViewHolder holder, final int position) {
+
+        final Lunch lunchItem = mLunchItem.get(position);
         String mGarnishText = "";
         int listSize;
         float mRatingValue;
@@ -91,47 +126,31 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     @Override
     public int getItemCount() {
-        return (null != itemsList ? itemsList.size() : 0);
+        return mLunchItem.size();
     }
 
-    class SingleItemRowHolder extends RecyclerView.ViewHolder {
-
-        private TextView mainMenuDescription;
-        private ImageView itemImage;
-        private TextView garnishDescription;
-        private TextView priceDescription;
-        private TextView mQualificationMenuValue;
-        private ImageButton mQualificationButton;
-
-
-        SingleItemRowHolder(View view) {
-            super(view);
-
-            this.mainMenuDescription = view.findViewById(R.id.main_menu_desciption);
-            this.garnishDescription = view.findViewById(R.id.garnish_description);
-            this.itemImage = view.findViewById(R.id.itemImage);
-            this.mQualificationMenuValue = view.findViewById(R.id.qualification_menu_value);
-            this.mQualificationButton = view.findViewById(R.id.star_imageButton);
-            this.priceDescription = view.findViewById(R.id.price_description);
-
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mLunchObject = itemsList.get(getAdapterPosition());
-                    Bundle menuBundle = new Bundle();
-                    menuBundle.putSerializable(Constants.ACTION_SELECTED_MENU, mLunchObject);
-                    Intent menuIntent = new Intent(mContext, MainStepper.class);
-                    menuIntent.putExtra(Constants.SERIALIZABLE, menuBundle);
-                    mContext.startActivity(menuIntent);
-                }
-            });
-        }
+    @Override
+    public long getItemId(int position) {
+        return mLunchItem.get(position).getId();
     }
 
-    public void setData(List<Lunch> lunches){
-        itemsList = new ArrayList<>();
-        itemsList = lunches;
+    public Lunch getItemAtPosition(int position) {
+        return mLunchItem.get(position);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void setData(List<Lunch> data) {
+        mLunchItem = new ArrayList<>();
+        mLunchItem.addAll(data);
         notifyDataSetChanged();
     }
+
+
 }
+
+
+
